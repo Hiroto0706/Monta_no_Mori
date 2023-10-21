@@ -21,4 +21,7 @@ migratedown:
 sqlc:
 	cd server/ && sqlc generate
 
-.PHONY: postgres createdb dropdb migrateup migratedown access
+server:
+	cd server/ && go run main.go
+
+.PHONY: postgres createdb dropdb migrateup migratedown access server
