@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  client:
+    container_name: monta_no_mori-client
+    build:
+      dockerfile: ./client/Dockerfile
+      context: .
+    tty: true
+    volumes:
+      - ./client:/app
+    command: sh -c "cd /app && npm install && npm run dev"
+    ports:
+      - 5173:5173
+
+  server:
+    container_name: monta_no_mori-server
+    build:
+      dockerfile: ./server/Dockerfile
+      context: .
+    tty: true
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  db:
+    container_name: monta_no_mori-db
+    build:
+      dockerfile: ./server/db/Dockerfile
+      context: .
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DATABASE: monta_no_mori
+    tty: true
+    ports:
+      - 5432:5432
+    volumes:
+      - db-store:/app
+
+volumes:
+  db-store:
