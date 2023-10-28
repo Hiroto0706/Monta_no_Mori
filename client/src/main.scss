@@ -1,13 +1,20 @@
 body {
   margin: 0;
   place-items: center;
+  background-color: #f2f2f2;
 }
 
 #root {
   margin: 0 auto;
-  background-color: #f2f2f2;
 }
 
 .contents {
   padding: 1% 2.5%;
+
+  img {
+    width: 100%;
+    height: auto;
+    opacity: 0.15;
+    text-align: right;
+  }
 }
