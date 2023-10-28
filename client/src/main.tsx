@@ -1,10 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import Header from "./components/HeaderComponents/Header";
+import Footer from "./components/FooterComponents/Footer";
+
+import "./main.css";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <Header />
     <App />
-  </React.StrictMode>,
-)
+    <Footer />
+  </React.StrictMode>
+);

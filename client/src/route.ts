@@ -1,7 +1,9 @@
-import Home from './components/Home';
-import About from './components/About';
-import Detail from './components/Detail';
-import NotFound from './components/NotFound';
+import Home from './components/MainComponents/Home';
+import About from './components/MainComponents/About';
+import Detail from './components/MainComponents/Detail';
+import NotFound from './components/MainComponents/NotFound';
+
+import Login from './components/AuthComponents/Login';
 
 // ルート情報の型を定義
 interface RouteType{
@@ -18,6 +20,12 @@ const routes: RouteType[] = [
     component: Home,
     exact: true,
     name: 'Home'
+  },
+  {
+    path: '/login',
+    component: Login,
+    exact: true,
+    name: 'Login'
   },
   {
     path: '/about',

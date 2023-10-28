@@ -1,26 +1,25 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from "./route";
+import Container from "@mui/material/Container";
 
-import "./App.css";
+import "./main.css";
 
 // import axios from 'axios'
 
 function App() {
-  const [name] = useState("Hiroto Kadota");
-
   return (
     <BrowserRouter>
-      <h1>Hello World, {name}</h1>
-      <Routes>
-        {routes.map((route) => (
-          <Route
-            key={route.name}
-            path={route.path}
-            element={<route.component />}
-          />
-        ))}
-      </Routes>
+      <Container className="contents" maxWidth="xl">
+        <Routes>
+          {routes.map((route) => (
+            <Route
+              key={route.name}
+              path={route.path}
+              element={<route.component />}
+            />
+          ))}
+        </Routes>
+      </Container>
     </BrowserRouter>
   );
 }
