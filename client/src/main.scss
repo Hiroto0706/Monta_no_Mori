@@ -1,6 +1,11 @@
+@use "./components/SidebarComponents/Sidebar" as sidebar;
+
+$main-bgcolor: #4CAF50;
+$base-bgcolor: #f2f2f2;
+
 body {
   margin: 0;
-  background-color: #f2f2f2;
+  background-color: $base-bgcolor;
 }
 
 #root {
@@ -8,24 +13,6 @@ body {
 }
 
 .contents {
-  padding: 6rem 2.5% 10% 2.5%;
-
-  img {
-    width: 100%;
-    height: auto;
-    opacity: 0.15;
-    text-align: right;
-  }
-}
-
-.gb-image {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-
-  img {
-    width: 100%;
-    height: auto;
-    opacity: 0.15;
-  }
+  padding: 5rem 2.5% 10% clamp(calc(sidebar.$side-min-width - sidebar.$border-size), 20vw, calc(sidebar.$side-max-width - sidebar.$border-size));
+  z-index: 10;
 }

@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from "./route";
-// import Container from "@mui/material/Container";
-// import Box from "@mui/material/Box";
 
 import "./main.css";
 
@@ -21,12 +19,6 @@ function App() {
           ))}
         </Routes>
       </div>
-      {/* <div className="bg-image">
-        <img
-          src="public/monta_no_mori_footer.png"
-          alt="もんたの森のフッターイメージ"
-        />
-      </div> */}
     </BrowserRouter>
   );
 }

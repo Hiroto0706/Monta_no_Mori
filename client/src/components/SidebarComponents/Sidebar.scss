@@ -1,0 +1,17 @@
+$border-size: 1.5px;
+$border-line-color: #afafaf;
+$side-max-width: 300px;
+$side-min-width: 200px;
+
+.sidebar {
+  background-color: white;
+  width: calc(20vw - $border-size);
+  max-width: calc($side-max-width - $border-size);
+  min-width: calc($side-min-width - $border-size);
+  height: 100vh;
+  position: fixed;
+
+  border-width: 0 $border-size 0 0;
+  border-color: $border-line-color;
+  border-style: solid;
+}

@@ -1,8 +1,34 @@
+.sidebar {
+  background-color: white;
+  width: calc(20vw - 1.5px);
+  max-width: 298.5px;
+  min-width: 198.5px;
+  height: 100vh;
+  position: fixed;
+  border-width: 0 1.5px 0 0;
+  border-color: #afafaf;
+  border-style: solid;
+}
+
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 5rem 2.5% 10% clamp(198.5px, 20vw, 298.5px);
+  z-index: 10;
+}
+
 .header {
   padding: 0.5rem 2rem;
-  background-color: #4caf50;
+  background-color: #4CAF50;
   width: calc(100% - 4rem);
-  height: 5rem;
+  height: 4rem;
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -19,8 +45,8 @@
   height: 100%;
 }
 .header__favorite {
-  margin: 0.75rem 0;
-  padding: 1rem 2rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem 2rem;
   background-color: transparent;
   border-radius: 5px;
   border: none;
