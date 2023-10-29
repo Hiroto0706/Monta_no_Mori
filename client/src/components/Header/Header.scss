@@ -1,0 +1,63 @@
+@use "./../../main" as main;
+
+$header-side-padding: 2rem;
+$header-top-padding: 0.5rem;
+
+$header-height: 4rem;
+
+.header {
+  padding: $header-top-padding $header-side-padding;
+  background-color: main.$main-bgcolor;
+  width: calc(100% - 2 * $header-side-padding);
+  height: $header-height;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  box-shadow: -10px -6px 3px 10px rgba(0, 0, 0, 0.2);
+
+  &__logo {
+    $logo-top-margin: 0.5rem;
+
+    width: 12rem;
+    height: calc(100% - 2 * $logo-top-margin);
+    margin: $logo-top-margin 0;
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  &__favorite {
+    $favorite-top-margin: 0.5rem;
+
+    margin: $favorite-top-margin 0;
+    padding: 0.75rem 2rem;
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.1s;
+    color: main.$main-font-color;
+    font-size: 1.4em;
+    font-weight: normal;
+    display: flex;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    img {
+      width: 25px;
+      height: 25px;
+      margin-right: 0.25rem;
+    }
+
+    p {
+      margin: 0;
+      display: block;
+    }
+  }
+}

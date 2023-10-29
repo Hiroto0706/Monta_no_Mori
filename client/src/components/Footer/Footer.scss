@@ -1,0 +1,17 @@
+@use "./../../main.scss" as main;
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -100;
+  text-align: right;
+
+  img {
+    width: auto;
+    height: 100%;
+    max-height: 80vh;
+    opacity: 0.15;
+  }
+}
