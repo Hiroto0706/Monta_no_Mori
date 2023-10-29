@@ -5,7 +5,7 @@ $form-margin-y: 7.5%;
 
 .form {
   display: block;
-  margin: $form-margin-y $form-margin-x;
+  margin: $form-margin-y $form-margin-x 0 $form-margin-x;
   padding: 3%;
   border: main.$border-size solid main.$border-line-color;
   border-radius: 10px;

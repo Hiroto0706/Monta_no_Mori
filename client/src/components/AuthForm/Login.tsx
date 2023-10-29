@@ -6,7 +6,7 @@ import "./Login.css";
 
 export default function Login() {
   return (
-    <>
+    <div>
       <form className="form">
         <h2>Login</h2>
 
@@ -21,6 +21,6 @@ export default function Login() {
 
         <button>LOGIN</button>
       </form>
-    </>
+    </div>
   );
 }

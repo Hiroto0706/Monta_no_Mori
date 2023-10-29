@@ -3,18 +3,22 @@ body {
   background-color: #f2f2f2;
 }
 
+ul {
+  list-style: none;
+}
+
 #root {
   margin: 0 auto;
 }
 
 .contents {
-  padding: 5rem 0 5rem clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
 .form {
   display: block;
-  margin: 7.5% 12.5%;
+  margin: 7.5% 12.5% 0 12.5%;
   padding: 3%;
   border: 1.5px solid #afafaf;
   border-radius: 10px;

@@ -1,26 +1,59 @@
+@use "./../../../main.scss" as main;
+
 .home {
-  width: calc(100% - 2 * 4%);
+  width: calc(100% - 2 * 2%);
   max-width: 1200px;
   margin: auto;
-  padding: 5% 4%;
+  padding: 5% 2%;
   background-color: gray;
 
   &__image-list {
     background-color: aqua;
     padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0;
 
-    ul {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 0;
+    li {
+      width: 23%;
+      max-width: 280px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
 
-      li {
-        width: 23%;
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      width: 23%;
+      background-color: black;
+    }
+
+    &::before {
+      order: 1;
+    }
+
+    &__img {
+      $img-padding: 2%;
+
+      width: calc(100% - 2 * $img-padding - 2 * main.$border-size);
+      max-height: 280px;
+      border: main.$border-size solid main.$border-line-color;
+      border-radius: 10px;
+      padding: $img-padding;
+
+      img {
+        width: calc(100% - 2 * 5%);
         height: auto;
-        background-color: greenyellow;
-        margin-bottom: 1rem;
+        padding: 5%;
+        object-fit: cover;
+        vertical-align: bottom;
       }
+    }
+
+    &__title {
+      background-color: bisque;
     }
   }
 }
