@@ -5,10 +5,8 @@
   max-width: 1200px;
   margin: auto;
   padding: 5% 2%;
-  background-color: gray;
 
   &__image-list {
-    background-color: aqua;
     padding: 2rem 0;
     display: flex;
     justify-content: space-between;
@@ -18,8 +16,9 @@
     li {
       width: 23%;
       max-width: 280px;
+      min-width: 180px;
       height: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 4rem;
     }
 
     &::after,
@@ -27,7 +26,6 @@
       content: "";
       display: block;
       width: 23%;
-      background-color: black;
     }
 
     &::before {
@@ -39,6 +37,7 @@
 
       width: calc(100% - 2 * $img-padding - 2 * main.$border-size);
       max-height: 280px;
+      background-color: white;
       border: main.$border-size solid main.$border-line-color;
       border-radius: 10px;
       padding: $img-padding;
@@ -53,7 +52,24 @@
     }
 
     &__title {
-      background-color: bisque;
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+
+      h3 {
+        margin: 0;
+        font-weight: normal;
+        color: main.$base-font-color;
+      }
+      img {
+        $image-size: 25px;
+
+        width: $image-size;
+        height: $image-size;
+        display: block;
+        margin: auto 0;
+        cursor: pointer;
+      }
     }
   }
 }

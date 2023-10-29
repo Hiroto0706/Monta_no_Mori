@@ -13,61 +13,82 @@ export default function Home() {
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_1.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
+            </div>
           </li>
           <li>
             <div className="home__image-list__img">
               <img src="public/monta_no_mori_icon.png" />
             </div>
-            <div className="home__image-list__title">description</div>
-          </li>
-          <li>
-            <div className="home__image-list__img">
-              <img src="public/monta_no_mori_icon.png" />
+            <div className="home__image-list__title">
+              <h3>もんたの森</h3>
+              <img src="public/heart-icon_0.png" />
             </div>
-            <div className="home__image-list__title">description</div>
           </li>
         </ul>
       </div>

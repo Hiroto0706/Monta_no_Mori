@@ -21,10 +21,8 @@ ul {
   max-width: 1200px;
   margin: auto;
   padding: 5% 2%;
-  background-color: gray;
 }
 .home__image-list {
-  background-color: aqua;
   padding: 2rem 0;
   display: flex;
   justify-content: space-between;
@@ -34,14 +32,14 @@ ul {
 .home__image-list li {
   width: 23%;
   max-width: 280px;
+  min-width: 180px;
   height: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 .home__image-list::after, .home__image-list::before {
   content: "";
   display: block;
   width: 23%;
-  background-color: black;
 }
 .home__image-list::before {
   order: 1;
@@ -49,6 +47,7 @@ ul {
 .home__image-list__img {
   width: calc(96% - 3px);
   max-height: 280px;
+  background-color: white;
   border: 1.5px solid #afafaf;
   border-radius: 10px;
   padding: 2%;
@@ -62,5 +61,19 @@ ul {
   vertical-align: bottom;
 }
 .home__image-list__title {
-  background-color: bisque;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+.home__image-list__title h3 {
+  margin: 0;
+  font-weight: normal;
+  color: #646464;
+}
+.home__image-list__title img {
+  width: 25px;
+  height: 25px;
+  display: block;
+  margin: auto 0;
+  cursor: pointer;
 }/*# sourceMappingURL=Home.css.map */
