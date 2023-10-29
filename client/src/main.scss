@@ -1,11 +1,21 @@
-@use "./components/SidebarComponents/Sidebar" as sidebar;
-
-$main-bgcolor: #4CAF50;
+$main-bgcolor: #4caf50;
+$main-font-color: #ffffff;
 $base-bgcolor: #f2f2f2;
+$base-font-color: #646464;
+
+$border-size: 1.5px;
+$border-line-color: #afafaf;
+
+$side-max-width: 300px;
+$side-min-width: 250px;
 
 body {
   margin: 0;
   background-color: $base-bgcolor;
+}
+
+ul {
+  list-style: none;
 }
 
 #root {
@@ -13,6 +23,11 @@ body {
 }
 
 .contents {
-  padding: 5rem 2.5% 10% clamp(calc(sidebar.$side-min-width - sidebar.$border-size), 20vw, calc(sidebar.$side-max-width - sidebar.$border-size));
+  padding: 5rem 0 5rem
+    clamp(
+      calc($side-min-width - $border-size),
+      20vw,
+      calc($side-max-width - $border-size)
+    );
   z-index: 10;
 }

@@ -1,0 +1,59 @@
+@use "./../../main" as main;
+
+$form-margin-x: 12.5%;
+$form-margin-y: 7.5%;
+
+.form {
+  display: block;
+  margin: $form-margin-y $form-margin-x;
+  padding: 3%;
+  border: main.$border-size solid main.$border-line-color;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: main.$base-font-color;
+
+  h2 {
+    font-size: 2.25rem;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  input {
+    width: calc(100% - 2 * 10px - 2 * main.$border-size);
+    padding: 10px 10px;
+    margin: 0.5rem 0 0.75rem 0;
+    color: main.$base-font-color;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: main.$border-size solid main.$border-line-color;
+
+    &:focus {
+      outline: main.$border-size solid main.$main-bgcolor;
+    }
+  }
+
+  button {
+    width: 100%;
+    height: auto;
+    padding: 1.45% 2%;
+    margin-top: 2rem;
+    background-color: main.$main-bgcolor;
+    border: none;
+    color: main.$main-font-color;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    letter-spacing: 0.5rem;
+    transition: all 0.1s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

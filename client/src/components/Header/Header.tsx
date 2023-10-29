@@ -12,7 +12,7 @@ export default function Header() {
       </div>
       <button className="header__favorite">
         <img src="public/heart-icon.png" />
-        <p>お気に入り</p>
+        <p>Favorite</p>
       </button>
     </header>
   );

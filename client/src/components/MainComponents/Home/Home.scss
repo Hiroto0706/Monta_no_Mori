@@ -1,0 +1,26 @@
+.home {
+  width: calc(100% - 2 * 4%);
+  max-width: 1200px;
+  margin: auto;
+  padding: 5% 4%;
+  background-color: gray;
+
+  &__image-list {
+    background-color: aqua;
+    padding: 2rem 0;
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 0;
+
+      li {
+        width: 23%;
+        height: auto;
+        background-color: greenyellow;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

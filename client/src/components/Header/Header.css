@@ -1,15 +1,3 @@
-.sidebar {
-  background-color: white;
-  width: calc(20vw - 1.5px);
-  max-width: 298.5px;
-  min-width: 198.5px;
-  height: 100vh;
-  position: fixed;
-  border-width: 0 1.5px 0 0;
-  border-color: #afafaf;
-  border-style: solid;
-}
-
 body {
   margin: 0;
   background-color: #f2f2f2;
@@ -20,13 +8,13 @@ body {
 }
 
 .contents {
-  padding: 5rem 2.5% 10% clamp(198.5px, 20vw, 298.5px);
+  padding: 5rem 0 5rem clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
 .header {
   padding: 0.5rem 2rem;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   width: calc(100% - 4rem);
   height: 4rem;
   position: fixed;
@@ -53,9 +41,9 @@ body {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.1s;
-  color: white;
-  font-size: 1.15rem;
-  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.4em;
+  font-weight: normal;
   display: flex;
 }
 .header__favorite:hover {

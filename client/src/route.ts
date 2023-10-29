@@ -1,9 +1,9 @@
-import Home from './components/MainComponents/Home';
+import Home from './components/MainComponents/Home/Home';
 import About from './components/MainComponents/About';
 import Detail from './components/MainComponents/Detail';
 import NotFound from './components/MainComponents/NotFound';
 
-import Login from './components/AuthComponents/Login';
+import Login from './components/AuthForm/Login';
 
 // ルート情報の型を定義
 interface RouteType{

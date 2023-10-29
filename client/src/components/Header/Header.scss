@@ -1,10 +1,15 @@
 @use "./../../main" as main;
 
+$header-side-padding: 2rem;
+$header-top-padding: 0.5rem;
+
+$header-height: 4rem;
+
 .header {
-  padding: 0.5rem 2rem;
+  padding: $header-top-padding $header-side-padding;
   background-color: main.$main-bgcolor;
-  width: calc(100% - 2 * 2rem);
-  height: 4rem;
+  width: calc(100% - 2 * $header-side-padding);
+  height: $header-height;
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -12,9 +17,11 @@
   box-shadow: -10px -6px 3px 10px rgba(0, 0, 0, 0.2);
 
   &__logo {
+    $logo-top-margin: 0.5rem;
+
     width: 12rem;
-    height: calc(100% - 2 * 0.5rem);
-    margin: 0.5rem 0;
+    height: calc(100% - 2 * $logo-top-margin);
+    margin: $logo-top-margin 0;
 
     img {
       width: auto;
@@ -23,7 +30,9 @@
   }
 
   &__favorite {
-    margin: 0.5rem 0;
+    $favorite-top-margin: 0.5rem;
+
+    margin: $favorite-top-margin 0;
     padding: 0.75rem 2rem;
     background-color: transparent;
     border-radius: 5px;
@@ -31,9 +40,9 @@
     text-decoration: none;
     cursor: pointer;
     transition: all 0.1s;
-    color: white;
-    font-size: 1.15rem;
-    font-weight: bold;
+    color: main.$main-font-color;
+    font-size: 1.4em;
+    font-weight: normal;
     display: flex;
 
     &:hover {
