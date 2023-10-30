@@ -8,6 +8,7 @@ $border-line-color: #afafaf;
 
 $side-max-width: 300px;
 $side-min-width: 250px;
+$header-height: 4rem;
 
 body {
   margin: 0;
@@ -23,7 +24,7 @@ ul {
 }
 
 .contents {
-  padding: 5rem 0 0
+  padding: $header-height 0 0
     clamp(
       calc($side-min-width - $border-size),
       20vw,

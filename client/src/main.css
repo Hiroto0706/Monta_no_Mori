@@ -12,6 +12,6 @@ ul {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }/*# sourceMappingURL=main.css.map */

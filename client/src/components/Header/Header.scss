@@ -1,15 +1,13 @@
-@use "./../../main" as main;
+@use "./../../main.scss" as main;
 
 $header-side-padding: 2rem;
 $header-top-padding: 0.5rem;
-
-$header-height: 4rem;
 
 .header {
   padding: $header-top-padding $header-side-padding;
   background-color: main.$main-bgcolor;
   width: calc(100% - 2 * $header-side-padding);
-  height: $header-height;
+  height: main.$header-height;
   position: fixed;
   display: flex;
   justify-content: space-between;

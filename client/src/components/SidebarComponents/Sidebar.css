@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+ul {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  z-index: 10;
+}
+
+.sidebar {
+  background-color: white;
+  width: calc(20vw - 1.5px);
+  min-width: 248.5px;
+  max-width: 298.5px;
+  height: 100vh;
+  position: fixed;
+  border-width: 0 1.5px 0 0;
+  border-color: #afafaf;
+  border-style: solid;
+}
+.sidebar__inner {
+  width: calc(100% - 2rem);
+  padding-top: 4.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.sidebar__inner__type {
+  margin-bottom: 3rem;
+}
+.sidebar__inner h3 {
+  margin-bottom: 0.5rem;
+}
+.sidebar__inner span {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgb(180, 180, 180);
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}/*# sourceMappingURL=Sidebar.css.map */

@@ -1,0 +1,50 @@
+@use "./../../main.scss" as main;
+
+.image-box {
+  width: 23%;
+  max-width: 280px;
+  min-width: 180px;
+  height: auto;
+  margin-bottom: 4rem;
+  cursor: pointer;
+
+  &__img {
+    $img-padding: 12.5%;
+
+    width: calc(100% - 2 * $img-padding - 2 * main.$border-size);
+    max-height: 280px;
+    background-color: white;
+    border: main.$border-size solid main.$border-line-color;
+    border-radius: 10px;
+    padding: $img-padding;
+
+    img {
+
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      vertical-align: bottom;
+    }
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+
+    h3 {
+      margin: 0;
+      font-weight: normal;
+      color: main.$base-font-color;
+    }
+    img {
+      $image-size: 25px;
+
+      width: $image-size;
+      height: $image-size;
+      display: block;
+      margin: auto 0;
+      cursor: pointer;
+    }
+  }
+}

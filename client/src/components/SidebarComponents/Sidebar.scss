@@ -1,0 +1,43 @@
+@use "./../../main.scss" as main;
+
+$padding-x: 1rem;
+$padding-top: 0.75rem;
+
+.sidebar {
+  background-color: white;
+  width: calc(20vw - main.$border-size);
+  min-width: calc(main.$side-min-width - main.$border-size);
+  max-width: calc(main.$side-max-width - main.$border-size);
+  height: 100vh;
+  position: fixed;
+
+  border-width: 0 main.$border-size 0 0;
+  border-color: main.$border-line-color;
+  border-style: solid;
+
+  &__inner {
+    width: calc(100% - 2 * $padding-x);
+    padding-top: main.$header-height + $padding-top;
+    padding-left: $padding-x;
+    padding-right: $padding-x;
+
+    &__type {
+      margin-bottom: 3rem;
+    }
+
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    span {
+      display: inline-block;
+      border: 1px solid black;
+      border-radius: 10px;
+      background-color: rgb(180, 180, 180);
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      cursor: pointer;
+    }
+  }
+}
