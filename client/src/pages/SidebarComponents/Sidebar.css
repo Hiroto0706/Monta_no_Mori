@@ -3,12 +3,16 @@ body {
   background-color: #f2f2f2;
 }
 
+ul {
+  list-style: none;
+}
+
 #root {
   margin: 0 auto;
 }
 
 .contents {
-  padding: 5rem 0 5rem clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 

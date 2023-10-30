@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 
-import Header from "./components/Header/Header.tsx";
-import Footer from "./components/Footer/Footer.tsx";
-import Sidebar from "./components/SidebarComponents/Sidebar";
+import Header from "./pages/Header/Header.tsx";
+import Footer from "./pages/Footer/Footer.tsx";
+import Sidebar from "./pages/SidebarComponents/Sidebar.tsx";
 
 import "./main.css";
 
