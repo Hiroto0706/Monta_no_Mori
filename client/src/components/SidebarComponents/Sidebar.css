@@ -3,7 +3,8 @@ body {
   background-color: #f2f2f2;
 }
 
-ul {
+ul,
+li {
   list-style: none;
 }
 
@@ -22,6 +23,7 @@ ul {
   min-width: 248.5px;
   max-width: 298.5px;
   height: 100vh;
+  overflow: auto;
   position: fixed;
   border-width: 0 1.5px 0 0;
   border-color: #afafaf;
@@ -36,15 +38,44 @@ ul {
 .sidebar__inner__type {
   margin-bottom: 3rem;
 }
-.sidebar__inner h3 {
+.sidebar__inner__type a {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 1rem - 2.5px);
+  border: 1.25px solid #afafaf;
+  padding: 0.25rem 0.5rem;
+}
+.sidebar__inner__type a div {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.sidebar__inner__type a img {
+  width: 100%;
+  height: auto;
+}
+.sidebar__inner__category {
+  padding-bottom: 250px;
+}
+.sidebar__inner__category a {
+  font-size: 0.85rem;
+  display: inline-block;
+  padding: 0.35rem 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.sidebar__inner__type h3, .sidebar__inner__category h3 {
   margin-bottom: 0.5rem;
 }
-.sidebar__inner span {
-  display: inline-block;
-  border: 1px solid black;
-  border-radius: 10px;
-  background-color: rgb(180, 180, 180);
-  margin-right: 0.5rem;
+.sidebar__inner__type a, .sidebar__inner__category a {
+  color: #646464;
   margin-bottom: 0.5rem;
+  border-radius: 15px;
+  background-color: #ebebeb;
+  text-decoration: none;
   cursor: pointer;
+  color: #646464;
 }/*# sourceMappingURL=Sidebar.css.map */
