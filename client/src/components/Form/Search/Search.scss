@@ -1,0 +1,108 @@
+@use "./../../../main.scss" as main;
+@use "./../../SidebarComponents/Sidebar.scss" as sidebar;
+
+$padding-search-box-x: 1.5rem;
+$padding-search-box-y: 0.45rem;
+
+$search-border-radius: 0px;
+
+.search {
+  width: 50%;
+  min-width: 450px;
+  height: auto;
+  display: flex;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  background-color: transparent;
+
+  button {
+    cursor: pointer;
+  }
+
+  .type-list {
+    font-size: 1.25rem;
+    float: left;
+    background-position: 0 0;
+    min-width: 125px;
+    height: auto;
+    border-left: main.$border-size solid main.$border-line-color;
+    border-top: main.$border-size solid main.$border-line-color;
+    border-bottom: main.$border-size solid main.$border-line-color;
+    border-right: none;
+    background-color: sidebar.$type-btn-bgcolor;
+    transition: all 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: main.$base-font-color;
+
+    img {
+      width: 20px;
+      height: 20px;
+      padding-left: 0.25rem;
+    }
+
+    &:hover {
+      background-color: sidebar.$type-btn-bgcolor-hover;
+    }
+  }
+
+  input {
+    font-size: 1.25rem;
+    padding: $padding-search-box-y $padding-search-box-x;
+    width: calc(100% - 2 * $padding-search-box-x - 2 * main.$border-size);
+    background-color: white;
+
+    border-top: main.$border-size solid main.$border-line-color;
+    border-bottom: main.$border-size solid main.$border-line-color;
+    border-left: main.$border-size solid main.$border-line-color;
+    border-right: none;
+    transition: all 0.2s;
+
+    &:hover {
+      border-top: main.$border-size solid #808080;
+      border-bottom: main.$border-size solid #808080;
+      border-left: main.$border-size solid #808080;
+    }
+
+    &:hover + .search-button {
+      border-top: main.$border-size solid #808080;
+      border-bottom: main.$border-size solid #808080;
+      border-right: main.$border-size solid #808080;
+    }
+
+    &:focus {
+      border-top: main.$border-size solid main.$main-bgcolor;
+      border-bottom: main.$border-size solid main.$main-bgcolor;
+      border-left: main.$border-size solid main.$main-bgcolor;
+      outline: none;
+    }
+
+    &:focus + .search-button {
+      border-top: main.$border-size solid main.$main-bgcolor;
+      border-bottom: main.$border-size solid main.$main-bgcolor;
+      border-right: main.$border-size solid main.$main-bgcolor;
+    }
+  }
+
+  .search-button {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background-color: white;
+
+    border-top: main.$border-size solid main.$border-line-color;
+    border-right: main.$border-size solid main.$border-line-color;
+    border-bottom: main.$border-size solid main.$border-line-color;
+    border-left: none;
+
+    img {
+      width: auto;
+      height: 100%;
+      max-height: 30px;
+    }
+  }
+}

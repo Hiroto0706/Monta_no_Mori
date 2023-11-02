@@ -10,6 +10,8 @@ $type-btn-padding-x: 0.5rem;
 $type-btn-padding-y: 0.25rem;
 $type-btn-line-size: 1.25px;
 
+$type-btn-bgcolor-hover: #d7d7d7;
+
 $category-btn-padding-x: 0.5rem;
 $category-btn-padding-y: 0.35rem;
 
@@ -63,7 +65,7 @@ $category-btn-padding-y: 0.35rem;
 
     &__category {
       @extend %type-btn;
-      padding-bottom: 250px;
+      padding-bottom: 50px;
 
       a {
         font-size: 0.85rem;
@@ -90,5 +92,11 @@ $category-btn-padding-y: 0.35rem;
 
     cursor: pointer;
     color: $type-btn-font-color;
+
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $type-btn-bgcolor-hover;
+    }
   }
 }

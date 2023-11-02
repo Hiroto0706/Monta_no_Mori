@@ -1,6 +1,7 @@
 body {
   margin: 0;
   background-color: #f2f2f2;
+  color: #646464;
 }
 
 ul,
@@ -58,7 +59,7 @@ li {
   height: auto;
 }
 .sidebar__inner__category {
-  padding-bottom: 250px;
+  padding-bottom: 50px;
 }
 .sidebar__inner__category a {
   font-size: 0.85rem;
@@ -78,4 +79,8 @@ li {
   text-decoration: none;
   cursor: pointer;
   color: #646464;
+  transition: all 0.3s;
+}
+.sidebar__inner__type a:hover, .sidebar__inner__category a:hover {
+  background-color: #d7d7d7;
 }/*# sourceMappingURL=Sidebar.css.map */

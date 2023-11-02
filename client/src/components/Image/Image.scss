@@ -6,7 +6,14 @@
   min-width: 180px;
   height: auto;
   margin-bottom: 4rem;
+  padding: 0.5rem;
   cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
   &__img {
     $img-padding: 12.5%;
@@ -19,7 +26,6 @@
     padding: $img-padding;
 
     img {
-
       width: 100%;
       height: auto;
       object-fit: cover;
@@ -30,7 +36,7 @@
   &__title {
     display: flex;
     justify-content: space-between;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 1.5rem 0;
 
     h3 {
       margin: 0;
