@@ -1,4 +1,5 @@
 @use "./../../../main.scss" as main;
+@use "./../../SidebarComponents/Sidebar.scss" as sidebar;
 
 .modal-image__overlay {
   position: fixed;
@@ -18,11 +19,11 @@
   position: relative;
   display: flex;
   width: calc(850px - 2 * 2rem);
-  max-height: 400px;
+  height: 45%;
+  max-height: calc(450px - 2 * 2rem);
   background-color: white;
   padding: 2rem;
   border-radius: 5px;
-  border: main.$border-line-color solid main.$border-size;
   box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.1);
   z-index: 1001;
   cursor: default;
@@ -50,8 +51,9 @@
 
   &__img {
     width: 35%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
 
     img {
@@ -94,6 +96,30 @@
 
     .type {
       margin-bottom: 1rem;
+
+      .type-link-modal {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        border: sidebar.$type-btn-line-size solid sidebar.$type-btn-line-color;
+        padding: sidebar.$type-btn-padding-y sidebar.$type-btn-padding-x;
+
+        background-color: sidebar.$type-btn-bgcolor;
+        border-radius: 15px;
+        color: sidebar.$type-btn-font-color;
+
+        transition: all 0.3s;
+
+        img {
+          width: 20px;
+          height: 20px;
+          padding-right: 0.5rem;
+        }
+
+        &:hover {
+          background-color: sidebar.$type-btn-bgcolor-hover;
+        }
+      }
     }
 
     .category {
@@ -135,6 +161,7 @@
       .copy {
         margin-left: 0.5rem;
         color: main.$base-font-color;
+        border: sidebar.$type-btn-line-size solid sidebar.$type-btn-line-color;
 
         img {
           width: 20px;

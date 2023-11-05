@@ -52,14 +52,12 @@ const ModalImage: React.FC<ModalImageProps> = ({
 
           <div className="type">
             <h3>Type</h3>
-            <a href="" className="type-link">
+            <a href="" className="type-link-modal">
+              <img src="public/pc-img.png" />
               <EllipsisText
                 text="テストテストテストテストテストテストテスト"
                 maxLength={100}
               />{" "}
-              <div>
-                <img src="public/pc-img.png" />
-              </div>
             </a>
           </div>
 

@@ -53,14 +53,10 @@ li {
   color: #646464;
   margin-bottom: 0.5rem;
   border-radius: 15px;
-  background-color: #ebebeb;
   text-decoration: none;
   cursor: pointer;
   color: #646464;
   transition: all 0.3s;
-}
-.category-link:hover, .type-link:hover {
-  background-color: #d7d7d7;
 }
 
 .type-link {
@@ -71,6 +67,7 @@ li {
   width: calc(100% - 1rem - 2.5px);
   border: 1.25px solid #afafaf;
   padding: 0.25rem 0.5rem;
+  background-color: #f4f4f4;
 }
 .type-link div {
   width: 20px;
@@ -82,10 +79,17 @@ li {
   width: 100%;
   height: auto;
 }
+.type-link:hover {
+  background-color: #d9d9d9;
+}
 
 .category-link {
   font-size: 0.85rem;
   display: inline-block;
   padding: 0.35rem 0.5rem;
   margin-right: 0.5rem;
+  background-color: #e6e6e6;
+}
+.category-link:hover {
+  background-color: #cbcbcb;
 }/*# sourceMappingURL=Sidebar.css.map */
