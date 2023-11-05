@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 
-import "./Image.css";
+import ModalImage from "./Modal/ModalImage";
 import { EllipsisText } from "../SidebarComponents/Sidebar";
+import "./Image.css";
 
 const Image: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const toggleLike = (isLiked: boolean) => {
     setIsLiked(!isLiked);
   };
 
+  const toggleOpenModal = () => {
+    console.log("click open btn : " + isModalVisible);
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
-    <li className="image-box">
+    <li className="image-box" onClick={() => toggleOpenModal()}>
       <div className="image-box__img">
-        <img src="public/monta_no_mori_icon.png" />
+        <img src="public/monta_no_mori_icon.png" alt="喜ぶ犬" />
       </div>
       <div className="image-box__title">
         <h3>
@@ -21,9 +28,20 @@ const Image: React.FC = () => {
         </h3>
         <img
           src={isLiked ? "public/heart-icon_1.png" : "public/heart-icon_0.png"}
-          onClick={() => toggleLike(isLiked)}
+          onClick={(e) => {
+            toggleLike(isLiked);
+            e.stopPropagation();
+          }}
         />
       </div>
+
+      {isModalVisible && (
+        <ModalImage
+          src="public/monta_no_mori_icon.png"
+          title="喜ぶ犬"
+          toggleOpenModal={() => toggleOpenModal()}
+        />
+      )}
     </li>
   );
 };
