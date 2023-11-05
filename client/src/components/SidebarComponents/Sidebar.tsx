@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Sidebar.css";
 
 interface EllipsisTextProps {
   text: string;
+  maxLength: number;
 }
 
-export const EllipsisText: React.FC<EllipsisTextProps> = ({ text }) => {
-  const truncatedText = text.length > 10 ? text.substring(0, 10) + "..." : text;
+export const EllipsisText: React.FC<EllipsisTextProps> = ({
+  text,
+  maxLength,
+}) => {
+  const truncatedText =
+    text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   return <span>{truncatedText}</span>;
 };
 
 const Sidebar: React.FC = () => {
+  const [typeMaxLength] = useState(10);
+  const [categoryMaxLength] = useState(10);
+
   return (
     <>
       <div className="sidebar">
@@ -19,25 +27,37 @@ const Sidebar: React.FC = () => {
           <div className="sidebar__inner__type">
             <h3>Type</h3>
             <a href="">
-              <EllipsisText text="テストテストテストテストテストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={typeMaxLength}
+              />{" "}
               <div>
                 <img src="public/pc-img.png" />
               </div>
             </a>
             <a href="">
-              <EllipsisText text="テストテストテストテストテストテストテスト" />{" "}
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={typeMaxLength}
+              />{" "}
               <div>
                 <img src="public/pc-img.png" />
               </div>
             </a>
             <a href="">
-              <EllipsisText text="テスト" />{" "}
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={typeMaxLength}
+              />{" "}
               <div>
                 <img src="public/pc-img.png" />
               </div>
             </a>
             <a href="">
-              <EllipsisText text="テスト" />{" "}
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={typeMaxLength}
+              />{" "}
               <div>
                 <img src="public/pc-img.png" />
               </div>
@@ -48,53 +68,80 @@ const Sidebar: React.FC = () => {
             <h3>Category</h3>
             <a href="">
               #
-              <EllipsisText text="テストテストテストテストテストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストテストテストテストテストテスト" />
-            </a>
-            <a href="">
-              #<EllipsisText text="テスト" />
-            </a>
-            <a href="">
-              #
-              <EllipsisText text="テストテストテストテストテストテストテスト" />
-            </a>
-            <a href="">
-              #<EllipsisText text="テスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストテストテストテストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
             <a href="">
               #
-              <EllipsisText text="テストテストストテストテスト" />
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
+            </a>
+            <a href="">
+              #
+              <EllipsisText
+                text="テストテストテストテストテストテストテスト"
+                maxLength={categoryMaxLength}
+              />
             </a>
           </div>
         </div>

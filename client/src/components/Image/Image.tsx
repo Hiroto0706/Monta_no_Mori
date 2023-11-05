@@ -8,6 +8,8 @@ const Image: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [imageTitleMaxLength] = useState(10);
+
   const toggleLike = (isLiked: boolean) => {
     setIsLiked(!isLiked);
   };
@@ -24,7 +26,10 @@ const Image: React.FC = () => {
       </div>
       <div className="image-box__title">
         <h3>
-          <EllipsisText text="もんたの森もんたの森もんたの森もんたの森もんたの森"></EllipsisText>
+          <EllipsisText
+            text="もんたの森もんたの森もんたの森もんたの森もんたの森"
+            maxLength={imageTitleMaxLength}
+          />
         </h3>
         <img
           src={isLiked ? "public/heart-icon_1.png" : "public/heart-icon_0.png"}
@@ -38,7 +43,7 @@ const Image: React.FC = () => {
       {isModalVisible && (
         <ModalImage
           src="public/monta_no_mori_icon.png"
-          title="喜ぶ犬"
+          title="もんたの森もんたの森もんたの森もんたの森もんたの森"
           toggleOpenModal={() => toggleOpenModal()}
         />
       )}
