@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 4rem 0 0 clamp(248.5px, 20vw, 398.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
@@ -22,7 +22,7 @@ li {
   background-color: white;
   width: calc(20vw - 1.5px);
   min-width: 248.5px;
-  max-width: 398.5px;
+  max-width: 298.5px;
   height: 100vh;
   overflow: auto;
   position: fixed;
@@ -39,39 +39,17 @@ li {
 .sidebar__inner__type {
   margin-bottom: 3rem;
 }
-.sidebar__inner__type a {
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: calc(100% - 1rem - 2.5px);
-  border: 1.25px solid #afafaf;
-  padding: 0.25rem 0.5rem;
-}
-.sidebar__inner__type a div {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-}
-.sidebar__inner__type a img {
-  width: 100%;
-  height: auto;
+.sidebar__inner__type h3 {
+  margin-bottom: 0.5rem;
 }
 .sidebar__inner__category {
   padding-bottom: 50px;
 }
-.sidebar__inner__category a {
-  font-size: 0.85rem;
-  display: inline-block;
-  padding: 0.35rem 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.sidebar__inner__type h3, .sidebar__inner__category h3 {
+.sidebar__inner__category h3 {
   margin-bottom: 0.5rem;
 }
-.sidebar__inner__type a, .sidebar__inner__category a {
+
+.category-link, .type-link {
   color: #646464;
   margin-bottom: 0.5rem;
   border-radius: 15px;
@@ -81,6 +59,33 @@ li {
   color: #646464;
   transition: all 0.3s;
 }
-.sidebar__inner__type a:hover, .sidebar__inner__category a:hover {
+.category-link:hover, .type-link:hover {
   background-color: #d7d7d7;
+}
+
+.type-link {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 1rem - 2.5px);
+  border: 1.25px solid #afafaf;
+  padding: 0.25rem 0.5rem;
+}
+.type-link div {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.type-link img {
+  width: 100%;
+  height: auto;
+}
+
+.category-link {
+  font-size: 0.85rem;
+  display: inline-block;
+  padding: 0.35rem 0.5rem;
+  margin-right: 0.5rem;
 }/*# sourceMappingURL=Sidebar.css.map */

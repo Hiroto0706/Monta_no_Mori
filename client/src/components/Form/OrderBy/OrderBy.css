@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 4rem 0 0 clamp(248.5px, 20vw, 398.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
@@ -31,6 +31,7 @@ li {
   border-radius: 5px;
   width: 247px;
   display: flex;
+  text-align: center;
 }
 .order-by__btn .recent,
 .order-by__btn .popular {

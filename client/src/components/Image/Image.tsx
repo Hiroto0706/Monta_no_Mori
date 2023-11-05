@@ -15,7 +15,6 @@ const Image: React.FC = () => {
   };
 
   const toggleOpenModal = () => {
-    console.log("click open btn : " + isModalVisible);
     setIsModalVisible(!isModalVisible);
   };
 
@@ -27,7 +26,7 @@ const Image: React.FC = () => {
       <div className="image-box__title">
         <h3>
           <EllipsisText
-            text="もんたの森もんたの森もんたの森もんたの森もんたの森"
+            text="もんたの森"
             maxLength={imageTitleMaxLength}
           />
         </h3>
@@ -43,7 +42,7 @@ const Image: React.FC = () => {
       {isModalVisible && (
         <ModalImage
           src="public/monta_no_mori_icon.png"
-          title="もんたの森もんたの森もんたの森もんたの森もんたの森"
+          title="もんたの森"
           toggleOpenModal={() => toggleOpenModal()}
         />
       )}
