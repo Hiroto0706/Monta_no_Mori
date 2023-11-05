@@ -1,5 +1,5 @@
 @use "./../../../main.scss" as main;
-@use "./../../SidebarComponents/Sidebar.scss" as sidebar;
+@use "./../../SidebarComponents/Sidebar/Sidebar.scss" as sidebar;
 
 $padding-search-box-x: 1.5rem;
 $padding-search-box-y: 0.45rem;
@@ -13,7 +13,7 @@ $search-border-radius: 0px;
   display: flex;
   margin-top: 2rem;
   margin-bottom: 4rem;
-  box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
   background-color: transparent;
 
   button {

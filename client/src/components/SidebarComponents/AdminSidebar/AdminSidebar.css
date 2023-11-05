@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  z-index: 10;
+}
+
+.sidebar__inner.admin {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 5rem - 0.5rem);
+  padding-bottom: 0.5rem;
+}
+.sidebar__inner.admin .type-link.logout {
+  color: white;
+  background-color: #ff3e49;
+  border: none;
+}
+.sidebar__inner.admin .type-link.logout:hover {
+  opacity: 0.75;
+}/*# sourceMappingURL=AdminSidebar.css.map */

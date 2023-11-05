@@ -80,7 +80,7 @@ li {
   height: auto;
 }
 .type-link:hover {
-  background-color: #d9d9d9;
+  background-color: #dfdfdf;
 }
 
 .category-link {
@@ -91,5 +91,5 @@ li {
   background-color: #e6e6e6;
 }
 .category-link:hover {
-  background-color: #cbcbcb;
+  background-color: #d1d1d1;
 }/*# sourceMappingURL=Sidebar.css.map */

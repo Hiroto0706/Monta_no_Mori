@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import ModalImage from "./Modal/ModalImage";
-import { EllipsisText } from "../SidebarComponents/Sidebar";
+import { EllipsisText } from "../SidebarComponents/Sidebar/Sidebar";
 import "./Image.css";
 
 const Image: React.FC = () => {
