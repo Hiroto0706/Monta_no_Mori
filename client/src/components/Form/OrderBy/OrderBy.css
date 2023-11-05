@@ -29,10 +29,13 @@ li {
   border: 1.5px solid #afafaf;
   cursor: pointer;
   border-radius: 5px;
+  width: 247px;
+  display: flex;
 }
 .order-by__btn .recent,
 .order-by__btn .popular {
   display: inline-block;
+  width: calc(50% - 1.5px);
   padding: 0.5rem 1.75rem;
 }
 .order-by__btn .active {

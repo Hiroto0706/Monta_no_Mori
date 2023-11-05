@@ -11,10 +11,13 @@
     border: main.$border-size solid main.$border-line-color;
     cursor: pointer;
     border-radius: 5px;
+    width: calc(250px - 2 * main.$border-size);
+    display: flex;
 
     .recent,
     .popular {
       display: inline-block;
+      width: calc(50% - main.$border-size);
       padding: 0.5rem 1.75rem;
     }
 
