@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__logo">
-        <a href="">
+        <a href="/">
           <img src="public/monta_no_mori_logo.svg" />
         </a>
       </div>

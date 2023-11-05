@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
@@ -32,7 +32,7 @@ li {
 }
 .sidebar__inner {
   width: calc(100% - 2rem);
-  padding-top: 4.75rem;
+  padding-top: 5rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }

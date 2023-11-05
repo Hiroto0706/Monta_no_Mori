@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
@@ -22,7 +22,7 @@ li {
   width: 96%;
   max-width: 1200px;
   margin: auto;
-  padding: 4% 2%;
+  padding: 0 2%;
 }
 .home__image-list {
   padding: 2rem 0;

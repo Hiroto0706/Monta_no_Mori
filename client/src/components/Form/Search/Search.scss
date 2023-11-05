@@ -62,18 +62,6 @@ $search-border-radius: 0px;
     border-right: none;
     transition: all 0.2s;
 
-    &:hover {
-      border-top: main.$border-size solid #808080;
-      border-bottom: main.$border-size solid #808080;
-      border-left: main.$border-size solid #808080;
-    }
-
-    &:hover + .search-button {
-      border-top: main.$border-size solid #808080;
-      border-bottom: main.$border-size solid #808080;
-      border-right: main.$border-size solid #808080;
-    }
-
     &:focus {
       border-top: main.$border-size solid main.$main-bgcolor;
       border-bottom: main.$border-size solid main.$main-bgcolor;

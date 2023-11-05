@@ -1,7 +1,6 @@
 @use "./../../main.scss" as main;
 
 $padding-x: 1rem;
-$padding-top: 0.75rem;
 
 $type-btn-font-color: #646464;
 $type-btn-line-color: #afafaf;
@@ -31,7 +30,7 @@ $category-btn-bgcolor-hover: #cbcbcb;
 
   &__inner {
     width: calc(100% - 2 * $padding-x);
-    padding-top: main.$header-height + $padding-top;
+    padding-top: main.$header-height;
     padding-left: $padding-x;
     padding-right: $padding-x;
 
