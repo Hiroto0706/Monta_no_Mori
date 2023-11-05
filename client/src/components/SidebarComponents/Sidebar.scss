@@ -5,15 +5,16 @@ $padding-top: 0.75rem;
 
 $type-btn-font-color: #646464;
 $type-btn-line-color: #afafaf;
-$type-btn-bgcolor: #ebebeb;
+$type-btn-bgcolor: #f4f4f4;
+$type-btn-bgcolor-hover: #d9d9d9;
 $type-btn-padding-x: 0.5rem;
 $type-btn-padding-y: 0.25rem;
 $type-btn-line-size: 1.25px;
 
-$type-btn-bgcolor-hover: #d7d7d7;
-
 $category-btn-padding-x: 0.5rem;
 $category-btn-padding-y: 0.35rem;
+$category-btn-bgcolor: #e6e6e6;
+$category-btn-bgcolor-hover: #cbcbcb;
 
 .sidebar {
   background-color: white;
@@ -35,68 +36,77 @@ $category-btn-padding-y: 0.35rem;
     padding-right: $padding-x;
 
     &__type {
-      @extend %type-btn;
       margin-bottom: 3rem;
 
-      a {
-        font-size: 1rem;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        width: calc(100% - 2 * $type-btn-padding-x - 2 * $type-btn-line-size);
-        border: $type-btn-line-size solid $type-btn-line-color;
-        padding: $type-btn-padding-y $type-btn-padding-x;
-
-        div {
-          width: 20px;
-          height: 20px;
-          display: flex;
-          align-items: center;
-        }
-
-        img {
-          width: 100%;
-          height: auto;
-        }
+      h3 {
+        margin-bottom: 0.5rem;
       }
     }
 
     &__category {
-      @extend %type-btn;
       padding-bottom: 50px;
 
-      a {
-        font-size: 0.85rem;
-
-        display: inline-block;
-        padding: $category-btn-padding-y $category-btn-padding-x;
-        margin-right: 0.5rem;
+      h3 {
+        margin-bottom: 0.5rem;
       }
     }
   }
 }
 
-%type-btn {
-  h3 {
-    margin-bottom: 0.5rem;
+%btn-style {
+  color: $type-btn-font-color;
+  margin-bottom: 0.5rem;
+  border-radius: 15px;
+  text-decoration: none;
+
+  cursor: pointer;
+  color: $type-btn-font-color;
+
+  transition: all 0.3s;
+}
+
+.type-link {
+  @extend %btn-style;
+  font-size: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: calc(100% - 2 * $type-btn-padding-x - 2 * $type-btn-line-size);
+  border: $type-btn-line-size solid $type-btn-line-color;
+  padding: $type-btn-padding-y $type-btn-padding-x;
+
+  background-color: $type-btn-bgcolor;
+
+  div {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
   }
 
-  a {
-    color: $type-btn-font-color;
-    margin-bottom: 0.5rem;
-    border-radius: 15px;
-    background-color: $type-btn-bgcolor;
-    text-decoration: none;
+  img {
+    width: 100%;
+    height: auto;
+  }
 
-    cursor: pointer;
-    color: $type-btn-font-color;
+  &:hover {
+    background-color: $type-btn-bgcolor-hover;
+  }
+}
 
-    transition: all 0.3s;
+.category-link {
+  @extend %btn-style;
+  font-size: 0.85rem;
 
-    &:hover {
-      background-color: $type-btn-bgcolor-hover;
-    }
+  display: inline-block;
+  padding: $category-btn-padding-y $category-btn-padding-x;
+  margin-right: 0.5rem;
+
+  background-color: $category-btn-bgcolor;
+
+  &:hover {
+    background-color: $category-btn-bgcolor-hover;
   }
 }

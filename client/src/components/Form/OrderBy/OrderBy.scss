@@ -13,6 +13,7 @@
     border-radius: 5px;
     width: calc(250px - 2 * main.$border-size);
     display: flex;
+    text-align: center;
 
     .recent,
     .popular {

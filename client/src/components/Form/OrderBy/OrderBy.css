@@ -31,6 +31,7 @@ li {
   border-radius: 5px;
   width: 247px;
   display: flex;
+  text-align: center;
 }
 .order-by__btn .recent,
 .order-by__btn .popular {
