@@ -4,7 +4,7 @@ import App from "./App.tsx";
 
 import Header from "./components/Header/Header.tsx";
 import Footer from "./components/Footer/Footer.tsx";
-import Sidebar from "./components/SidebarComponents/Sidebar";
+import Sidebar from "./components/SidebarComponents/Sidebar.tsx";
 
 import "./main.css";
 

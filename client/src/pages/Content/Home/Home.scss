@@ -1,0 +1,35 @@
+@use "./../../../main.scss" as main;
+
+.home {
+  width: calc(100% - 2 * 2%);
+  max-width: 1200px;
+  margin: auto;
+  padding: 5% 2%;
+
+  &__image-list {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0;
+
+    li {
+      width: 23%;
+      max-width: 280px;
+      min-width: 180px;
+      height: auto;
+      margin-bottom: 4rem;
+    }
+
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      width: 23%;
+    }
+
+    &::before {
+      order: 1;
+    }
+  }
+}

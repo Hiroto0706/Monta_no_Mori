@@ -1,11 +1,13 @@
 @use "./../../main" as main;
 
 $form-margin-x: 12.5%;
-$form-margin-y: 7.5%;
+$form-margin-y: 5%;
 
 .form {
   display: block;
-  margin: $form-margin-y $form-margin-x;
+  margin: $form-margin-y auto 0 auto;
+  width: calc(100% - 2 * $form-margin-x - 2 * main.$border-size);
+  max-width: 1100px;
   padding: 3%;
   border: main.$border-size solid main.$border-line-color;
   border-radius: 10px;

@@ -1,6 +1,12 @@
 body {
   margin: 0;
   background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
 }
 
 #root {
@@ -8,7 +14,7 @@ body {
 }
 
 .contents {
-  padding: 5rem 0 5rem clamp(248.5px, 20vw, 298.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 

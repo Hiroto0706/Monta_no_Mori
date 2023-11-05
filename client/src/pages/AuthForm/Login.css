@@ -1,6 +1,12 @@
 body {
   margin: 0;
   background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
 }
 
 #root {
@@ -8,13 +14,15 @@ body {
 }
 
 .contents {
-  padding: 5rem 0 5rem clamp(248.5px, 20vw, 298.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 298.5px);
   z-index: 10;
 }
 
 .form {
   display: block;
-  margin: 7.5% 12.5%;
+  margin: 5% auto 0 auto;
+  width: calc(75% - 3px);
+  max-width: 1100px;
   padding: 3%;
   border: 1.5px solid #afafaf;
   border-radius: 10px;

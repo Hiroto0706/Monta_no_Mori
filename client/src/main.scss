@@ -8,13 +8,16 @@ $border-line-color: #afafaf;
 
 $side-max-width: 300px;
 $side-min-width: 250px;
+$header-height: 4rem;
 
 body {
   margin: 0;
   background-color: $base-bgcolor;
+  color: $base-font-color;
 }
 
-ul {
+ul,
+li {
   list-style: none;
 }
 
@@ -23,7 +26,7 @@ ul {
 }
 
 .contents {
-  padding: 5rem 0 5rem
+  padding: $header-height 0 0
     clamp(
       calc($side-min-width - $border-size),
       20vw,
