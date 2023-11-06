@@ -1,5 +1,5 @@
 @use "./../../../main.scss" as main;
-@use "./../../SidebarComponents/Sidebar.scss" as sidebar;
+@use "./../../SidebarComponents/Sidebar/Sidebar.scss" as sidebar;
 
 .modal-image__overlay {
   position: fixed;

@@ -10,6 +10,7 @@ $header-top-padding: 0.5rem;
   height: calc(main.$header-height - 2 * $header-top-padding);
   position: fixed;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   z-index: 100;
   box-shadow: -10px -6px 3px 10px rgba(0, 0, 0, 0.2);

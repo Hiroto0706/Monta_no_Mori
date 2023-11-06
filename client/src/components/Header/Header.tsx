@@ -1,5 +1,7 @@
 import React from "react";
 
+import Search from "./../Form/Search/Search";
+
 import "./Header.css";
 
 export default function Header() {
@@ -10,6 +12,7 @@ export default function Header() {
           <img src="public/monta_no_mori_logo.svg" />
         </a>
       </div>
+      <Search />
       <button className="header__favorite">
         <img src="public/heart-icon.png" />
         <p>Favorite</p>

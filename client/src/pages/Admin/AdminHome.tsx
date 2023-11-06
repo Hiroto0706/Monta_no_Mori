@@ -10,21 +10,27 @@ export default function Login() {
           <h2>Admin画面</h2>
 
           <div className="admin-component__inner__contents">
-            <button>
-              {" "}
-              <img src="public/image-icon.png" />
-              Image
-            </button>
-            <button>
-              {" "}
-              <img src="public/image-icon.png" />
-              Type
-            </button>
-            <button>
-              {" "}
-              <img src="public/image-icon.png" />
-              Category
-            </button>
+            <a href="/admin">
+              <button>
+                {" "}
+                <img src="public/image-icon.png" />
+                Image
+              </button>
+            </a>
+            <a href="/admin">
+              <button>
+                {" "}
+                <img src="public/image-icon.png" />
+                Type
+              </button>
+            </a>
+            <a href="/admin">
+              <button>
+                {" "}
+                <img src="public/image-icon.png" />
+                Category
+              </button>
+            </a>
           </div>
 
           <button className="logout">
