@@ -29,19 +29,19 @@ const Sidebar: React.FC = () => {
             <a href="" className="type-link">
               <EllipsisText text="Image" maxLength={maxLength} />{" "}
               <div>
-                <img src="public/pc-img.png" />
+                <img src="/public/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
               <EllipsisText text="Type" maxLength={maxLength} />{" "}
               <div>
-                <img src="public/pc-img.png" />
+                <img src="/public/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
               <EllipsisText text="Category" maxLength={maxLength} />{" "}
               <div>
-                <img src="public/pc-img.png" />
+                <img src="/public/pc-img.png" />
               </div>
             </a>
           </div>
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
           <a href="" className="type-link logout">
             <EllipsisText text="LOGOUT" maxLength={maxLength} />{" "}
             <div>
-              <img src="public/logout-icon.png" />
+              <img src="/public/logout-icon.png" />
             </div>
           </a>
         </div>

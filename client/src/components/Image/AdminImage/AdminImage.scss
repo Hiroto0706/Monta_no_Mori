@@ -1,0 +1,89 @@
+@use "./../../../main.scss" as main;
+@use "./../../SidebarComponents/Sidebar/Sidebar.scss" as sidebar;
+
+.admin-image-box {
+  display: flex;
+  width: calc(100% - 2 * 0.75rem);
+  max-width: none;
+  min-width: none;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  border-radius: 10px;
+  transition: all 0.3s;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &__img {
+    width: calc(15% - 2 * 0.5rem);
+    min-width: calc(120px - 2 * main.$border-size - 2 * 0.5rem);
+    max-width: calc(145px - 2 * main.$border-size - 2 * 0.5rem);
+    height: auto;
+    min-height: calc(120px - 2 * main.$border-size - 2 * 0.5rem);
+    max-height: calc(145px - 2 * main.$border-size - 2 * 0.5rem);
+    background-color: white;
+    border: main.$border-size solid main.$border-line-color;
+    border-radius: 10px;
+    padding: 0.5rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      vertical-align: bottom;
+    }
+  }
+
+  &__title {
+    margin-left: 0.5rem;
+    display: block;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .type {
+      margin-bottom: calc(0.5rem + 2 * sidebar.$type-btn-line-size);
+      display: flex;
+      align-items: center;
+      text-align: center; /* テキストを中央揃えにする場合に使用 */
+
+      span {
+        background-color: sidebar.$type-btn-bgcolor;
+        border: sidebar.$type-btn-line-color solid sidebar.$type-btn-line-size;
+        padding: 0.15rem 1rem;
+        border-radius: 15px;
+
+        display: flex;
+        align-items: center; /* 縦方向の中央揃え */
+        justify-content: center; /* 横方向の中央揃え */
+
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    .category {
+      display: flex;
+      flex-wrap: wrap;
+
+      span {
+        background-color: white;
+        padding: 0.15rem 0.75rem;
+        border-radius: 15px;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        border: 1px solid main.$border-line-color;
+      }
+    }
+  }
+}

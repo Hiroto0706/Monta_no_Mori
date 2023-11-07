@@ -14,17 +14,17 @@ li {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
 .admin-component {
-  padding: 4rem;
+  padding: 2rem;
 }
 .admin-component__inner {
   background-color: rgba(255, 255, 255, 0.5);
   border: 1.5px solid #afafaf;
-  padding: 3rem;
+  padding: 1rem 1.5rem;
   border-radius: 10px;
 }
 .admin-component__inner h2 {

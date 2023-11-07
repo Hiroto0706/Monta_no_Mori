@@ -1,12 +1,12 @@
-@use "./../../main.scss" as main;
+@use "./../../../main.scss" as main;
 
 .admin-component {
-  padding: 4rem;
+  padding: 2rem;
 
   &__inner {
     background-color: rgba(255, 255, 255, 0.5);
     border: main.$border-size solid main.$border-line-color;
-    padding: 3rem;
+    padding: 1rem 1.5rem;
     border-radius: 10px;
 
     h2 {
