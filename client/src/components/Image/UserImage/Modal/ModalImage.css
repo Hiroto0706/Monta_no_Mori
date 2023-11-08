@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
@@ -22,7 +22,7 @@ li {
   background-color: white;
   width: calc(20vw - 1.5px);
   min-width: 248.5px;
-  max-width: 298.5px;
+  max-width: 278.5px;
   height: 100vh;
   overflow: auto;
   position: fixed;
@@ -80,18 +80,19 @@ li {
   height: auto;
 }
 .type-link:hover {
-  background-color: #d9d9d9;
+  background-color: #dfdfdf;
 }
 
 .category-link {
   font-size: 0.85rem;
   display: inline-block;
-  padding: 0.35rem 0.5rem;
+  padding: 0.35rem 0.75rem;
   margin-right: 0.5rem;
-  background-color: #e6e6e6;
+  background-color: white;
+  border: 1.25px solid #afafaf;
 }
 .category-link:hover {
-  background-color: #cbcbcb;
+  background-color: #f0f0f0;
 }
 
 .modal-image__overlay {
@@ -112,7 +113,7 @@ li {
   position: relative;
   display: flex;
   width: calc(850px - 4rem);
-  height: 45%;
+  height: 80%;
   max-height: calc(450px - 4rem);
   background-color: white;
   padding: 2rem;
@@ -195,7 +196,7 @@ li {
   padding-right: 0.5rem;
 }
 .modal-image__content__desc .type .type-link-modal:hover {
-  background-color: #d9d9d9;
+  background-color: #dfdfdf;
 }
 .modal-image__content__desc .category {
   margin-bottom: 2rem;

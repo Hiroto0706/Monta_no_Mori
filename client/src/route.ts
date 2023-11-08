@@ -1,7 +1,8 @@
 import Home from "./pages/Content/Home/Home";
 import About from "./pages/Content/About";
 import Detail from "./pages/Content/Detail";
-import Admin from "./pages/Admin/AdminHome";
+import AdminHome from "./pages/Admin/AdminHome/AdminHome";
+import AdminImage from "./pages/Admin/AdminImage/AdminImage";
 import NotFound from "./pages/Content/NotFound";
 
 import Login from "./pages/Login/Login";
@@ -40,8 +41,13 @@ const routes: RouteType[] = [
   },
   {
     path: "/admin",
-    component: Admin,
-    name: "Admin",
+    component: AdminHome,
+    name: "AdminHome",
+  },
+  {
+    path: "/admin/image",
+    component: AdminImage,
+    name: "AdminImage",
   },
   {
     path: "/*",

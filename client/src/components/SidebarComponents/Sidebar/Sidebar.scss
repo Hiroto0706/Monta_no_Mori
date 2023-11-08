@@ -1,19 +1,19 @@
-@use "./../../main.scss" as main;
+@use "./../../../main.scss" as main;
 
 $padding-x: 1rem;
 
 $type-btn-font-color: #646464;
 $type-btn-line-color: #afafaf;
 $type-btn-bgcolor: #f4f4f4;
-$type-btn-bgcolor-hover: #d9d9d9;
+$type-btn-bgcolor-hover: #dfdfdf;
 $type-btn-padding-x: 0.5rem;
 $type-btn-padding-y: 0.25rem;
 $type-btn-line-size: 1.25px;
 
-$category-btn-padding-x: 0.5rem;
+$category-btn-padding-x: 0.75rem;
 $category-btn-padding-y: 0.35rem;
-$category-btn-bgcolor: #e6e6e6;
-$category-btn-bgcolor-hover: #cbcbcb;
+$category-btn-bgcolor: white;
+$category-btn-bgcolor-hover: #f0f0f0;
 
 .sidebar {
   background-color: white;
@@ -104,6 +104,9 @@ $category-btn-bgcolor-hover: #cbcbcb;
   margin-right: 0.5rem;
 
   background-color: $category-btn-bgcolor;
+  border: $type-btn-line-size solid $type-btn-line-color;
+
+  position: relative;
 
   &:hover {
     background-color: $category-btn-bgcolor-hover;

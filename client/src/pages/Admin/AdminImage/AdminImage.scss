@@ -1,0 +1,20 @@
+@use "./../../../main.scss" as main;
+
+.admin-component {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      background-color: main.$main-bgcolor;
+      color: main.$main-font-color;
+      font-weight: bold;
+      padding: 0 1rem;
+    }
+  }
+
+  &__image-list {
+    padding: 0;
+    width: 100%;
+  }
+}

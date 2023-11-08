@@ -17,7 +17,10 @@ export default function Login() {
         <br />
         <input type="password" name="password" required />
 
-        <button>LOGIN</button>
+        <button>
+          <img src="public/login-icon.png" />
+          LOGIN
+        </button>
       </form>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import ModalImage from "./Modal/ModalImage";
-import { EllipsisText } from "../SidebarComponents/Sidebar";
+import { EllipsisText } from "../../SidebarComponents/Sidebar/Sidebar";
 import "./Image.css";
 
 const Image: React.FC = () => {
@@ -21,17 +21,16 @@ const Image: React.FC = () => {
   return (
     <li className="image-box" onClick={() => toggleOpenModal()}>
       <div className="image-box__img">
-        <img src="public/monta_no_mori_icon.png" alt="喜ぶ犬" />
+        <img src="/public/monta_no_mori_icon.png" alt="喜ぶ犬" />
       </div>
       <div className="image-box__title">
         <h3>
-          <EllipsisText
-            text="もんたの森"
-            maxLength={imageTitleMaxLength}
-          />
+          <EllipsisText text="もんたの森" maxLength={imageTitleMaxLength} />
         </h3>
         <img
-          src={isLiked ? "public/heart-icon_1.png" : "public/heart-icon_0.png"}
+          src={
+            isLiked ? "/public/heart-icon_1.png" : "/public/heart-icon_0.png"
+          }
           onClick={(e) => {
             toggleLike(isLiked);
             e.stopPropagation();
@@ -41,7 +40,7 @@ const Image: React.FC = () => {
 
       {isModalVisible && (
         <ModalImage
-          src="public/monta_no_mori_icon.png"
+          src="/public/monta_no_mori_icon.png"
           title="もんたの森"
           toggleOpenModal={() => toggleOpenModal()}
         />

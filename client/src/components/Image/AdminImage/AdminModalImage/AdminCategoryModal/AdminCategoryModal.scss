@@ -1,0 +1,60 @@
+@use "./../../../../../main.scss" as main;
+
+.category-modal {
+  position: absolute;
+  bottom: -100px;
+  left: 75px;
+  width: 150px;
+  height: auto;
+  max-height: 180px;
+  background-color: white;
+  border: main.$border-line-color solid 1px;
+  padding: 0.5rem;
+  cursor: default;
+  overflow: hidden;
+  z-index: 1002;
+  border-radius: 2.5px;
+  box-shadow: 3px 4px 3px 0px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  ul {
+    padding: 0;
+    overflow-y: scroll;
+    width: 100%;
+    height: 150px;
+    background-color: #f6f6f6;
+
+    li {
+      padding: 0.15rem 0.5rem;
+      cursor: pointer;
+      border-bottom: solid 0.5px main.$border-line-color;
+
+      &:hover {
+        background-color: #eaeaea;
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import { EllipsisText } from "../../SidebarComponents/Sidebar";
+import { EllipsisText } from "../../../SidebarComponents/Sidebar/Sidebar";
 
 import "./ModalImage.css";
-import "./../../SidebarComponents/Sidebar.css";
+import "./../../../SidebarComponents/Sidebar/Sidebar.css";
 
 interface ModalImageProps {
   src: string;
@@ -29,7 +29,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={toggleOpenModal} className="cancel">
-          <img src="public/cancel-icon.png" />
+          <img src="/public/cancel-icon.png" />
         </button>
 
         <div className="modal-image__content__img">
@@ -41,7 +41,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
             <h2>{title} </h2>
             <img
               src={
-                isLiked ? "public/heart-icon_1.png" : "public/heart-icon_0.png"
+                isLiked ? "/public/heart-icon_1.png" : "/public/heart-icon_0.png"
               }
               onClick={(e) => {
                 toggleLike(isLiked);
@@ -53,7 +53,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
           <div className="type">
             <h3>Type</h3>
             <a href="" className="type-link-modal">
-              <img src="public/pc-img.png" />
+              <img src="/public/pc-img.png" />
               <EllipsisText
                 text="テストテストテストテストテストテストテスト"
                 maxLength={100}
@@ -91,11 +91,11 @@ const ModalImage: React.FC<ModalImageProps> = ({
 
           <div className="modal-image__content__desc__button">
             <button className="download">
-              <img src="public/download-icon.png" />
+              <img src="/public/download-icon.png" />
               Download
             </button>
             <button className="copy">
-              <img src="public/copy-icon.png" />
+              <img src="/public/copy-icon.png" />
               Copy
             </button>
           </div>

@@ -32,7 +32,7 @@ const Sidebar: React.FC = () => {
                 maxLength={typeMaxLength}
               />{" "}
               <div>
-                <img src="public/pc-img.png" />
+                <img src="/public/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
                 maxLength={typeMaxLength}
               />{" "}
               <div>
-                <img src="public/pc-img.png" />
+                <img src="/public/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
@@ -50,7 +50,7 @@ const Sidebar: React.FC = () => {
                 maxLength={typeMaxLength}
               />{" "}
               <div>
-                <img src="public/pc-img.png" />
+                <img src="/public/pc-img.png" />
               </div>
             </a>
           </div>

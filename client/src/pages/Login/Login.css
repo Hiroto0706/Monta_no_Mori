@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 298.5px);
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
@@ -54,17 +54,25 @@ li {
 .form button {
   width: 100%;
   height: auto;
-  padding: 1.45% 2%;
+  padding: 1rem 2rem;
   margin-top: 2rem;
   background-color: #4caf50;
   border: none;
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   border-radius: 5px;
   letter-spacing: 0.5rem;
   transition: all 0.1s;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form button img {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.75rem;
 }
 .form button:hover {
-  opacity: 0.9;
+  opacity: 0.75;
 }/*# sourceMappingURL=Login.css.map */

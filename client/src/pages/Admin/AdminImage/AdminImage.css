@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+
+.admin-component__title {
+  display: flex;
+  justify-content: space-between;
+}
+.admin-component__title button {
+  background-color: #4caf50;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 0 1rem;
+}
+.admin-component__image-list {
+  padding: 0;
+  width: 100%;
+}/*# sourceMappingURL=AdminImage.css.map */

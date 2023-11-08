@@ -1,0 +1,21 @@
+@use "./../../../main.scss" as main;
+
+.sidebar {
+  &__inner.admin {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - main.$header-height - 0.5rem);
+    padding-bottom: 0.5rem;
+
+    .type-link.logout {
+      color: white;
+      background-color: #ff3e49;
+      border: none;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+}

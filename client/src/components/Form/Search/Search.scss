@@ -1,5 +1,5 @@
 @use "./../../../main.scss" as main;
-@use "./../../SidebarComponents/Sidebar.scss" as sidebar;
+@use "./../../SidebarComponents/Sidebar/Sidebar.scss" as sidebar;
 
 $padding-search-box-x: 1.5rem;
 $padding-search-box-y: 0.45rem;
@@ -8,12 +8,10 @@ $search-border-radius: 0px;
 
 .search {
   width: 50%;
-  min-width: 450px;
-  height: auto;
+  min-width: 390px;
+  max-width: 550px;
+  height: 40px;
   display: flex;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-  box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.2);
   background-color: transparent;
 
   button {
@@ -42,7 +40,7 @@ $search-border-radius: 0px;
     img {
       width: 20px;
       height: 20px;
-      padding-left: 0.25rem;
+      padding-left: 0.5rem;
     }
 
     &:hover {

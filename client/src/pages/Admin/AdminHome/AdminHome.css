@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+
+.admin-component {
+  padding: 2rem;
+}
+.admin-component__inner {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid #afafaf;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+}
+.admin-component__inner h2 {
+  margin: 0;
+}
+.admin-component__inner button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+.admin-component__inner button:hover {
+  opacity: 0.75;
+}
+.admin-component__inner__contents {
+  margin-bottom: 10rem;
+  margin-top: 2rem;
+}
+.admin-component__inner__contents button {
+  width: 100%;
+  padding: 1.125rem 2rem;
+  min-width: 200px;
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+  border: solid 1.5px #4caf50;
+  color: #4caf50;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.admin-component__inner__contents button img {
+  width: 30px;
+  height: 30px;
+  margin-right: 1.5rem;
+}
+.admin-component__inner .logout {
+  width: 100%;
+  color: white;
+  background-color: #ff3e49;
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5rem;
+}
+.admin-component__inner .logout img {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.75rem;
+}/*# sourceMappingURL=AdminHome.css.map */

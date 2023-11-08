@@ -1,0 +1,73 @@
+@use "./../../../main.scss" as main;
+
+.admin-component {
+  padding: 2rem;
+
+  &__inner {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: main.$border-size solid main.$border-line-color;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+
+    h2 {
+      margin: 0;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+
+    &__contents {
+      margin-bottom: 10rem;
+      margin-top: 2rem;
+
+      button {
+        width: calc(100%);
+        padding: 1.125rem 2rem;
+        min-width: 200px;
+        margin-bottom: 1.5rem;
+
+        background-color: transparent;
+        border: solid main.$border-size main.$main-bgcolor;
+        color: main.$main-bgcolor;
+        font-size: 1.4rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: left;
+
+        img {
+          width: 30px;
+          height: 30px;
+          margin-right: 1.5rem;
+        }
+      }
+    }
+
+    .logout {
+      width: 100%;
+      color: white;
+      background-color: #ff3e49;
+      font-size: 1.4rem;
+      padding: 1rem 2rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      letter-spacing: 0.5rem;
+
+      img {
+        width: 30px;
+        height: 30px;
+        margin-right: 0.75rem;
+      }
+    }
+  }
+}
