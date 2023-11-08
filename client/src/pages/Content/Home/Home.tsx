@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "./../../../components/Image/Image";
+import Image from "../../../components/Image/UserImage/Image";
 import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";

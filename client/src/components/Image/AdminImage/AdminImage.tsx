@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import ModalImage from "./../Modal/ModalImage";
+import ModalImage from "./AdminModalImage/AdminModalImage";
 import { EllipsisText } from "./../../SidebarComponents/Sidebar/Sidebar";
 
 import "./AdminImage.css";

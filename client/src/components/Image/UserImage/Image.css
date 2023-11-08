@@ -44,7 +44,7 @@ li {
   width: 100%;
   height: auto;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   vertical-align: bottom;
 }
 .image-box__title {
@@ -63,4 +63,4 @@ li {
   display: block;
   margin: auto 0;
   cursor: pointer;
-}/*# sourceMappingURL=Image.css.map */
+} /*# sourceMappingURL=Image.css.map */

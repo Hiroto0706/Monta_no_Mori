@@ -9,7 +9,10 @@ export default function AdminImage() {
     <>
       <div className="admin-component">
         <div className="admin-component__inner admin">
-          <h2>Image List</h2>
+          <div className="admin-component__title">
+            <h2>Image List</h2>
+            <button>+ Add Image</button>
+          </div>
           <ul className="admin-component__image-list">
             <Image />
             <Image />

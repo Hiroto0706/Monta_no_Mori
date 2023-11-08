@@ -86,10 +86,11 @@ li {
 .category-link {
   font-size: 0.85rem;
   display: inline-block;
-  padding: 0.35rem 0.5rem;
+  padding: 0.35rem 0.75rem;
   margin-right: 0.5rem;
-  background-color: #e6e6e6;
+  background-color: white;
+  border: 1.25px solid #afafaf;
 }
 .category-link:hover {
-  background-color: #d1d1d1;
+  background-color: #f0f0f0;
 }/*# sourceMappingURL=Sidebar.css.map */

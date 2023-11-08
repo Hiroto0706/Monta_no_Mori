@@ -10,10 +10,10 @@ $type-btn-padding-x: 0.5rem;
 $type-btn-padding-y: 0.25rem;
 $type-btn-line-size: 1.25px;
 
-$category-btn-padding-x: 0.5rem;
+$category-btn-padding-x: 0.75rem;
 $category-btn-padding-y: 0.35rem;
-$category-btn-bgcolor: #e6e6e6;
-$category-btn-bgcolor-hover: #d1d1d1;
+$category-btn-bgcolor: white;
+$category-btn-bgcolor-hover: #f0f0f0;
 
 .sidebar {
   background-color: white;
@@ -104,6 +104,7 @@ $category-btn-bgcolor-hover: #d1d1d1;
   margin-right: 0.5rem;
 
   background-color: $category-btn-bgcolor;
+  border: $type-btn-line-size solid $type-btn-line-color;
 
   &:hover {
     background-color: $category-btn-bgcolor-hover;

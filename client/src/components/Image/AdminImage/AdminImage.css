@@ -87,21 +87,22 @@ li {
 .category-link {
   font-size: 0.85rem;
   display: inline-block;
-  padding: 0.35rem 0.5rem;
+  padding: 0.35rem 0.75rem;
   margin-right: 0.5rem;
-  background-color: #e6e6e6;
+  background-color: white;
+  border: 1.25px solid #afafaf;
 }
 .category-link:hover {
-  background-color: #d1d1d1;
+  background-color: #f0f0f0;
 }
 
 .admin-image-box {
   display: flex;
-  width: calc(100% - 1.5rem);
+  width: calc(100% - 1rem);
   max-width: none;
   min-width: none;
   padding: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-radius: 10px;
   transition: all 0.3s;
   cursor: pointer;
