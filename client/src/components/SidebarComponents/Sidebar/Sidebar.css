@@ -90,6 +90,7 @@ li {
   margin-right: 0.5rem;
   background-color: white;
   border: 1.25px solid #afafaf;
+  position: relative;
 }
 .category-link:hover {
   background-color: #f0f0f0;

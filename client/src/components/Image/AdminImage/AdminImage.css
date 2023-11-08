@@ -91,6 +91,7 @@ li {
   margin-right: 0.5rem;
   background-color: white;
   border: 1.25px solid #afafaf;
+  position: relative;
 }
 .category-link:hover {
   background-color: #f0f0f0;
@@ -111,12 +112,11 @@ li {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .admin-image-box__img {
-  width: calc(15% - 1rem);
-  min-width: calc(117px - 1rem);
-  max-width: calc(142px - 1rem);
-  height: auto;
-  min-height: calc(117px - 1rem);
-  max-height: calc(142px - 1rem);
+  width: calc(10% - 1rem);
+  min-width: calc(97px - 1rem);
+  max-width: calc(97px - 1rem);
+  min-height: calc(97px - 1rem);
+  max-height: calc(97px - 1rem);
   background-color: white;
   border: 1.5px solid #afafaf;
   border-radius: 10px;
@@ -160,6 +160,7 @@ li {
 .admin-image-box__title .category {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 .admin-image-box__title .category span {
   background-color: white;

@@ -19,12 +19,11 @@
   }
 
   &__img {
-    width: calc(15% - 2 * 0.5rem);
-    min-width: calc(120px - 2 * main.$border-size - 2 * 0.5rem);
-    max-width: calc(145px - 2 * main.$border-size - 2 * 0.5rem);
-    height: auto;
-    min-height: calc(120px - 2 * main.$border-size - 2 * 0.5rem);
-    max-height: calc(145px - 2 * main.$border-size - 2 * 0.5rem);
+    width: calc(10% - 2 * 0.5rem);
+    min-width: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
+    max-width: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
+    min-height: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
+    max-height: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
     background-color: white;
     border: main.$border-size solid main.$border-line-color;
     border-radius: 10px;
@@ -74,6 +73,7 @@
     .category {
       display: flex;
       flex-wrap: wrap;
+      position: relative;
 
       span {
         background-color: white;

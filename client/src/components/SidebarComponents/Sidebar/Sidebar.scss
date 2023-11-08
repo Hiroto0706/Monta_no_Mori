@@ -106,6 +106,8 @@ $category-btn-bgcolor-hover: #f0f0f0;
   background-color: $category-btn-bgcolor;
   border: $type-btn-line-size solid $type-btn-line-color;
 
+  position: relative;
+
   &:hover {
     background-color: $category-btn-bgcolor-hover;
   }

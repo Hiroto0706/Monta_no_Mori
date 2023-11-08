@@ -90,6 +90,7 @@ li {
   margin-right: 0.5rem;
   background-color: white;
   border: 1.25px solid #afafaf;
+  position: relative;
 }
 .category-link:hover {
   background-color: #f0f0f0;
@@ -138,6 +139,12 @@ li {
 }
 .modal-image__content__desc .type .selectbox select:focus {
   border: 1.25px solid #afafaf;
+}
+.modal-image__content__desc .category {
+  position: relative;
+}
+.modal-image__content__desc .category .category-link {
+  position: relative;
 }
 .modal-image__content__desc__button .download.delete {
   background-color: #ff3e48;

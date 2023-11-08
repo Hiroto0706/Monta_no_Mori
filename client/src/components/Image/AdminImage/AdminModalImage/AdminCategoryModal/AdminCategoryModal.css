@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+
+.category-modal {
+  position: absolute;
+  bottom: -100px;
+  left: 75px;
+  width: 150px;
+  height: auto;
+  max-height: 180px;
+  background-color: white;
+  border: #afafaf solid 1px;
+  padding: 0.5rem;
+  cursor: default;
+  overflow: hidden;
+  z-index: 1002;
+  border-radius: 2.5px;
+  box-shadow: 3px 4px 3px 0px rgba(0, 0, 0, 0.1);
+}
+.category-modal h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.category-modal h4 span {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.category-modal h4 span img {
+  width: 100%;
+  height: auto;
+}
+.category-modal h4 span:hover {
+  opacity: 0.8;
+}
+.category-modal ul {
+  padding: 0;
+  overflow-y: scroll;
+  width: 100%;
+  height: 150px;
+  background-color: #f6f6f6;
+}
+.category-modal ul li {
+  padding: 0.15rem 0.5rem;
+  cursor: pointer;
+  border-bottom: solid 0.5px #afafaf;
+}
+.category-modal ul li:hover {
+  background-color: #eaeaea;
+}/*# sourceMappingURL=AdminCategoryModal.css.map */

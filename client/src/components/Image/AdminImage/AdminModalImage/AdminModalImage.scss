@@ -49,6 +49,14 @@
     }
   }
 
+  .category {
+    position: relative;
+
+    .category-link {
+      position: relative;
+    }
+  }
+
   &__button {
     .download.delete {
       background-color: #ff3e48;

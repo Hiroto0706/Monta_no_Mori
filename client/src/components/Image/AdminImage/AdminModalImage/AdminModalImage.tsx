@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import AdminCategoryModal from "./AdminCategoryModal";
+import AdminCategoryModal from "./AdminCategoryModal/AdminCategoryModal";
 import { EllipsisText } from "../../../SidebarComponents/Sidebar/Sidebar";
 
 import "./AdminModalImage.css";
@@ -38,13 +38,14 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
 
         <div className="modal-image__content__desc">
           <div className="type">
-            <input />
+            <input value={title} placeholder="title" />
           </div>
 
           <div className="type">
             <h3>Type</h3>
             <label className="selectbox">
               <select>
+                <option>-- Select Type --</option>
                 <option>optionの例1</option>
                 <option>optionの例2</option>
                 <option>optionの例3</option>
@@ -78,13 +79,20 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
               #
               <EllipsisText text="テストテストテスト" maxLength={100} />
             </a>
+            <a href="" className="category-link">
+              #
+              <EllipsisText text="テストテストテスト" maxLength={100} />
+            </a>
+            <a href="" className="category-link">
+              #
+              <EllipsisText text="テストテストテスト" maxLength={100} />
+            </a>
             <span className="category-link add" onClick={handleCategoryModal}>
               + ADD
+              {isCategoryModalOpen && (
+                <AdminCategoryModal onClose={handleCategoryModal} />
+              )}
             </span>
-
-            {isCategoryModalOpen && (
-              <AdminCategoryModal onClose={handleCategoryModal} />
-            )}
           </div>
 
           <div className="modal-image__content__desc__button">
