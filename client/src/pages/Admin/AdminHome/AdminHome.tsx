@@ -17,7 +17,7 @@ export default function AdminHome() {
                 Image
               </button>
             </a>
-            <a href="/admin">
+            <a href="/admin/type">
               <button>
                 {" "}
                 <img src="/public/image-icon.png" />

@@ -26,19 +26,19 @@ const Sidebar: React.FC = () => {
         <div className="sidebar__inner admin">
           <div className="sidebar__inner__type">
             <h3>Menu</h3>
-            <a href="" className="type-link">
+            <a href="/admin/image" className="type-link">
               <EllipsisText text="Image" maxLength={maxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />
               </div>
             </a>
-            <a href="" className="type-link">
+            <a href="/admin/type" className="type-link">
               <EllipsisText text="Type" maxLength={maxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />
               </div>
             </a>
-            <a href="" className="type-link">
+            <a href="/admin" className="type-link">
               <EllipsisText text="Category" maxLength={maxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />

@@ -20,10 +20,10 @@
 
   &__img {
     width: calc(10% - 2 * 0.5rem);
-    min-width: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
-    max-width: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
-    min-height: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
-    max-height: calc(100px - 2 * main.$border-size - 2 * 0.5rem);
+    min-width: calc(105px - 2 * main.$border-size - 2 * 0.5rem);
+    max-width: calc(105px - 2 * main.$border-size - 2 * 0.5rem);
+    min-height: calc(105px - 2 * main.$border-size - 2 * 0.5rem);
+    max-height: calc(105px - 2 * main.$border-size - 2 * 0.5rem);
     background-color: white;
     border: main.$border-size solid main.$border-line-color;
     border-radius: 10px;

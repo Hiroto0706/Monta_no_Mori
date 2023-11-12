@@ -1,4 +1,3 @@
-@charset "UTF-8";
 body {
   margin: 0;
   background-color: #f2f2f2;
@@ -97,77 +96,30 @@ li {
   background-color: #f0f0f0;
 }
 
-.admin-image-box {
-  display: flex;
-  width: calc(100% - 1rem);
-  max-width: none;
-  min-width: none;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-.admin-image-box:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.admin-image-box__img {
-  width: calc(10% - 1rem);
-  min-width: calc(102px - 1rem);
-  max-width: calc(102px - 1rem);
-  min-height: calc(102px - 1rem);
-  max-height: calc(102px - 1rem);
-  background-color: white;
-  border: 1.5px solid #afafaf;
-  border-radius: 10px;
-  padding: 0.5rem;
-}
-.admin-image-box__img img {
-  width: 100%;
-  height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
-  vertical-align: bottom;
-}
-.admin-image-box__title {
-  margin-left: 0.5rem;
-  display: block;
-}
-.admin-image-box__title h3 {
-  margin-top: 0;
+.admin-component__image-list .type-list {
+  padding: 0.25rem 1rem;
+  background-color: #f4f4f4;
+  border: solid #afafaf 1.25px;
+  border-radius: 20px;
+  margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-}
-.admin-image-box__title .type {
-  margin-bottom: calc(0.5rem + 2.5px);
+  cursor: pointer;
   display: flex;
   align-items: center;
-  text-align: center; /* テキストを中央揃えにする場合に使用 */
 }
-.admin-image-box__title .type span {
-  background-color: #f4f4f4;
-  border: #afafaf solid 1.25px;
-  padding: 0.15rem 1rem;
-  border-radius: 15px;
-  display: flex;
-  align-items: center; /* 縦方向の中央揃え */
-  justify-content: center; /* 横方向の中央揃え */
-}
-.admin-image-box__title .type span img {
+.admin-component__image-list .type-list img {
   width: 20px;
   height: 20px;
   margin-right: 0.5rem;
 }
-.admin-image-box__title .category {
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
+.admin-component__image-list .type-list:hover {
+  background-color: #dfdfdf;
 }
-.admin-image-box__title .category span {
-  background-color: white;
-  padding: 0.15rem 0.75rem;
-  border-radius: 15px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  border: 1px solid #afafaf;
-}/*# sourceMappingURL=AdminImage.css.map */
+.admin-component__image-list .type-list.add {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+}
+.admin-component__image-list .type-list.add:hover {
+  opacity: 0.8;
+}/*# sourceMappingURL=AdminTypeList.css.map */
