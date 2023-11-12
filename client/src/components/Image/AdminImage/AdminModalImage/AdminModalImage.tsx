@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import AdminCategoryModal from "./AdminCategoryModal/AdminCategoryModal";
-import { EllipsisText } from "../../../SidebarComponents/Sidebar/Sidebar";
+import { EllipsisText } from "../../../Sidebar/UserSidebar/Sidebar";
 
 import "./AdminModalImage.css";
 

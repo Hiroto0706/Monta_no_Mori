@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
@@ -22,7 +22,7 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100% - 5rem - 0.5rem);
+  height: calc(100% - 4rem - 0.5rem);
   padding-bottom: 0.5rem;
 }
 .sidebar__inner.admin .type-link.logout {

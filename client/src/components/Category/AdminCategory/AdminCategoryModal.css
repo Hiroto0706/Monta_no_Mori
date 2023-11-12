@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
@@ -32,7 +32,7 @@ li {
 }
 .sidebar__inner {
   width: calc(100% - 2rem);
-  padding-top: 5rem;
+  padding-top: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -84,7 +84,7 @@ li {
 }
 
 .category-link {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   display: inline-block;
   padding: 0.35rem 0.75rem;
   margin-right: 0.5rem;
@@ -94,4 +94,65 @@ li {
 }
 .category-link:hover {
   background-color: #f0f0f0;
-}/*# sourceMappingURL=Sidebar.css.map */
+}
+
+.admin-category-modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 150px;
+  position: relative;
+  cursor: default;
+}
+.admin-category-modal .cancel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+.admin-category-modal .cancel img {
+  width: 100%;
+  height: auto;
+}
+.admin-category-modal__content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.admin-category-modal__content h3 {
+  margin: 0 0 0.5rem 0;
+}
+.admin-category-modal__content input {
+  width: calc(100% - 2px - 1rem);
+  padding: 0.25rem 0.5rem;
+  border: solid 1px #afafaf;
+  border-radius: 2px;
+  font-size: 1rem;
+}
+.admin-category-modal__content .button {
+  text-align: end;
+}
+.admin-category-modal__content .button button {
+  padding: 0.5rem 1.25rem;
+  border: solid 1px #afafaf;
+  margin-left: 0.5rem;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admin-category-modal__content .button .save {
+  background-color: #4caf50;
+}
+.admin-category-modal__content .button .delete {
+  background-color: #ff3e48;
+}/*# sourceMappingURL=AdminCategoryModal.css.map */

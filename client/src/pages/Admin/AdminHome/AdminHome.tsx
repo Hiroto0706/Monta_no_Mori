@@ -7,7 +7,7 @@ export default function AdminHome() {
     <>
       <div className="admin-component">
         <div className="admin-component__inner admin">
-          <h2>Admin画面</h2>
+          <h2>Admin Home</h2>
 
           <div className="admin-component__inner__contents">
             <a href="/admin/image">
@@ -24,7 +24,7 @@ export default function AdminHome() {
                 Type
               </button>
             </a>
-            <a href="/admin">
+            <a href="/admin/category">
               <button>
                 {" "}
                 <img src="/public/image-icon.png" />
