@@ -4,6 +4,7 @@ import Detail from "./pages/Content/Detail";
 import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 import AdminImage from "./pages/Admin/AdminImage/AdminImage";
 import AdminType from "./pages/Admin/AdminType/AdminType";
+import AdminCategory from "./pages/Admin/AdminCategory/AdminCategory";
 import NotFound from "./pages/Content/NotFound";
 
 import Login from "./pages/Login/Login";
@@ -54,6 +55,11 @@ const routes: RouteType[] = [
     path: "/admin/type",
     component: AdminType,
     name: "AdminType",
+  },
+  {
+    path: "/admin/category",
+    component: AdminCategory,
+    name: "AdminCategory",
   },
   {
     path: "/*",

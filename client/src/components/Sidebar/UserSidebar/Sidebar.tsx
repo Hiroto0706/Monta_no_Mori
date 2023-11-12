@@ -27,28 +27,25 @@ const Sidebar: React.FC = () => {
           <div className="sidebar__inner__type">
             <h3>Type</h3>
             <a href="" className="type-link">
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={typeMaxLength}
-              />{" "}
+              <EllipsisText text="テストテススト" maxLength={typeMaxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={typeMaxLength}
-              />{" "}
+              <EllipsisText text="テストテストテ" maxLength={typeMaxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={typeMaxLength}
-              />{" "}
+              <EllipsisText text="テスト" maxLength={typeMaxLength} />{" "}
+              <div>
+                <img src="/public/pc-img.png" />
+              </div>
+            </a>
+            <a href="" className="type-link">
+              <EllipsisText text="テストテストテ" maxLength={typeMaxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />
               </div>
@@ -80,10 +77,23 @@ const Sidebar: React.FC = () => {
             </a>
             <a href="" className="category-link">
               #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
+              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
+            </a>
+            <a href="" className="category-link">
+              #
+              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
+            </a>
+            <a href="" className="category-link">
+              #
+              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
+            </a>
+            <a href="" className="category-link">
+              #
+              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
+            </a>
+            <a href="" className="category-link">
+              #
+              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
             </a>
             <a href="" className="category-link">
               #

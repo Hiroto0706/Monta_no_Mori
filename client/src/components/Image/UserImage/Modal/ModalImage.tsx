@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import { EllipsisText } from "../../../SidebarComponents/Sidebar/Sidebar";
+import { EllipsisText } from "../../../Sidebar/UserSidebar/Sidebar";
 
 import "./ModalImage.css";
-import "./../../../SidebarComponents/Sidebar/Sidebar.css";
+import "./../../../Sidebar/UserSidebar/Sidebar.css";
 
 interface ModalImageProps {
   src: string;

@@ -15,7 +15,7 @@ li {
 }
 
 .contents {
-  padding: 5rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
@@ -33,7 +33,7 @@ li {
 }
 .sidebar__inner {
   width: calc(100% - 2rem);
-  padding-top: 5rem;
+  padding-top: 4rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -85,7 +85,7 @@ li {
 }
 
 .category-link {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   display: inline-block;
   padding: 0.35rem 0.75rem;
   margin-right: 0.5rem;

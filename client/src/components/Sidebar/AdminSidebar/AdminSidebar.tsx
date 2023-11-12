@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./../Sidebar/Sidebar.css";
+import "./../UserSidebar/Sidebar.css";
 import "./AdminSidebar.css";
 
 interface EllipsisTextProps {
@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
                 <img src="/public/pc-img.png" />
               </div>
             </a>
-            <a href="/admin" className="type-link">
+            <a href="/admin/category" className="type-link">
               <EllipsisText text="Category" maxLength={maxLength} />{" "}
               <div>
                 <img src="/public/pc-img.png" />
@@ -46,7 +46,7 @@ const Sidebar: React.FC = () => {
             </a>
           </div>
 
-          <a href="" className="type-link logout">
+          <a href="/" className="type-link logout">
             <EllipsisText text="LOGOUT" maxLength={maxLength} />{" "}
             <div>
               <img src="/public/logout-icon.png" />

@@ -94,32 +94,4 @@ li {
 }
 .category-link:hover {
   background-color: #f0f0f0;
-}
-
-.admin-component__image-list .type-list {
-  padding: 0.25rem 1rem;
-  background-color: #f4f4f4;
-  border: solid #afafaf 1.25px;
-  border-radius: 20px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-.admin-component__image-list .type-list img {
-  width: 20px;
-  height: 20px;
-  margin-right: 0.5rem;
-}
-.admin-component__image-list .type-list:hover {
-  background-color: #dfdfdf;
-}
-.admin-component__image-list .type-list.add {
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-}
-.admin-component__image-list .type-list.add:hover {
-  opacity: 0.8;
-}/*# sourceMappingURL=AdminTypeList.css.map */
+}/*# sourceMappingURL=Sidebar.css.map */

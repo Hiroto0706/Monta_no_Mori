@@ -25,7 +25,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
           </div>
           <div className="admin-type-modal__content__desc">
             <div className="title">
-              <h3>タイトル</h3>
+              <h3>Type Name</h3>
               <input value={title} />
             </div>
 

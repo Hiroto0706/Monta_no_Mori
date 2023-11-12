@@ -7,8 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header.tsx";
 import AdminHeader from "./components/Header/AdminHeader/AdminHeader.tsx";
 import Footer from "./components/Footer/Footer.tsx";
-import Sidebar from "./components/SidebarComponents/Sidebar/Sidebar.tsx";
-import AdminSidebar from "./components/SidebarComponents/AdminSidebar/AdminSidebar.tsx";
+import Sidebar from "./components/Sidebar/UserSidebar/Sidebar.tsx";
+import AdminSidebar from "./components/Sidebar/AdminSidebar/AdminSidebar.tsx";
 
 import "./main.css";
 
