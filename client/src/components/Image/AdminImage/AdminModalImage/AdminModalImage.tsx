@@ -88,7 +88,7 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
               <EllipsisText text="テストテストテスト" maxLength={100} />
             </a>
             <span className="category-link add" onClick={handleCategoryModal}>
-              + ADD
+              {isCategoryModalOpen ? "CLOSE" : "+ ADD"}
               {isCategoryModalOpen && (
                 <AdminCategoryModal onClose={handleCategoryModal} />
               )}

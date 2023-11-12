@@ -1,0 +1,39 @@
+@use "./../../../SidebarComponents/Sidebar/Sidebar.scss" as sidebar;
+@use "./../../../../main.scss" as main;
+
+.admin-component {
+  &__image-list {
+    .type-list {
+      padding: 0.25rem 1rem;
+      background-color: sidebar.$type-btn-bgcolor;
+      border: solid sidebar.$type-btn-line-color sidebar.$type-btn-line-size;
+      border-radius: 20px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 0.5rem;
+      }
+
+      &:hover {
+        background-color: sidebar.$type-btn-bgcolor-hover;
+      }
+
+      &.add {
+        background-color: main.$main-bgcolor;
+        color: main.$main-font-color;
+        border: none;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

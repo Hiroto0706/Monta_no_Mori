@@ -10,10 +10,6 @@ export default function Header() {
           <img src="/public/monta_no_mori_admin_logo.svg" />
         </a>
       </div>
-      <button className="header__favorite">
-        <img src="/public/heart-icon.png" />
-        <p>Favorite</p>
-      </button>
     </header>
   );
 }

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 body {
   margin: 0;
   background-color: #f2f2f2;
@@ -97,77 +96,81 @@ li {
   background-color: #f0f0f0;
 }
 
-.admin-image-box {
-  display: flex;
-  width: calc(100% - 1rem);
-  max-width: none;
-  min-width: none;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-.admin-image-box:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-.admin-image-box__img {
-  width: calc(10% - 1rem);
-  min-width: calc(102px - 1rem);
-  max-width: calc(102px - 1rem);
-  min-height: calc(102px - 1rem);
-  max-height: calc(102px - 1rem);
+.admin-type-modal {
+  width: 600px;
+  height: 200px;
   background-color: white;
-  border: 1.5px solid #afafaf;
-  border-radius: 10px;
-  padding: 0.5rem;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: default;
 }
-.admin-image-box__img img {
+.admin-type-modal .cancel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+.admin-type-modal .cancel img {
   width: 100%;
   height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
-  vertical-align: bottom;
 }
-.admin-image-box__title {
-  margin-left: 0.5rem;
-  display: block;
+.admin-type-modal__content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
 }
-.admin-image-box__title h3 {
+.admin-type-modal__content__img {
+  width: 40%;
+  max-width: 200px;
+  max-height: 200px;
+  border: solid #afafaf 1.25px;
+  border-radius: 20px;
+}
+.admin-type-modal__content__img img {
+  width: calc(100% - 2rem);
+  height: auto;
+  padding: 1rem;
+}
+.admin-type-modal__content__desc {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.admin-type-modal__content__desc .title h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-.admin-image-box__title .type {
-  margin-bottom: calc(0.5rem + 2.5px);
-  display: flex;
-  align-items: center;
-  text-align: center; /* テキストを中央揃えにする場合に使用 */
+.admin-type-modal__content__desc .title input {
+  width: calc(100% - 2px - 1rem);
+  padding: 0.25rem 0.5rem;
+  border: solid 1px #afafaf;
+  border-radius: 2px;
+  font-size: 1rem;
 }
-.admin-image-box__title .type span {
-  background-color: #f4f4f4;
-  border: #afafaf solid 1.25px;
-  padding: 0.15rem 1rem;
-  border-radius: 15px;
-  display: flex;
-  align-items: center; /* 縦方向の中央揃え */
-  justify-content: center; /* 横方向の中央揃え */
+.admin-type-modal__content__desc .button {
+  text-align: end;
 }
-.admin-image-box__title .type span img {
-  width: 20px;
-  height: 20px;
-  margin-right: 0.5rem;
+.admin-type-modal__content__desc .button button {
+  padding: 0.5rem 1.25rem;
+  border: solid 1px #afafaf;
+  margin-left: 0.5rem;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
-.admin-image-box__title .category {
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
+.admin-type-modal__content__desc .button .save {
+  background-color: #4caf50;
 }
-.admin-image-box__title .category span {
-  background-color: white;
-  padding: 0.15rem 0.75rem;
-  border-radius: 15px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  border: 1px solid #afafaf;
-}/*# sourceMappingURL=AdminImage.css.map */
+.admin-type-modal__content__desc .button .delete {
+  background-color: #ff3e48;
+}/*# sourceMappingURL=AdminTypeModal.css.map */
