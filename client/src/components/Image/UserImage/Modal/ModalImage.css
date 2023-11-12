@@ -125,11 +125,11 @@ li {
 }
 .modal-image__content .cancel {
   position: absolute;
-  background-color: transparent;
   border: none;
   cursor: pointer;
   top: 8px;
   right: 8px;
+  background-color: transparent;
   width: 30px;
   height: 30px;
 }
@@ -148,6 +148,23 @@ li {
   height: 100%;
 }
 .modal-image__content__img img {
+  width: 100%;
+  height: auto;
+}
+.modal-image__content__img.default {
+  height: 100%;
+}
+.modal-image__content__img.default div {
+  width: 100%;
+  height: 60%;
+  background-color: #e5e5e5;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.modal-image__content__img.default div img {
   width: 100%;
   height: auto;
 }
@@ -204,6 +221,7 @@ li {
 }
 .modal-image__content__desc__button {
   display: flex;
+  justify-content: end;
 }
 .modal-image__content__desc__button .download,
 .modal-image__content__desc__button .copy {

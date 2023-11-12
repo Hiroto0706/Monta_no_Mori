@@ -2,9 +2,8 @@ CREATE TABLE "users" (
   "username" varchar PRIMARY KEY,
   "hashed_password" varchar NOT NULL,
   "email" varchar UNIQUE NOT NULL,
-  "created_at" timestamptz NOT NULL DEFAULT (now())
+  "created_at" timestamptz NOT NULL DEFAULT 'now()'
 );
-
 CREATE TABLE "sessions" (
   "id" uuid PRIMARY KEY,
   "username" varchar NOT NULL,
@@ -15,7 +14,6 @@ CREATE TABLE "sessions" (
   "expires_at" timestamptz NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT 'now()'
 );
-
 CREATE TABLE "images" (
   "id" bigserial PRIMARY KEY,
   "title" varchar NOT NULL,
@@ -24,7 +22,6 @@ CREATE TABLE "images" (
   "updated_at" timestamptz NOT NULL DEFAULT 'now()',
   "created_at" timestamptz NOT NULL DEFAULT 'now()'
 );
-
 CREATE TABLE "tags" (
   "id" bigserial PRIMARY KEY,
   "name" varchar NOT NULL,
@@ -32,9 +29,8 @@ CREATE TABLE "tags" (
   "updated_at" timestamptz NOT NULL DEFAULT 'now()',
   "created_at" timestamptz NOT NULL DEFAULT 'now()'
 );
-
 CREATE UNIQUE INDEX ON "tags" ("id", "image_id");
-
-ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username");
-
-ALTER TABLE "tags" ADD FOREIGN KEY ("image_id") REFERENCES "images" ("id");
+ALTER TABLE "sessions"
+ADD FOREIGN KEY ("username") REFERENCES "users" ("username");
+ALTER TABLE "tags"
+ADD FOREIGN KEY ("image_id") REFERENCES "images" ("id");
