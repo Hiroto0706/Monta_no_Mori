@@ -16,11 +16,8 @@ $header-top-padding: 0.5rem;
   box-shadow: -10px -6px 3px 10px rgba(0, 0, 0, 0.2);
 
   &__logo {
-    $logo-top-margin: 0.5rem;
-
     width: 12rem;
-    height: calc(100% - 2 * $logo-top-margin);
-    margin: $logo-top-margin 0;
+    height: calc(100%);
 
     img {
       width: auto;
