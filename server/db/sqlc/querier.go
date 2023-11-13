@@ -6,27 +6,38 @@ package db
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/google/uuid"
 )
 
 type Querier interface {
+	CreateCategory(ctx context.Context, name string) (Category, error)
 	CreateImage(ctx context.Context, arg CreateImageParams) (Image, error)
+	CreateImageCategory(ctx context.Context, arg CreateImageCategoryParams) (ImageCategory, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
-	CreateTag(ctx context.Context, arg CreateTagParams) (Tag, error)
+	CreateType(ctx context.Context, arg CreateTypeParams) (Type, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	DeleteCategory(ctx context.Context, id int64) error
 	DeleteImage(ctx context.Context, id int64) error
-	DeleteTag(ctx context.Context, id int64) error
+	DeleteImageCategory(ctx context.Context, arg DeleteImageCategoryParams) error
+	DeleteType(ctx context.Context, id int64) error
+	GetCategory(ctx context.Context, id int64) (Category, error)
+	GetCategoryByName(ctx context.Context, name string) (Category, error)
 	GetImage(ctx context.Context, id int64) (Image, error)
+	GetImageCategory(ctx context.Context, arg GetImageCategoryParams) (ImageCategory, error)
 	GetSession(ctx context.Context, id uuid.UUID) (Session, error)
-	GetTag(ctx context.Context, id int64) (Tag, error)
-	GetTagByImageID(ctx context.Context, imageID sql.NullInt64) (Tag, error)
+	GetType(ctx context.Context, id int64) (Type, error)
+	GetTypeByName(ctx context.Context, name string) (Type, error)
 	GetUser(ctx context.Context, username string) (User, error)
+	ListCategories(ctx context.Context, arg ListCategoriesParams) ([]Category, error)
 	ListImage(ctx context.Context, arg ListImageParams) ([]Image, error)
-	ListTag(ctx context.Context, arg ListTagParams) ([]Tag, error)
+	ListImageCategoriesByCategory(ctx context.Context, categoryID int64) ([]ImageCategory, error)
+	ListImageCategoriesByImage(ctx context.Context, imageID int64) ([]ImageCategory, error)
+	ListType(ctx context.Context, arg ListTypeParams) ([]Type, error)
+	UpdateCategory(ctx context.Context, arg UpdateCategoryParams) (Category, error)
 	UpdateImage(ctx context.Context, arg UpdateImageParams) (Image, error)
-	UpdateTag(ctx context.Context, arg UpdateTagParams) (Tag, error)
+	UpdateImageCategory(ctx context.Context, arg UpdateImageCategoryParams) error
+	UpdateType(ctx context.Context, arg UpdateTypeParams) (Type, error)
 }
 
 var _ Querier = (*Queries)(nil)

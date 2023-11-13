@@ -11,13 +11,25 @@ import (
 	"github.com/google/uuid"
 )
 
+type Category struct {
+	ID        int64     `json:"id"`
+	Name      string    `json:"name"`
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type Image struct {
-	ID          int64          `json:"id"`
-	Title       string         `json:"title"`
-	Description sql.NullString `json:"description"`
-	Url         string         `json:"url"`
-	UpdatedAt   time.Time      `json:"updated_at"`
-	CreatedAt   time.Time      `json:"created_at"`
+	ID        int64         `json:"id"`
+	Title     string        `json:"title"`
+	Src       string        `json:"src"`
+	TypeID    sql.NullInt64 `json:"type_id"`
+	UpdatedAt time.Time     `json:"updated_at"`
+	CreatedAt time.Time     `json:"created_at"`
+}
+
+type ImageCategory struct {
+	ImageID    int64 `json:"image_id"`
+	CategoryID int64 `json:"category_id"`
 }
 
 type Session struct {
@@ -31,12 +43,12 @@ type Session struct {
 	CreatedAt    time.Time `json:"created_at"`
 }
 
-type Tag struct {
-	ID        int64         `json:"id"`
-	Name      string        `json:"name"`
-	ImageID   sql.NullInt64 `json:"image_id"`
-	UpdatedAt time.Time     `json:"updated_at"`
-	CreatedAt time.Time     `json:"created_at"`
+type Type struct {
+	ID        int64     `json:"id"`
+	Name      string    `json:"name"`
+	Src       string    `json:"src"`
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type User struct {
