@@ -18,7 +18,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={toggleOpenModal} className="cancel">
-          <img src="/public/cancel-icon.png" />
+          <img src="/cancel-icon.png" />
         </button>
         <div className="admin-category-modal__content">
           <div className="title">

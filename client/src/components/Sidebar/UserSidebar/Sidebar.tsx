@@ -29,25 +29,25 @@ const Sidebar: React.FC = () => {
             <a href="" className="type-link">
               <EllipsisText text="テストテススト" maxLength={typeMaxLength} />{" "}
               <div>
-                <img src="/public/pc-img.png" />
+                <img src="/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
               <EllipsisText text="テストテストテ" maxLength={typeMaxLength} />{" "}
               <div>
-                <img src="/public/pc-img.png" />
+                <img src="/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
               <EllipsisText text="テスト" maxLength={typeMaxLength} />{" "}
               <div>
-                <img src="/public/pc-img.png" />
+                <img src="/pc-img.png" />
               </div>
             </a>
             <a href="" className="type-link">
               <EllipsisText text="テストテストテ" maxLength={typeMaxLength} />{" "}
               <div>
-                <img src="/public/pc-img.png" />
+                <img src="/pc-img.png" />
               </div>
             </a>
           </div>

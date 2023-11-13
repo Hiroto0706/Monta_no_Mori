@@ -17,7 +17,7 @@ const Image: React.FC = () => {
   return (
     <li className="admin-image-box" onClick={() => toggleOpenModal()}>
       <div className="admin-image-box__img admin">
-        <img src="/public/monta_no_mori_icon.png" alt="喜ぶ犬" />
+        <img src="/monta_no_mori_icon.png" alt="喜ぶ犬" />
       </div>
       <div className="admin-image-box__title admin">
         <h3>
@@ -25,7 +25,7 @@ const Image: React.FC = () => {
         </h3>
         <div className="type">
           <span>
-            <img src="/public/pc-img.png" />
+            <img src="/pc-img.png" />
             type
           </span>
         </div>
@@ -47,7 +47,7 @@ const Image: React.FC = () => {
 
       {isModalVisible && (
         <ModalImage
-          src="/public/monta_no_mori_icon.png"
+          src="/monta_no_mori_icon.png"
           title="もんたの森"
           toggleOpenModal={() => toggleOpenModal()}
         />

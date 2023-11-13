@@ -22,72 +22,72 @@ export default function AdminType() {
           </div>
           <ul className="admin-component__image-list">
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="もんた"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="テスト"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="テスト"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="テスト"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="あああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="あああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="あああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
             <AdminTypeList
-              src="/public/pc-img.png"
+              src="/pc-img.png"
               title="ああああああああああああ"
               toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
             />
@@ -102,7 +102,7 @@ export default function AdminType() {
 
         {isOpenTypeModal && (
           <ModalType
-            src="/public/pc-img.png"
+            src="/pc-img.png"
             title="test"
             toggleOpenModal={() => toggleIsOpenTypeModal()}
           />

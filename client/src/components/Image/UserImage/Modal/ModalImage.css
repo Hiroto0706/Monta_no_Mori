@@ -189,7 +189,8 @@ li {
   cursor: pointer;
 }
 .modal-image__content__desc .category h3,
-.modal-image__content__desc .type h3 {
+.modal-image__content__desc .type h3,
+.modal-image__content__desc .image h3 {
   margin-top: 0;
   margin-bottom: 0.25rem;
   font-size: 1rem;

@@ -21,7 +21,7 @@ const Image: React.FC = () => {
   return (
     <li className="image-box" onClick={() => toggleOpenModal()}>
       <div className="image-box__img">
-        <img src="/public/monta_no_mori_icon.png" alt="喜ぶ犬" />
+        <img src="/monta_no_mori_icon.png" alt="喜ぶ犬" />
       </div>
       <div className="image-box__title">
         <h3>
@@ -29,7 +29,7 @@ const Image: React.FC = () => {
         </h3>
         <img
           src={
-            isLiked ? "/public/heart-icon_1.png" : "/public/heart-icon_0.png"
+            isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"
           }
           onClick={(e) => {
             toggleLike(isLiked);
@@ -40,7 +40,7 @@ const Image: React.FC = () => {
 
       {isModalVisible && (
         <ModalImage
-          src="/public/monta_no_mori_icon.png"
+          src="/monta_no_mori_icon.png"
           title="もんたの森"
           toggleOpenModal={() => toggleOpenModal()}
         />

@@ -29,7 +29,7 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={toggleOpenModal} className="cancel">
-          <img src="/public/cancel-icon.png" />
+          <img src="/cancel-icon.png" />
         </button>
 
         <div className="modal-image__content__img">
@@ -38,6 +38,7 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
 
         <div className="modal-image__content__desc">
           <div className="type">
+            <h3>Title</h3>
             <input value={title} placeholder="title" />
           </div>
 
@@ -97,11 +98,11 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
 
           <div className="modal-image__content__desc__button">
             <button className="download">
-              <img src="/public/download-icon.png" />
+              <img src="/download-icon.png" />
               Edit
             </button>
             <button className="download delete">
-              <img src="/public/download-icon.png" />
+              <img src="/download-icon.png" />
               Delete
             </button>
           </div>

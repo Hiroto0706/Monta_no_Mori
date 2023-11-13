@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import AdminCategoryModal from "./AdminCategoryModal/AdminCategoryModal";
 import { EllipsisText } from "../../../Sidebar/UserSidebar/Sidebar";
@@ -11,78 +12,88 @@ interface ModalImageProps {
 
 const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState("");
 
   const handleCategoryModal = () => {
     setIsCategoryModalOpen(!isCategoryModalOpen);
   };
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setType(event.target.value);
+  };
+
+  const uploadImage = async () => {
+    console.log("type : " + type);
+    console.log("title : " + title);
+    try {
+      const response = await axios.post("http://localhost:8080/admin/upload", {
+        title: title,
+        type: type,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Upload failed:", error);
+    }
+  };
+
+  const deleteCategory = () => {
+    console.log("not select this category");
+  };
 
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
-      <div
+      <form
         className="modal-image__content"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={toggleOpenModal} className="cancel">
-          <img src="/public/cancel-icon.png" />
+          <img src="/cancel-icon.png" />
         </button>
 
         <div className="modal-image__content__img default">
           <div>
-            <img src="/public/upload-image.png" />
+            <img src="/upload-image.png" />
           </div>
         </div>
 
         <div className="modal-image__content__desc">
           <div className="type">
-            <input value="" placeholder="title" />
+            <h3>Title</h3>
+            <input
+              value={title}
+              placeholder="input image title"
+              onChange={handleTitleChange}
+            />
           </div>
 
           <div className="type">
             <h3>Type</h3>
             <label className="selectbox">
-              <select>
-                <option>-- Select Type --</option>
-                <option>optionの例1</option>
-                <option>optionの例2</option>
-                <option>optionの例3</option>
+              <select onChange={handleTypeChange} value={type}>
+                <option value="">-- Select Type --</option>
+                <option value="joke">ネタ画像</option>
+                <option value="meet-img">Meet背景</option>
+                <option value="stump">スタンプ</option>
               </select>
             </label>
           </div>
 
           <div className="category">
             <h3>Category</h3>
-            <a href="" className="category-link">
+            <span className="category-link" onClick={deleteCategory}>
               #
               <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
+              <img src="/cancel-icon.png" />
+            </span>
+            <span className="category-link" onClick={deleteCategory}>
               #
               <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テストテストテスト" maxLength={100} />
-            </a>
+              <img src="/cancel-icon.png" />
+            </span>
+
             <span className="category-link add" onClick={handleCategoryModal}>
               {isCategoryModalOpen ? "CLOSE" : "+ ADD"}
               {isCategoryModalOpen && (
@@ -92,13 +103,13 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
           </div>
 
           <div className="modal-image__content__desc__button">
-            <button className="download">
-              <img src="/public/download-icon.png" />
+            <div className="download" onClick={() => uploadImage()}>
+              <img src="/download-icon.png" />
               Upload
-            </button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
       <div className="admin-type-modal" onClick={(e) => e.stopPropagation()}>
         <button onClick={toggleOpenModal} className="cancel">
-          <img src="/public/cancel-icon.png" />
+          <img src="/cancel-icon.png" />
         </button>
         <div className="admin-type-modal__content">
           <div className="admin-type-modal__content__img">

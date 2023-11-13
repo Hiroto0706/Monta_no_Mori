@@ -1,8 +1,8 @@
 -- name: CreateImage :one
 INSERT INTO images (
   title,
-  description,
-  url
+  src,
+  type_id
 ) VALUES (
   $1, $2, $3
 ) RETURNING *;
@@ -19,7 +19,7 @@ OFFSET $2;
 
 -- name: UpdateImage :one
 UPDATE images
-SET title = $2 AND description = $3 AND url = $4
+SET title = $2 AND src = $3 AND type_id = $4
 WHERE id = $1
 RETURNING *;
 

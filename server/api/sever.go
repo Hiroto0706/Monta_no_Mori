@@ -17,7 +17,12 @@ func NewServer(store *db.Store) *Server {
 	router := gin.Default()
 	router.Use(CORSMiddleware())
 
-	router.GET("/", server.HelloWorld)
+	// UserサイドAPI
+	router.GET("/", server.GetImages)
+
+	// AdminサイドAPI
+	admin := router.Group("/admin")
+	admin.POST("/upload", server.UploadImage)
 
 	server.router = router
 	return server

@@ -17,7 +17,7 @@ const AdminModalImageCategoryModal: React.FC<Props> = ({ onClose }) => {
           <h4>
             Categories
             <span onClick={onClose}>
-              <img src="/public/cancel-icon.png" />
+              <img src="/cancel-icon.png" />
             </span>
           </h4>
           <ul>
