@@ -1,15 +1,11 @@
 package api
 
 import (
+	"mime/multipart"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
-
-type ImageDataFromClient struct {
-	Title string `json:"title"`
-	Type  string `json:"type"`
-}
 
 func (server *Server) GetImages(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
@@ -17,17 +13,31 @@ func (server *Server) GetImages(ctx *gin.Context) {
 	})
 }
 
-func (server *Server) UploadImage(ctx *gin.Context) {
-	var imageData ImageDataFromClient
+// 仮のGCSアップロード関数
+func uploadToGCS(file *multipart.FileHeader) (string, error) {
+	return "https://storage.googleapis.com/bucket_name/uploaded_file.jpg", nil
+}
 
-	if err := ctx.BindJSON(&imageData); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+func (server *Server) UploadImage(ctx *gin.Context) {
+	title := ctx.PostForm("title")
+	imageType := ctx.PostForm("type")
+	file, err := ctx.FormFile("file")
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	// GCSにアップロード
+	urlPath, err := uploadToGCS(file)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Get Image Data from FontEnd",
-		"title":   imageData.Title,
-		"type":    imageData.Type,
+		"message":  "Get Image Data from FontEnd",
+		"title":    title,
+		"type":     imageType,
+		"url_path": urlPath,
 	})
 }
