@@ -16,10 +16,44 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
   const [type, setType] = useState("");
   const [imageData, setImageData] = useState<string>("/upload-image.png");
   const [file, setFile] = useState<File | null>(null);
+  const [categories, setCategories] = useState([
+    { id: 1, name: "Category 1", selected: false },
+    { id: 2, name: "Category 2", selected: false },
+    { id: 3, name: "Category 3", selected: false },
+    { id: 4, name: "Category 4", selected: false },
+    { id: 5, name: "Category 5", selected: false },
+    { id: 6, name: "Category 6", selected: false },
+    { id: 7, name: "Category 7", selected: false },
+    { id: 8, name: "Category 8", selected: false },
+    { id: 9, name: "Category 9", selected: false },
+  ]);
 
+  // カテゴリモーダルの状態管理
   const handleCategoryModal = () => {
     setIsCategoryModalOpen(!isCategoryModalOpen);
   };
+  // カテゴリの選択状態の管理
+  const handleCategoryChange = (categoryId: number) => {
+    setCategories(
+      categories.map((category) =>
+        category.id === categoryId
+          ? { ...category, selected: !category.selected }
+          : category
+      )
+    );
+  };
+
+  // const renderSelectedCategories = () => {
+  //   return categories
+  //     .filter((category) => category.selected)
+  //     .map((category) => (
+  //       <span key={category.id} className="category-link">
+  //         # <EllipsisText text={category.name} maxLength={100} />
+  //         <img src="/cancel-icon.png" />
+  //       </span>
+  //     ));
+  // };
+
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
@@ -27,6 +61,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     setType(event.target.value);
   };
 
+  // フロントの画像データをサーバーに送信する
   const uploadImage = async () => {
     if (!file) {
       console.error("No file selected");
@@ -58,9 +93,9 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     }
   };
 
-  const deleteCategory = () => {
-    console.log("not select this category");
-  };
+  // const deleteCategory = () => {
+  //   console.log("not select this category");
+  // };
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -130,21 +165,24 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
 
             <div className="category">
               <h3>Category</h3>
-              <span className="category-link" onClick={deleteCategory}>
-                #
-                <EllipsisText text="テストテストテスト" maxLength={100} />
-                <img src="/cancel-icon.png" />
-              </span>
-              <span className="category-link" onClick={deleteCategory}>
-                #
-                <EllipsisText text="テストテストテスト" maxLength={100} />
-                <img src="/cancel-icon.png" />
-              </span>
+              {categories
+                .filter((category) => category.selected)
+                .map((category) => (
+                  <span key={category.id} className="category-link">
+                    # <EllipsisText text={category.name} maxLength={100} />
+                    <img src="/cancel-icon.png" />
+                  </span>
+                ))}
 
+              {/* カテゴリーのADDとClose処理 */}
               <span className="category-link add" onClick={handleCategoryModal}>
                 {isCategoryModalOpen ? "CLOSE" : "+ ADD"}
                 {isCategoryModalOpen && (
-                  <AdminCategoryModal onClose={handleCategoryModal} />
+                  <AdminCategoryModal
+                    onClose={handleCategoryModal}
+                    categories={categories}
+                    onCategoryChange={handleCategoryChange}
+                  />
                 )}
               </span>
             </div>

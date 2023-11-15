@@ -20,9 +20,9 @@ li {
 
 .category-modal {
   position: absolute;
-  bottom: -100px;
-  left: 75px;
-  width: 150px;
+  top: 35px;
+  left: -64px;
+  width: 180px;
   height: auto;
   max-height: 180px;
   background-color: white;
@@ -64,6 +64,12 @@ li {
   padding: 0.15rem 0.5rem;
   cursor: pointer;
   border-bottom: solid 0.5px #afafaf;
+}
+.category-modal ul li label {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
 }
 .category-modal ul li:hover {
   background-color: #eaeaea;

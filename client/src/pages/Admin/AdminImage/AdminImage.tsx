@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Image from "./../../../components/Image/AdminImage/AdminImage";
 import ImageModal from "./../../../components/Image/AdminImage/AdminModalImage/AdminModalImage";
-import AddImageModal from "../../../components/Image/AdminImage/AdminModalAddImage/AdminModalImage";
+import AddImageModal from "../../../components/Image/AdminImage/AdminModalAddImage/AdminModalAddImage";
 
 import "./AdminImage.css";
 
