@@ -42,17 +42,14 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
       )
     );
   };
-
-  // const renderSelectedCategories = () => {
-  //   return categories
-  //     .filter((category) => category.selected)
-  //     .map((category) => (
-  //       <span key={category.id} className="category-link">
-  //         # <EllipsisText text={category.name} maxLength={100} />
-  //         <img src="/cancel-icon.png" />
-  //       </span>
-  //     ));
-  // };
+  // カテゴリの選択を解除するハンドラー
+  const handleCategoryDeselect = (categoryId: number) => {
+    setCategories(
+      categories.map((category) =>
+        category.id === categoryId ? { ...category, selected: false } : category
+      )
+    );
+  };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -170,7 +167,13 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
                 .map((category) => (
                   <span key={category.id} className="category-link">
                     # <EllipsisText text={category.name} maxLength={100} />
-                    <img src="/cancel-icon.png" />
+                    <img
+                      src="/cancel-icon.png"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCategoryDeselect(category.id);
+                      }}
+                    />
                   </span>
                 ))}
 

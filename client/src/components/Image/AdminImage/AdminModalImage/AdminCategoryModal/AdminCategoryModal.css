@@ -24,7 +24,7 @@ li {
   left: -64px;
   width: 180px;
   height: auto;
-  max-height: 180px;
+  max-height: 200px;
   background-color: white;
   border: #afafaf solid 1px;
   padding: 0.5rem;
@@ -57,7 +57,7 @@ li {
   padding: 0;
   overflow-y: scroll;
   width: 100%;
-  height: 150px;
+  height: 170px;
   background-color: #f6f6f6;
 }
 .category-modal ul li {
