@@ -1,3 +1,8 @@
+ALTER TABLE "image_categories" DROP CONSTRAINT image_categories_category_id_fkey;
+ALTER TABLE "image_categories" DROP CONSTRAINT image_categories_image_id_fkey;
+ALTER TABLE "images" DROP CONSTRAINT images_type_id_fkey;
+ALTER TABLE "sessions" DROP CONSTRAINT sessions_username_fkey;
+DROP TABLE IF EXISTS "image_categories";
 DROP TABLE IF EXISTS "categories";
 DROP TABLE IF EXISTS "types";
 DROP TABLE IF EXISTS "images";

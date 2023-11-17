@@ -7,7 +7,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createImage = `-- name: CreateImage :one
@@ -21,9 +20,9 @@ INSERT INTO images (
 `
 
 type CreateImageParams struct {
-	Title  string        `json:"title"`
-	Src    string        `json:"src"`
-	TypeID sql.NullInt64 `json:"type_id"`
+	Title  string `json:"title"`
+	Src    string `json:"src"`
+	TypeID int64  `json:"type_id"`
 }
 
 func (q *Queries) CreateImage(ctx context.Context, arg CreateImageParams) (Image, error) {
@@ -119,10 +118,10 @@ RETURNING id, title, src, type_id, updated_at, created_at
 `
 
 type UpdateImageParams struct {
-	ID     int64         `json:"id"`
-	Title  string        `json:"title"`
-	Src    string        `json:"src"`
-	TypeID sql.NullInt64 `json:"type_id"`
+	ID     int64  `json:"id"`
+	Title  string `json:"title"`
+	Src    string `json:"src"`
+	TypeID int64  `json:"type_id"`
 }
 
 func (q *Queries) UpdateImage(ctx context.Context, arg UpdateImageParams) (Image, error) {

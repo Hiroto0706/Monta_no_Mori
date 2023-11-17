@@ -32,6 +32,10 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
   const handleCategoryModal = () => {
     setIsCategoryModalOpen(!isCategoryModalOpen);
   };
+  // カテゴリモーダルのCLose
+  const closeCategoryModal = () => {
+    setIsCategoryModalOpen(false);
+  };
   // カテゴリの選択状態の管理
   const handleCategoryChange = (categoryId: number) => {
     setCategories(
@@ -65,14 +69,16 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
       return;
     }
 
-    console.log("type : " + type);
-    console.log("title : " + title);
-    console.log("file : " + file);
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
     formData.append("type", type);
+    const selectedCategories = categories.filter(
+      (category) => category.selected
+    );
+    selectedCategories.forEach((category) => {
+      formData.append("categories", `${category.id}:${category.name}`);
+    });
 
     try {
       const response = await axios.post(
@@ -90,21 +96,14 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     }
   };
 
-  // const deleteCategory = () => {
-  //   console.log("not select this category");
-  // };
-
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    console.log(files);
     if (files && files.length > 0) {
       const selectedFile = files[0];
       const reader = new FileReader();
 
       reader.onload = (e: ProgressEvent<FileReader>) => {
         setImageData(e.target?.result as string);
-        console.log(e.target?.result as string);
-        console.log("image uploaded successfully");
       };
       setFile(selectedFile);
       reader.readAsDataURL(selectedFile);
@@ -118,7 +117,10 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
       <form
         className="modal-image__content"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+          closeCategoryModal();
+        }}
       >
         <button onClick={toggleOpenModal} className="cancel">
           <img src="/cancel-icon.png" />
@@ -178,7 +180,13 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
                 ))}
 
               {/* カテゴリーのADDとClose処理 */}
-              <span className="category-link add" onClick={handleCategoryModal}>
+              <span
+                className="category-link add"
+                onClick={(e) => {
+                  handleCategoryModal();
+                  e.stopPropagation();
+                }}
+              >
                 {isCategoryModalOpen ? "CLOSE" : "+ ADD"}
                 {isCategoryModalOpen && (
                   <AdminCategoryModal
@@ -192,7 +200,12 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
           </div>
 
           <div className="modal-image__content__desc__button">
-            <div className="download" onClick={() => uploadImage()}>
+            <div
+              className="download"
+              onClick={() => {
+                uploadImage();
+              }}
+            >
               <img src="/download-icon.png" />
               Upload
             </div>

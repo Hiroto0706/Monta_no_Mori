@@ -5,7 +5,6 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
@@ -19,12 +18,12 @@ type Category struct {
 }
 
 type Image struct {
-	ID        int64         `json:"id"`
-	Title     string        `json:"title"`
-	Src       string        `json:"src"`
-	TypeID    sql.NullInt64 `json:"type_id"`
-	UpdatedAt time.Time     `json:"updated_at"`
-	CreatedAt time.Time     `json:"created_at"`
+	ID        int64     `json:"id"`
+	Title     string    `json:"title"`
+	Src       string    `json:"src"`
+	TypeID    int64     `json:"type_id"`
+	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type ImageCategory struct {
@@ -52,8 +51,9 @@ type Type struct {
 }
 
 type User struct {
-	Username       string    `json:"username"`
-	HashedPassword string    `json:"hashed_password"`
-	Email          string    `json:"email"`
-	CreatedAt      time.Time `json:"created_at"`
+	Username          string    `json:"username"`
+	HashedPassword    string    `json:"hashed_password"`
+	Email             string    `json:"email"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"created_at"`
 }
