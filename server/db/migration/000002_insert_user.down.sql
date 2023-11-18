@@ -1,3 +1,3 @@
 DELETE FROM users
-WHERE username = 'hirotokadota'
-  AND email = 'mirunina2366@icloud.com';
+WHERE username = 'monta_no_mori'
+  AND email = 'test@test.com';
