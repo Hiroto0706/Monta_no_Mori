@@ -14,7 +14,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
-  const [imageData, setImageData] = useState<string>("/upload-image.png");
+  const [imageData, setImageData] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
   const [categories, setCategories] = useState([
     { id: 1, name: "Category 1", selected: false },
