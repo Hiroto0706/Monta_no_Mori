@@ -2,7 +2,6 @@ package api
 
 import (
 	db "monta_no_mori/db/sqlc"
-	"monta_no_mori/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +15,8 @@ func (server *Server) UploadType(ctx *gin.Context) {
 		return
 	}
 
-	urlPath, err := services.UploadToGCS(file)
+	fileType := "type"
+	urlPath, err := server.UploadToGCS(ctx, file, fileType)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return

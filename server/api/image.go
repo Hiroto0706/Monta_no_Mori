@@ -3,7 +3,6 @@ package api
 import (
 	"fmt"
 	db "monta_no_mori/db/sqlc"
-	"monta_no_mori/services"
 	"net/http"
 	"strconv"
 	"strings"
@@ -43,7 +42,8 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	// GCSにアップロード
-	urlPath, err := services.UploadToGCS(file)
+	fileType := "image"
+	urlPath, err := server.UploadToGCS(ctx, file, fileType)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return

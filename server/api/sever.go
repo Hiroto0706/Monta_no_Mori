@@ -2,6 +2,7 @@ package api
 
 import (
 	db "monta_no_mori/db/sqlc"
+	util "monta_no_mori/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,11 +10,12 @@ import (
 type Server struct {
 	store  *db.Store
 	router *gin.Engine
+	config util.Config
 }
 
 // NewServer creates a new HTTP server and setup routing
-func NewServer(store *db.Store) *Server {
-	server := &Server{store: store}
+func NewServer(store *db.Store, config util.Config) *Server {
+	server := &Server{store: store, config: config}
 	router := gin.Default()
 	router.Use(CORSMiddleware())
 
