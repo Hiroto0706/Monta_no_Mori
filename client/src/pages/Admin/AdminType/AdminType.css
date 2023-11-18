@@ -1,6 +1,33 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 4rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+
 .admin-component__image-list {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: start;
   width: 100%;
+}
+
+.admin-component__inner.admin .admin-component__title .add-type {
+  background-color: #4caf50;
+  color: #ffffff;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }/*# sourceMappingURL=AdminType.css.map */

@@ -24,6 +24,9 @@ func NewServer(store *db.Store) *Server {
 	admin := router.Group("/admin")
 	admin.POST("/upload", server.UploadImage)
 
+	adminType := admin.Group("/type")
+	adminType.POST("/upload", server.UploadType)
+
 	server.router = router
 	return server
 }

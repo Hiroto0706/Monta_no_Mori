@@ -1,3 +1,3 @@
 DELETE FROM users
-WHERE username = 'monta_no_mori'
+WHERE username = 'test'
   AND email = 'test@test.com';

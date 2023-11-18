@@ -2,8 +2,8 @@ package api
 
 import (
 	"fmt"
-	"mime/multipart"
 	db "monta_no_mori/db/sqlc"
+	"monta_no_mori/services"
 	"net/http"
 	"strconv"
 	"strings"
@@ -16,11 +16,6 @@ func (server *Server) GetImages(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "Hello World! from GinServer",
 	})
-}
-
-// 仮のGCSアップロード関数
-func uploadToGCS(file *multipart.FileHeader) (string, error) {
-	return "https://storage.googleapis.com/bucket_name/uploaded_file.jpg", nil
 }
 
 func (server *Server) UploadImage(ctx *gin.Context) {
@@ -48,7 +43,7 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	// GCSにアップロード
-	urlPath, err := uploadToGCS(file)
+	urlPath, err := services.UploadToGCS(file)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return

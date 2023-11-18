@@ -108,7 +108,6 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
       setFile(selectedFile);
       reader.readAsDataURL(selectedFile);
     } else {
-      setImageData("/upload-image.png");
       setFile(null);
     }
   };
@@ -128,7 +127,11 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
 
         <div className="modal-image__content__img default">
           <div>
-            <img src={imageData} alt="upload image" />
+            {imageData != "" ? (
+              <img src={imageData} alt="upload image" />
+            ) : (
+              <span>Upload image</span>
+            )}
           </div>
           <input
             type="file"
