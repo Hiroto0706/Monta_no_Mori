@@ -37,7 +37,6 @@ export default function AdminType() {
     axios
       .get("http://localhost:8080/admin/type/")
       .then((response) => {
-        console.log(response.data.types);
         setTypes(response.data.types);
       })
       .catch((error) => {
