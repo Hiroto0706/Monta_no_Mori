@@ -38,24 +38,16 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
       return;
     }
 
-    console.log(name);
-    console.log(file);
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("name", name);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/admin/type/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(response.data);
+      await axios.post("http://localhost:8080/admin/type/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     } catch (error) {
       console.error("Upload failed:", error);
     }
@@ -63,7 +55,11 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
 
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
-      <form className="admin-type-modal" onClick={(e) => e.stopPropagation()}>
+      <form
+        className="admin-type-modal add"
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={() => uploadType()}
+      >
         <button onClick={toggleOpenModal} className="cancel">
           <img src="/cancel-icon.png" />
         </button>
@@ -86,7 +82,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
           </div>
           <div className="admin-type-modal__content__desc">
             <div className="title">
-              <h3>Type Name</h3>
+              <h3>NEW Type Name</h3>
               <input
                 value={name}
                 placeholder="input type name"
@@ -95,12 +91,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
             </div>
 
             <div className="button">
-              <button
-                className="save"
-                onClick={() => {
-                  uploadType();
-                }}
-              >
+              <button className="save" type="submit">
                 Upload
               </button>
             </div>

@@ -98,7 +98,7 @@ li {
 
 .admin-type-modal {
   width: 600px;
-  height: 300px;
+  height: 290px;
   background-color: white;
   padding: 2rem;
   border-radius: 5px;
@@ -128,14 +128,16 @@ li {
 }
 .admin-type-modal__content__img {
   width: 45%;
+  max-width: 248px;
+  height: 248px;
+  border-radius: 20px;
   position: relative;
+  border: 1px #afafaf solid;
 }
 .admin-type-modal__content__img .type-icon {
   width: 100%;
   max-width: 250px;
   height: 250px;
-  border-radius: 20px;
-  background-color: #e5e5e5;
   position: relative;
 }
 .admin-type-modal__content__img img {

@@ -29,6 +29,8 @@ func NewServer(store *db.Store, config util.Config) *Server {
 	adminType := admin.Group("/type")
 	adminType.GET("/", server.ListTypes)
 	adminType.POST("/upload", server.UploadType)
+	adminType.PUT("/edit", server.EditType)
+	adminType.DELETE("/delete/:id", server.DeleteType)
 
 	server.router = router
 	return server

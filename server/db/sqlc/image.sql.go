@@ -10,13 +10,9 @@ import (
 )
 
 const createImage = `-- name: CreateImage :one
-INSERT INTO images (
-  title,
-  src,
-  type_id
-) VALUES (
-  $1, $2, $3
-) RETURNING id, title, src, type_id, updated_at, created_at
+INSERT INTO images (title, src, type_id)
+VALUES ($1, $2, $3)
+RETURNING id, title, src, type_id, updated_at, created_at
 `
 
 type CreateImageParams struct {
@@ -50,8 +46,10 @@ func (q *Queries) DeleteImage(ctx context.Context, id int64) error {
 }
 
 const getImage = `-- name: GetImage :one
-SELECT id, title, src, type_id, updated_at, created_at FROM images
-WHERE id = $1 LIMIT 1
+SELECT id, title, src, type_id, updated_at, created_at
+FROM images
+WHERE id = $1
+LIMIT 1
 `
 
 func (q *Queries) GetImage(ctx context.Context, id int64) (Image, error) {
@@ -69,10 +67,10 @@ func (q *Queries) GetImage(ctx context.Context, id int64) (Image, error) {
 }
 
 const listImage = `-- name: ListImage :many
-SELECT id, title, src, type_id, updated_at, created_at FROM images
+SELECT id, title, src, type_id, updated_at, created_at
+FROM images
 ORDER BY id
-LIMIT $1
-OFFSET $2
+LIMIT $1 OFFSET $2
 `
 
 type ListImageParams struct {
@@ -112,7 +110,9 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 
 const updateImage = `-- name: UpdateImage :one
 UPDATE images
-SET title = $2 AND src = $3 AND type_id = $4
+SET title = $2,
+  src = $3,
+  type_id = $4
 WHERE id = $1
 RETURNING id, title, src, type_id, updated_at, created_at
 `

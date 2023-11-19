@@ -27,6 +27,7 @@ type Image struct {
 }
 
 type ImageCategory struct {
+	ID         int64 `json:"id"`
 	ImageID    int64 `json:"image_id"`
 	CategoryID int64 `json:"category_id"`
 }
@@ -51,9 +52,8 @@ type Type struct {
 }
 
 type User struct {
-	Username          string    `json:"username"`
-	HashedPassword    string    `json:"hashed_password"`
-	Email             string    `json:"email"`
-	PasswordChangedAt time.Time `json:"password_changed_at"`
-	CreatedAt         time.Time `json:"created_at"`
+	Username       string    `json:"username"`
+	HashedPassword string    `json:"hashed_password"`
+	Email          string    `json:"email"`
+	CreatedAt      time.Time `json:"created_at"`
 }

@@ -19,6 +19,7 @@ export default function AdminType() {
   const [isOpenAddTypeModal, setIsOpenAddTypeModal] = useState(false);
 
   const [types, setTypes] = useState<Type[]>([]);
+  const [selectedType, setSelectedType] = useState<Type | null>(null);
 
   const toggleIsOpenTypeModal = () => {
     setIsOpenTypeModal(!isOpenTypeModal);
@@ -27,7 +28,12 @@ export default function AdminType() {
     setIsOpenAddTypeModal(!isOpenAddTypeModal);
   };
 
-  useEffect(() => {
+  const selectType = (type: Type) => {
+    setSelectedType(type);
+    toggleIsOpenTypeModal();
+  };
+
+  const fetchTypes = () => {
     axios
       .get("http://localhost:8080/admin/type/")
       .then((response) => {
@@ -37,6 +43,10 @@ export default function AdminType() {
       .catch((error) => {
         console.log("List types failed:", error);
       });
+  };
+
+  useEffect(() => {
+    fetchTypes();
   }, []);
 
   return (
@@ -61,21 +71,24 @@ export default function AdminType() {
             {types.map((type) => (
               <AdminTypeList
                 key={type.id}
+                id={type.id}
                 src={type.src}
                 title={type.name}
-                toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
+                toggleOpenTypeModal={() => selectType(type)}
               />
             ))}
+
+            {isOpenTypeModal && selectedType && (
+              <ModalType
+                id={selectedType.id}
+                src={selectedType.src}
+                name={selectedType.name}
+                toggleOpenModal={() => toggleIsOpenTypeModal()}
+                onTypeUpdated={() => fetchTypes()}
+              />
+            )}
           </ul>
         </div>
-
-        {isOpenTypeModal && (
-          <ModalType
-            src="/pc-img.png"
-            title="test"
-            toggleOpenModal={() => toggleIsOpenTypeModal()}
-          />
-        )}
       </div>
     </>
   );

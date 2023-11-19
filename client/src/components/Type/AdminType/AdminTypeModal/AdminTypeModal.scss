@@ -3,7 +3,7 @@
 
 .admin-type-modal {
   width: 600px;
-  height: 300px;
+  height: 290px;
   background-color: white;
   padding: 2rem;
   border-radius: 5px;
@@ -35,14 +35,16 @@
 
     &__img {
       width: 45%;
+      max-width: calc(250px - 2 * 1px);
+      height: calc(250px - 2 * 1px);
+      border-radius: 20px;
       position: relative;
+      border: 1px #afafaf solid;
 
       .type-icon {
         width: 100%;
         max-width: 250px;
         height: 250px;
-        border-radius: 20px;
-        background-color: #e5e5e5;
         position: relative;
       }
 

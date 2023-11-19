@@ -126,8 +126,8 @@ func (q *Queries) ListType(ctx context.Context, arg ListTypeParams) ([]Type, err
 
 const updateType = `-- name: UpdateType :one
 UPDATE types
-SET name = $2
-  AND src = $3
+SET name = $2,
+  src = $3
 WHERE id = $1
 RETURNING id, name, src, updated_at, created_at
 `

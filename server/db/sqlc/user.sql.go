@@ -16,7 +16,7 @@ INSERT INTO users (
   email
 ) VALUES (
   $1, $2, $3
-) RETURNING username, hashed_password, email, password_changed_at, created_at
+) RETURNING username, hashed_password, email, created_at
 `
 
 type CreateUserParams struct {
@@ -32,14 +32,13 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Username,
 		&i.HashedPassword,
 		&i.Email,
-		&i.PasswordChangedAt,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const getUser = `-- name: GetUser :one
-SELECT username, hashed_password, email, password_changed_at, created_at FROM users
+SELECT username, hashed_password, email, created_at FROM users
 WHERE username = $1 LIMIT 1
 `
 
@@ -50,7 +49,6 @@ func (q *Queries) GetUser(ctx context.Context, username string) (User, error) {
 		&i.Username,
 		&i.HashedPassword,
 		&i.Email,
-		&i.PasswordChangedAt,
 		&i.CreatedAt,
 	)
 	return i, err

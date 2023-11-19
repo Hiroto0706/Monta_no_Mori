@@ -12,7 +12,7 @@ import (
 const createImageCategory = `-- name: CreateImageCategory :one
 INSERT INTO image_categories (image_id, category_id)
 VALUES ($1, $2)
-RETURNING image_id, category_id
+RETURNING id, image_id, category_id
 `
 
 type CreateImageCategoryParams struct {
@@ -23,7 +23,7 @@ type CreateImageCategoryParams struct {
 func (q *Queries) CreateImageCategory(ctx context.Context, arg CreateImageCategoryParams) (ImageCategory, error) {
 	row := q.db.QueryRowContext(ctx, createImageCategory, arg.ImageID, arg.CategoryID)
 	var i ImageCategory
-	err := row.Scan(&i.ImageID, &i.CategoryID)
+	err := row.Scan(&i.ID, &i.ImageID, &i.CategoryID)
 	return i, err
 }
 
@@ -43,7 +43,7 @@ func (q *Queries) DeleteImageCategory(ctx context.Context, arg DeleteImageCatego
 }
 
 const getImageCategory = `-- name: GetImageCategory :one
-SELECT image_id, category_id
+SELECT id, image_id, category_id
 FROM image_categories
 WHERE image_id = $1 AND category_id = $2
 LIMIT 1
@@ -57,12 +57,12 @@ type GetImageCategoryParams struct {
 func (q *Queries) GetImageCategory(ctx context.Context, arg GetImageCategoryParams) (ImageCategory, error) {
 	row := q.db.QueryRowContext(ctx, getImageCategory, arg.ImageID, arg.CategoryID)
 	var i ImageCategory
-	err := row.Scan(&i.ImageID, &i.CategoryID)
+	err := row.Scan(&i.ID, &i.ImageID, &i.CategoryID)
 	return i, err
 }
 
 const listImageCategoriesByCategory = `-- name: ListImageCategoriesByCategory :many
-SELECT image_id, category_id
+SELECT id, image_id, category_id
 FROM image_categories
 WHERE category_id = $1
 ORDER BY image_id
@@ -77,7 +77,7 @@ func (q *Queries) ListImageCategoriesByCategory(ctx context.Context, categoryID 
 	items := []ImageCategory{}
 	for rows.Next() {
 		var i ImageCategory
-		if err := rows.Scan(&i.ImageID, &i.CategoryID); err != nil {
+		if err := rows.Scan(&i.ID, &i.ImageID, &i.CategoryID); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -92,7 +92,7 @@ func (q *Queries) ListImageCategoriesByCategory(ctx context.Context, categoryID 
 }
 
 const listImageCategoriesByImage = `-- name: ListImageCategoriesByImage :many
-SELECT image_id, category_id
+SELECT id, image_id, category_id
 FROM image_categories
 WHERE image_id = $1
 ORDER BY category_id
@@ -107,7 +107,7 @@ func (q *Queries) ListImageCategoriesByImage(ctx context.Context, imageID int64)
 	items := []ImageCategory{}
 	for rows.Next() {
 		var i ImageCategory
-		if err := rows.Scan(&i.ImageID, &i.CategoryID); err != nil {
+		if err := rows.Scan(&i.ID, &i.ImageID, &i.CategoryID); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
