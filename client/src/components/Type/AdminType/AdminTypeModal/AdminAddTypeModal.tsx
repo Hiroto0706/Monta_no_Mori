@@ -63,7 +63,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
 
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
-      <div className="admin-type-modal" onClick={(e) => e.stopPropagation()}>
+      <form className="admin-type-modal" onClick={(e) => e.stopPropagation()}>
         <button onClick={toggleOpenModal} className="cancel">
           <img src="/cancel-icon.png" />
         </button>
@@ -106,7 +106,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

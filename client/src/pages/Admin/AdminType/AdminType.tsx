@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import ModalType from "../../../components/Type/AdminType/AdminTypeModal/AdminTypeModal";
 import ModalAddType from "../../../components/Type/AdminType/AdminTypeModal/AdminAddTypeModal";
 import AdminTypeList from "./../../../components/Type/AdminType/AdminTypeList/AdminTypeList";
@@ -6,9 +8,17 @@ import AdminTypeList from "./../../../components/Type/AdminType/AdminTypeList/Ad
 import "./../AdminImage/AdminImage.css";
 import "./AdminType.css";
 
+interface Type {
+  id: number;
+  src: string;
+  name: string;
+}
+
 export default function AdminType() {
   const [isOpenTypeModal, setIsOpenTypeModal] = useState(false);
   const [isOpenAddTypeModal, setIsOpenAddTypeModal] = useState(false);
+
+  const [types, setTypes] = useState<Type[]>([]);
 
   const toggleIsOpenTypeModal = () => {
     setIsOpenTypeModal(!isOpenTypeModal);
@@ -16,6 +26,18 @@ export default function AdminType() {
   const toggleIsOpenAddTypeModal = () => {
     setIsOpenAddTypeModal(!isOpenAddTypeModal);
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/admin/type/")
+      .then((response) => {
+        console.log(response.data.types);
+        setTypes(response.data.types);
+      })
+      .catch((error) => {
+        console.log("List types failed:", error);
+      });
+  }, []);
 
   return (
     <>
@@ -36,82 +58,14 @@ export default function AdminType() {
           )}
 
           <ul className="admin-component__image-list">
-            <AdminTypeList
-              src="/pc-img.png"
-              title="もんた"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="テスト"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="テスト"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="テスト"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="あああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="あああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="あああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            <AdminTypeList
-              src="/pc-img.png"
-              title="ああああああああああああ"
-              toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
-            />
-            {/* <li
-              className="type-list add"
-              onClick={() => toggleIsOpenAddTypeModal()}
-            >
-              + ADD
-            </li> */}
+            {types.map((type) => (
+              <AdminTypeList
+                key={type.id}
+                src={type.src}
+                title={type.name}
+                toggleOpenTypeModal={() => toggleIsOpenTypeModal()}
+              />
+            ))}
           </ul>
         </div>
 
