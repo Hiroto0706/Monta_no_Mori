@@ -10,7 +10,6 @@ interface AdminTypeProps {
 }
 
 const AdminTypeList: React.FC<AdminTypeProps> = ({
-  id,
   src,
   title,
   toggleOpenTypeModal,
@@ -18,7 +17,7 @@ const AdminTypeList: React.FC<AdminTypeProps> = ({
   return (
     <>
       <li className="type-list" onClick={toggleOpenTypeModal}>
-        {id}:<img src={src} />
+        <img src={src} />
         {title}
       </li>
     </>

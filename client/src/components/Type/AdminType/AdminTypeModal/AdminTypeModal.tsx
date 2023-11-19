@@ -17,6 +17,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
   toggleOpenModal,
   onTypeUpdated,
 }) => {
+  const [, setName] = useState(name);
   const [editableName, setEditableName] = useState(name);
   const [editableImagePath, setEditableImagePath] = useState<string>(src);
   const [editableFile, setEditableFile] = useState<File | null>(null);
@@ -64,6 +65,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
           },
         }
       );
+      setName(response.data.name);
       setEditableName(response.data.name);
       setEditableImagePath(response.data.file);
       onTypeUpdated();
@@ -73,9 +75,6 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
   };
 
   const deleteType = async (id: number) => {
-    const formData = new FormData();
-    formData.append("id", id.toString());
-
     try {
       await axios.delete(`http://localhost:8080/admin/type/delete/${id}`);
       onTypeUpdated();

@@ -1,0 +1,14 @@
+@use "./../../../main.scss" as main;
+
+.admin-component {
+  &__title {
+    &.category {
+      button {
+        background-color: main.$main-bgcolor;
+        color: main.$main-font-color;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  }
+}

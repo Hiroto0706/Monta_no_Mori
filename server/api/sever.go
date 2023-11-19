@@ -32,6 +32,12 @@ func NewServer(store *db.Store, config util.Config) *Server {
 	adminType.PUT("/edit", server.EditType)
 	adminType.DELETE("/delete/:id", server.DeleteType)
 
+	adminCategory := admin.Group("/category")
+	adminCategory.GET("/", server.ListCategories)
+	adminCategory.POST("/create", server.CreateCategory)
+	adminCategory.PUT("/edit", server.EditCategory)
+	adminCategory.DELETE("/delete/:id", server.DeleteCategory)
+
 	server.router = router
 	return server
 }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import "./AdminTypeModal.css";
@@ -16,7 +16,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
     setName(event.target.value);
   };
 
-  const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const selectedFile = files[0];
