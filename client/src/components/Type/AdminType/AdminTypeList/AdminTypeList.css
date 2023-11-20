@@ -97,7 +97,7 @@ li {
 }
 
 .admin-component__image-list .type-list {
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 0.75rem;
   background-color: #f4f4f4;
   border: solid #afafaf 1.25px;
   border-radius: 20px;
@@ -110,7 +110,8 @@ li {
 .admin-component__image-list .type-list img {
   width: 20px;
   height: 20px;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 }
 .admin-component__image-list .type-list:hover {
   background-color: #dfdfdf;

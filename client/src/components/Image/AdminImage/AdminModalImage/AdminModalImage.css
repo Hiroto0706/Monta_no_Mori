@@ -100,10 +100,8 @@ li {
   width: calc(100% - 2px - 1rem);
   border: 1px solid #afafaf;
   padding: 0.5rem;
-  margin-top: 0.5rem;
   border-radius: 2.5px;
   font-size: 1.25rem;
-  font-weight: bold;
   color: #646464;
 }
 .modal-image__content__desc .type .selectbox {
@@ -145,6 +143,13 @@ li {
 }
 .modal-image__content__desc .category .category-link {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.modal-image__content__desc .category .category-link img {
+  width: 12.5px;
+  height: 12.5px;
+  margin-left: 0.25rem;
 }
 .modal-image__content__desc__button .download.delete {
   background-color: #ff3e48;

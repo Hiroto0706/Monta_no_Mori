@@ -13,21 +13,21 @@ export default function AdminHome() {
             <a href="/admin/image">
               <button>
                 {" "}
-                <img src="/public/image-icon.png" />
+                <img src="/image-icon.png" />
                 Image
               </button>
             </a>
             <a href="/admin/type">
               <button>
                 {" "}
-                <img src="/public/image-icon.png" />
+                <img src="/image-icon.png" />
                 Type
               </button>
             </a>
             <a href="/admin/category">
               <button>
                 {" "}
-                <img src="/public/image-icon.png" />
+                <img src="/image-icon.png" />
                 Category
               </button>
             </a>
@@ -35,7 +35,7 @@ export default function AdminHome() {
 
           <a href="/login">
             <button className="logout">
-              <img src="/public/logout-icon.png" />
+              <img src="/logout-icon.png" />
               LOGOUT
             </button>
           </a>

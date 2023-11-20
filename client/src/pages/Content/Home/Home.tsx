@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
+
 import Image from "../../../components/Image/UserImage/Image";
 import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
 
-export default function Home() {
+const Home: React.FC = () => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("サーバーからのデータ取得に失敗しました", error);
+      });
+  }, []);
+
   return (
     <>
       <div className="home">
@@ -23,4 +36,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

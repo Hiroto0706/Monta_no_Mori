@@ -1,6 +1,19 @@
+@use "./../../../main.scss" as main;
+
 .admin-component__image-list {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: start;
   width: 100%;
+}
+
+.admin-component__inner.admin {
+  .admin-component__title {
+    .add-type {
+      background-color: main.$main-bgcolor;
+      color: main.$main-font-color;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
 }

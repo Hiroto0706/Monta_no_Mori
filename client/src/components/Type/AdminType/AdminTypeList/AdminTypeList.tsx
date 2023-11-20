@@ -1,8 +1,9 @@
 import React from "react";
 
-import "./AdminTypeList.css"
+import "./AdminTypeList.css";
 
 interface AdminTypeProps {
+  id: number;
   src: string;
   title: string;
   toggleOpenTypeModal: () => void;

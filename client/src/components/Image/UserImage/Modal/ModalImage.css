@@ -125,11 +125,11 @@ li {
 }
 .modal-image__content .cancel {
   position: absolute;
-  background-color: transparent;
   border: none;
   cursor: pointer;
   top: 8px;
   right: 8px;
+  background-color: transparent;
   width: 30px;
   height: 30px;
 }
@@ -145,16 +145,38 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-flow: column;
   height: 100%;
 }
 .modal-image__content__img img {
   width: 100%;
   height: auto;
 }
+.modal-image__content__img.default {
+  height: 100%;
+}
+.modal-image__content__img.default div {
+  width: calc(100% - 2rem);
+  height: 60%;
+  background-color: #e5e5e5;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+.modal-image__content__img.default div img {
+  width: 100%;
+  height: auto;
+}
 .modal-image__content__desc {
   width: 65%;
-  height: auto;
+  height: 100%;
   padding-left: 2rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 }
 .modal-image__content__desc .title {
   margin-bottom: 0.75rem;
@@ -172,7 +194,8 @@ li {
   cursor: pointer;
 }
 .modal-image__content__desc .category h3,
-.modal-image__content__desc .type h3 {
+.modal-image__content__desc .type h3,
+.modal-image__content__desc .image h3 {
   margin-top: 0;
   margin-bottom: 0.25rem;
   font-size: 1rem;
@@ -200,16 +223,16 @@ li {
   background-color: #dfdfdf;
 }
 .modal-image__content__desc .category {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .modal-image__content__desc__button {
   display: flex;
+  justify-content: end;
 }
 .modal-image__content__desc__button .download,
 .modal-image__content__desc__button .copy {
   padding: 0.5rem 1.25rem;
   font-size: 1.075rem;
-  font-weight: bold;
   border-radius: 5px;
   border: none;
   cursor: pointer;

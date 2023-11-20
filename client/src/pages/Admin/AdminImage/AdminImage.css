@@ -22,10 +22,9 @@ li {
   display: flex;
   justify-content: space-between;
 }
-.admin-component__title button {
+.admin-component__title .add-button {
   background-color: #4caf50;
   color: #ffffff;
-  font-weight: bold;
   padding: 0 1rem;
 }
 .admin-component__image-list {
