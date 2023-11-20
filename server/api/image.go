@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	db "monta_no_mori/db/sqlc"
 	"net/http"
 	"strconv"
@@ -42,7 +41,6 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 	file, err := ctx.FormFile("file")
 	if err != nil {
-		fmt.Println("ここでえらー１")
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -51,7 +49,6 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	fileType := "image"
 	urlPath, err := server.UploadToGCS(ctx, file, fileType)
 	if err != nil {
-		fmt.Println("ここでえらー２")
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -63,12 +60,10 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 	image, err := server.store.CreateImage(ctx, argImage)
 	if err != nil {
-		fmt.Println("ここでえらー３")
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
-	fmt.Println(categories)
 	for _, category := range categories {
 		argImageCategory := db.CreateImageCategoryParams{
 			ImageID:    image.ID,
@@ -77,7 +72,6 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 
 		_, err := server.store.CreateImageCategory(ctx, argImageCategory)
 		if err != nil {
-			fmt.Println("ここでえらー４")
 			if pqErr, ok := err.(*pq.Error); ok {
 				switch pqErr.Code.Name() {
 				case "unique_violation":
