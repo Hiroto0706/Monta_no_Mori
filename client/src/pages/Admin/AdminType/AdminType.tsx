@@ -33,19 +33,8 @@ export default function AdminType() {
     toggleIsOpenTypeModal();
   };
 
-  const fetchTypes = () => {
-    axios
-      .get("http://localhost:8080/admin/type/")
-      .then((response) => {
-        setTypes(response.data.types);
-      })
-      .catch((error) => {
-        console.log("List types failed:", error);
-      });
-  };
-
   useEffect(() => {
-    fetchTypes();
+    fetchTypes(setTypes);
   }, []);
 
   return (
@@ -83,7 +72,7 @@ export default function AdminType() {
                 src={selectedType.src}
                 name={selectedType.name}
                 toggleOpenModal={() => toggleIsOpenTypeModal()}
-                onTypeUpdated={() => fetchTypes()}
+                onTypeUpdated={() => fetchTypes(setTypes)}
               />
             )}
           </ul>
@@ -92,3 +81,16 @@ export default function AdminType() {
     </>
   );
 }
+
+export const fetchTypes = (
+  setTypes: React.Dispatch<React.SetStateAction<Type[]>>
+) => {
+  axios
+    .get("http://localhost:8080/admin/type/")
+    .then((response) => {
+      setTypes(response.data.types);
+    })
+    .catch((error) => {
+      console.log("List types failed:", error);
+    });
+};

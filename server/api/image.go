@@ -19,7 +19,12 @@ func (server *Server) GetImages(ctx *gin.Context) {
 
 func (server *Server) UploadImage(ctx *gin.Context) {
 	title := ctx.PostForm("title")
-	imageType := ctx.PostForm("type")
+	typeIdStr := ctx.PostForm("typeId")
+	typeId, err := strconv.Atoi(typeIdStr)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
 	categoryData := ctx.PostFormArray("categories")
 
 	type Category struct {
@@ -37,6 +42,7 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 	file, err := ctx.FormFile("file")
 	if err != nil {
+		fmt.Println("ここでえらー１")
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -45,21 +51,19 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	fileType := "image"
 	urlPath, err := server.UploadToGCS(ctx, file, fileType)
 	if err != nil {
+		fmt.Println("ここでえらー２")
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
-	}
-
-	argType := db.CreateTypeParams{
-		Name: imageType,
 	}
 
 	argImage := db.CreateImageParams{
 		Title:  title,
 		Src:    urlPath,
-		TypeID: 1,
+		TypeID: int64(typeId),
 	}
 	image, err := server.store.CreateImage(ctx, argImage)
 	if err != nil {
+		fmt.Println("ここでえらー３")
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
@@ -73,6 +77,7 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 
 		_, err := server.store.CreateImageCategory(ctx, argImageCategory)
 		if err != nil {
+			fmt.Println("ここでえらー４")
 			if pqErr, ok := err.(*pq.Error); ok {
 				switch pqErr.Code.Name() {
 				case "unique_violation":
@@ -86,7 +91,7 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"image": image,
-		"type":  argType,
+		"message": "image create successfully",
+		"image":   image,
 	})
 }

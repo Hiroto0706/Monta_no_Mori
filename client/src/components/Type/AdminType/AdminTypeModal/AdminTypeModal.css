@@ -128,11 +128,11 @@ li {
 }
 .admin-type-modal__content__img {
   width: 45%;
-  max-width: 248px;
-  height: 248px;
+  max-width: 250px;
+  height: 250px;
   border-radius: 20px;
   position: relative;
-  border: 1px #afafaf solid;
+  background-color: #e5e5e5;
 }
 .admin-type-modal__content__img .type-icon {
   width: 100%;

@@ -10,7 +10,7 @@ import "./../AdminImage/AdminImage.css";
 import "./../AdminType/AdminType.css";
 import "./AdminCategory.css";
 
-interface Category {
+interface BasicCategory {
   id: number;
   name: string;
 }
@@ -19,10 +19,9 @@ export default function AdminCategory() {
   const [isOpenCategoryModal, setIsOpenCategoryModal] = useState(false);
   const [isOpenAddCategoryModal, setIsOpenAddCategoryModal] = useState(false);
 
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
-  );
+  const [categories, setCategories] = useState<BasicCategory[]>([]);
+  const [selectedCategory, setSelectedCategory] =
+    useState<BasicCategory | null>(null);
 
   const toggleIsOpenCategoryModal = () => {
     setIsOpenCategoryModal(!isOpenCategoryModal);
@@ -31,24 +30,13 @@ export default function AdminCategory() {
     setIsOpenAddCategoryModal(!isOpenAddCategoryModal);
   };
 
-  const selectCategory = (category: Category) => {
+  const selectCategory = (category: BasicCategory) => {
     setSelectedCategory(category);
     toggleIsOpenCategoryModal();
   };
 
-  const fetchCategories = () => {
-    axios
-      .get("http://localhost:8080/admin/category/")
-      .then((response) => {
-        setCategories(response.data.category);
-      })
-      .catch((error) => {
-        console.log("List categories failed:", error);
-      });
-  };
-
   useEffect(() => {
-    fetchCategories();
+    fetchCategories(setCategories);
   }, []);
 
   return (
@@ -85,10 +73,25 @@ export default function AdminCategory() {
             id={selectedCategory.id}
             name={selectedCategory.name}
             toggleOpenModal={() => toggleIsOpenCategoryModal()}
-            onCategoryUpdated={() => fetchCategories()}
+            onCategoryUpdated={() => fetchCategories(setCategories)}
           />
         )}
       </div>
     </>
   );
 }
+
+export const fetchCategories = <T extends BasicCategory>(
+  setCategories: React.Dispatch<React.SetStateAction<T[]>>,
+  transformData?: (data: BasicCategory[]) => T[]
+) => {
+  axios
+    .get("http://localhost:8080/admin/category/")
+    .then((response) => {
+      const data = response.data.category;
+      setCategories(transformData ? transformData(data) : data);
+    })
+    .catch((error) => {
+      console.log("List categories failed:", error);
+    });
+};

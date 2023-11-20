@@ -1,8 +1,10 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import AdminCategoryModal from "./AdminCategoryModal/AdminCategoryModal";
 import { EllipsisText } from "../../../Sidebar/UserSidebar/Sidebar";
+import { fetchTypes } from "./../../../../pages/Admin/AdminType/AdminType";
+import { fetchCategories } from "./../../../../pages/Admin/AdminCategory/AdminCategory";
 
 import "./../AdminModalImage/AdminModalImage.css";
 
@@ -10,23 +12,25 @@ interface ModalImageProps {
   toggleOpenModal: () => void;
 }
 
+interface Type {
+  id: number;
+  src: string;
+  name: string;
+}
+interface Category {
+  id: number;
+  name: string;
+  selected: boolean;
+}
+
 const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
+  const [types, setTypes] = useState<Type[]>([]);
+  const [selectedTypeId, setSelectedTypeId] = useState<number | string>(""); //select boxの初期値はstringのため
+  const [categories, setCategories] = useState<Category[]>([]);
   const [imageData, setImageData] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
-  const [categories, setCategories] = useState([
-    { id: 1, name: "Category 1", selected: false },
-    { id: 2, name: "Category 2", selected: false },
-    { id: 3, name: "Category 3", selected: false },
-    { id: 4, name: "Category 4", selected: false },
-    { id: 5, name: "Category 5", selected: false },
-    { id: 6, name: "Category 6", selected: false },
-    { id: 7, name: "Category 7", selected: false },
-    { id: 8, name: "Category 8", selected: false },
-    { id: 9, name: "Category 9", selected: false },
-  ]);
 
   // カテゴリモーダルの状態管理
   const handleCategoryModal = () => {
@@ -59,7 +63,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     setTitle(event.target.value);
   };
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setType(event.target.value);
+    setSelectedTypeId(event.target.value);
   };
 
   // フロントの画像データをサーバーに送信する
@@ -72,7 +76,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
-    formData.append("type", type);
+    formData.append("typeId", selectedTypeId.toString());
     const selectedCategories = categories.filter(
       (category) => category.selected
     );
@@ -96,7 +100,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     }
   };
 
-  const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const selectedFile = files[0];
@@ -112,6 +116,13 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     }
   };
 
+  useEffect(() => {
+    fetchTypes(setTypes);
+    fetchCategories<Category>(setCategories, (data) =>
+      data.map((category) => ({ ...category, selected: false }))
+    );
+  }, []);
+
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
       <form
@@ -119,6 +130,9 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
         onClick={(e) => {
           e.stopPropagation();
           closeCategoryModal();
+        }}
+        onSubmit={() => {
+          uploadImage();
         }}
       >
         <button onClick={toggleOpenModal} className="cancel">
@@ -156,11 +170,13 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
             <div className="type">
               <h3>Type</h3>
               <label className="selectbox">
-                <select onChange={handleTypeChange} value={type}>
+                <select onChange={handleTypeChange} value={selectedTypeId}>
                   <option value="">-- Select Type --</option>
-                  <option value="joke">ネタ画像</option>
-                  <option value="meet-img">Meet背景</option>
-                  <option value="stump">スタンプ</option>
+                  {types.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
+                  ))}
                 </select>
               </label>
             </div>
@@ -203,15 +219,10 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
           </div>
 
           <div className="modal-image__content__desc__button">
-            <div
-              className="download"
-              onClick={() => {
-                uploadImage();
-              }}
-            >
+            <button className="download" type="submit">
               <img src="/download-icon.png" />
               Upload
-            </div>
+            </button>
           </div>
         </div>
       </form>
