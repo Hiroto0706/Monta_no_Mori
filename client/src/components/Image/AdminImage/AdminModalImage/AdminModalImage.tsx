@@ -32,8 +32,11 @@ const AdminModalImage: React.FC<ModalImageProps> = ({
           <img src="/cancel-icon.png" />
         </button>
 
-        <div className="modal-image__content__img">
-          <img src={src} alt={title} />
+        <div className="modal-image__content__img default">
+          <div>
+            <img src={src} alt={title} />
+          </div>
+          <input type="file" accept="image/*" />
         </div>
 
         <div className="modal-image__content__desc">

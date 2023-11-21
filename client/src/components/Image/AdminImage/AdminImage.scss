@@ -28,6 +28,10 @@
     border: main.$border-size solid main.$border-line-color;
     border-radius: 10px;
     padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
     img {
       width: 100%;

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 import ModalImage from "./AdminModalImage/AdminModalImage";
 import { EllipsisText } from "../../Sidebar/UserSidebar/Sidebar";
+import { Image, Category } from "./../../../pages/Admin/AdminImage/AdminImage";
 
 import "./AdminImage.css";
 
-const Image: React.FC = () => {
+const ImageList: React.FC<Image> = ({ src, title, type, categories }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [imageTitleMaxLength] = useState(10);
@@ -17,38 +18,29 @@ const Image: React.FC = () => {
   return (
     <li className="admin-image-box" onClick={() => toggleOpenModal()}>
       <div className="admin-image-box__img admin">
-        <img src="/monta_no_mori_icon.png" alt="喜ぶ犬" />
+        <img src={src} alt={title} />
       </div>
       <div className="admin-image-box__title admin">
         <h3>
-          <EllipsisText text="もんたの森" maxLength={imageTitleMaxLength} />
+          <EllipsisText text={title} maxLength={imageTitleMaxLength} />
         </h3>
         <div className="type">
           <span>
-            <img src="/pc-img.png" />
-            type
+            <img src={type.src} />
+            {type.name}
           </span>
         </div>
         <div className="category">
-          <span>#category</span>
-          <span>#fadsfasd</span>
-          <span>#fdsa</span>
-          <span>#sfd</span>
-          <span>#safdfdsfdsa</span>
-          <span>#fads</span>
-          <span>#fads</span>
-          <span>#fads</span>
-          <span>#fads</span>
-          <span>#fads</span>
-          <span>#fads</span>
-          <span>#fsdafdsa</span>
+          {categories?.map((category: Category) => (
+            <span key={category.id}># {category.name}</span>
+          ))}
         </div>
       </div>
 
       {isModalVisible && (
         <ModalImage
-          src="/monta_no_mori_icon.png"
-          title="もんたの森"
+          src={src}
+          title={title}
           toggleOpenModal={() => toggleOpenModal()}
         />
       )}
@@ -56,4 +48,4 @@ const Image: React.FC = () => {
   );
 };
 
-export default Image;
+export default ImageList;
