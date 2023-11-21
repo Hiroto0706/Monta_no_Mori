@@ -24,6 +24,7 @@ func NewServer(store *db.Store, config util.Config) *Server {
 
 	// AdminサイドAPI
 	admin := router.Group("/admin")
+	admin.GET("/", server.ListImages)
 	admin.POST("/upload", server.UploadImage)
 
 	adminType := admin.Group("/type")

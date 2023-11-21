@@ -1,6 +1,8 @@
 package api
 
 import (
+	"database/sql"
+	"fmt"
 	db "monta_no_mori/db/sqlc"
 	"net/http"
 	"strconv"
@@ -10,9 +12,70 @@ import (
 	"github.com/lib/pq"
 )
 
+type responseImage struct {
+	Image      db.Image      `json:"image"`
+	ImageType  db.Type       `json:"type"`
+	Categories []db.Category `json:"categories"`
+}
+
 func (server *Server) GetImages(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "Hello World! from GinServer",
+	})
+}
+
+func (server *Server) ListImages(ctx *gin.Context) {
+	arg := db.ListImageParams{
+		Limit:  100,
+		Offset: 0,
+	}
+	images, err := server.store.ListImage(ctx, arg)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	resImages := []responseImage{}
+	for _, image := range images {
+		resImage := responseImage{}
+		resImage.Image = image
+
+		typeID := resImage.Image.TypeID
+		imageType, err := server.store.GetType(ctx, typeID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+			return
+		}
+		resImage.ImageType = imageType
+
+		imageID := resImage.Image.ID
+		imageCategories, err := server.store.ListImageCategoriesByImage(ctx, imageID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image_categories by image id : %w", err)))
+			return
+		}
+		categories := []db.Category{}
+		for _, imageCategory := range imageCategories {
+			category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get category : %w", err)))
+				return
+			}
+			categories = append(categories, category)
+		}
+		resImage.Categories = categories
+		resImages = append(resImages, resImage)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "List images successfully",
+		"images":  images,
+		"payload": resImages,
 	})
 }
 
