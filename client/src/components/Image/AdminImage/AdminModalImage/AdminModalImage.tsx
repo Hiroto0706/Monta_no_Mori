@@ -22,14 +22,16 @@ interface Category {
   selected: boolean;
 }
 
-const AdminModalEditImage: React.FC<Image & ModalImageProps> = ({
-  id,
-  src,
-  title,
-  type,
-  categories,
-  toggleOpenModal,
-}) => {
+const AdminModalEditImage: React.FC<
+  Image &
+    ModalImageProps & {
+      onEditSuccess: (
+        updatedImage: Image,
+        updatedType: Type,
+        updatedCategories: Category[]
+      ) => void;
+    }
+> = ({ id, src, title, type, categories, toggleOpenModal, onEditSuccess }) => {
   const [editableTitle, setEditableTitle] = useState<string>(title);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [types, setTypes] = useState<Type[]>([]);
@@ -75,27 +77,23 @@ const AdminModalEditImage: React.FC<Image & ModalImageProps> = ({
   };
 
   // フロントの画像データをサーバーに送信する
-  const editImage = async () => {
-    if (!file) {
-      console.error("No file selected");
-      return;
-    }
+  const editImage = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     const formData = new FormData();
-    formData.append("id", id.toString());
-    formData.append("file", file);
-    formData.append("title", title);
+    formData.append("title", editableTitle);
     formData.append("typeId", selectedTypeId.toString());
     const selectedCategories = editableCategories.filter((c) => c.selected);
     selectedCategories.forEach((category) => {
       formData.append("categories", `${category.id}:${category.name}`);
     });
-
-    console.log(selectedCategories);
+    if (file) {
+      formData.append("file", file);
+    }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/admin/edit",
+      const response = await axios.put(
+        `http://localhost:8080/admin/edit/${id}`,
         formData,
         {
           headers: {
@@ -103,7 +101,12 @@ const AdminModalEditImage: React.FC<Image & ModalImageProps> = ({
           },
         }
       );
-      console.log(response.data);
+      console.log(types.filter((t) => t.id === response.data.image.type_id));
+      onEditSuccess(
+        response.data.image,
+        types.filter((type) => type.id === response.data.image.type_id)[0],
+        selectedCategories
+      );
     } catch (error) {
       console.error("Upload failed:", error);
     }
@@ -143,14 +146,14 @@ const AdminModalEditImage: React.FC<Image & ModalImageProps> = ({
 
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
-      <div
+      <form
         className="modal-image__content"
         onClick={(e) => {
           e.stopPropagation();
           closeCategoryModal();
         }}
-        onSubmit={() => {
-          editImage();
+        onSubmit={(e) => {
+          editImage(e);
         }}
       >
         <button onClick={toggleOpenModal} className="cancel">
@@ -236,13 +239,7 @@ const AdminModalEditImage: React.FC<Image & ModalImageProps> = ({
           </div>
 
           <div className="modal-image__content__desc__button">
-            <button
-              className="download"
-              type="submit"
-              onClick={() => {
-                editImage();
-              }}
-            >
+            <button className="download" type="submit">
               <img src="/download-icon.png" />
               Upload
             </button>
@@ -252,7 +249,7 @@ const AdminModalEditImage: React.FC<Image & ModalImageProps> = ({
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

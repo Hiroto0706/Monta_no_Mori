@@ -65,7 +65,7 @@ func (server *Server) UploadType(ctx *gin.Context) {
 }
 
 func (server *Server) EditType(ctx *gin.Context) {
-	id, err := strconv.Atoi(ctx.PostForm("id"))
+	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return

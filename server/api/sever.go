@@ -26,17 +26,18 @@ func NewServer(store *db.Store, config util.Config) *Server {
 	admin := router.Group("/admin")
 	admin.GET("/", server.ListImages)
 	admin.POST("/upload", server.UploadImage)
+	admin.PUT("/edit/:id", server.EditImage)
 
 	adminType := admin.Group("/type")
 	adminType.GET("/", server.ListTypes)
 	adminType.POST("/upload", server.UploadType)
-	adminType.PUT("/edit", server.EditType)
+	adminType.PUT("/edit/:id", server.EditType)
 	adminType.DELETE("/delete/:id", server.DeleteType)
 
 	adminCategory := admin.Group("/category")
 	adminCategory.GET("/", server.ListCategories)
 	adminCategory.POST("/create", server.CreateCategory)
-	adminCategory.PUT("/edit", server.EditCategory)
+	adminCategory.PUT("/edit/:id", server.EditCategory)
 	adminCategory.DELETE("/delete/:id", server.DeleteCategory)
 
 	server.router = router

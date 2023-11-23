@@ -98,7 +98,7 @@ export const fetchImages = (
     });
 };
 
-export const transformPayloadToImage = (payload: responsePayload) => {
+const transformPayloadToImage = (payload: responsePayload) => {
   return {
     id: payload.image.id,
     src: payload.image.src,

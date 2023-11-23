@@ -30,7 +30,7 @@ func (server *Server) CreateCategory(ctx *gin.Context) {
 }
 
 func (server *Server) EditCategory(ctx *gin.Context) {
-	strId := ctx.PostForm("id")
+	strId := ctx.Param("id")
 	id, err := strconv.Atoi(strId)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
