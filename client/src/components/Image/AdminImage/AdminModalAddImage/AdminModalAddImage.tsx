@@ -198,7 +198,6 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
                   </span>
                 ))}
 
-              {/* カテゴリーのADDとClose処理 */}
               <span
                 className="category-link add"
                 onClick={(e) => {

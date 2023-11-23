@@ -10,6 +10,7 @@ import "./AdminImage.css";
 export interface Category {
   id: number;
   name: string;
+  selected: boolean;
 }
 
 export interface Type {
@@ -23,7 +24,7 @@ export interface Image {
   src: string;
   title: string;
   type: Type;
-  categories?: Category[];
+  categories: Category[];
 }
 
 interface responsePayload {
@@ -90,7 +91,6 @@ export const fetchImages = (
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);
-      console.log(transformedImages);
       setImages(transformedImages);
     })
     .catch((error) => {
@@ -104,6 +104,9 @@ export const transformPayloadToImage = (payload: responsePayload) => {
     src: payload.image.src,
     title: payload.image.title,
     type: payload.type,
-    categories: payload.categories,
+    categories: payload.categories.map((cat) => ({
+      ...cat,
+      selected: true,
+    })),
   };
 };

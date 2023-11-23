@@ -10,7 +10,7 @@ import "./../AdminImage/AdminImage.css";
 import "./../AdminType/AdminType.css";
 import "./AdminCategory.css";
 
-interface BasicCategory {
+export interface BasicCategory {
   id: number;
   name: string;
 }

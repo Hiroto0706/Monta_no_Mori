@@ -6,10 +6,10 @@ import { Image, Category } from "./../../../pages/Admin/AdminImage/AdminImage";
 
 import "./AdminImage.css";
 
-const ImageList: React.FC<Image> = ({ src, title, type, categories }) => {
+const ImageList: React.FC<Image> = ({ id, src, title, type, categories }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [imageTitleMaxLength] = useState(10);
+  const [imageTitleMaxLength] = useState(50);
 
   const toggleOpenModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -39,8 +39,11 @@ const ImageList: React.FC<Image> = ({ src, title, type, categories }) => {
 
       {isModalVisible && (
         <ModalImage
+          id={id}
           src={src}
           title={title}
+          type={type}
+          categories={categories}
           toggleOpenModal={() => toggleOpenModal()}
         />
       )}
