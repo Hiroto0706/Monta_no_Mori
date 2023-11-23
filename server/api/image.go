@@ -280,3 +280,39 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		"image":   newImage,
 	})
 }
+
+func (server *Server) DeleteImage(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("bad request : %w", err)))
+		return
+	}
+
+	err = server.store.DeleteImageCategoryByImageID(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image_categories failed : %w", err)))
+		return
+	}
+
+	image, err := server.store.GetImage(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("get image failed : %w", err)))
+		return
+	}
+
+	err = server.store.DeleteImage(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image failed : %w", err)))
+		return
+	}
+
+	err = server.DeleteFileFromGCS(ctx, image.Src, FILE_TYPE)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image from GCS failed : %w", err)))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "delete image successfully",
+	})
+}

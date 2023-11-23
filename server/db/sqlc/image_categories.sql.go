@@ -29,7 +29,8 @@ func (q *Queries) CreateImageCategory(ctx context.Context, arg CreateImageCatego
 
 const deleteImageCategory = `-- name: DeleteImageCategory :exec
 DELETE FROM image_categories
-WHERE image_id = $1 AND category_id = $2
+WHERE image_id = $1
+  AND category_id = $2
 `
 
 type DeleteImageCategoryParams struct {
@@ -42,10 +43,21 @@ func (q *Queries) DeleteImageCategory(ctx context.Context, arg DeleteImageCatego
 	return err
 }
 
+const deleteImageCategoryByImageID = `-- name: DeleteImageCategoryByImageID :exec
+DELETE FROM image_categories
+WHERE image_id = $1
+`
+
+func (q *Queries) DeleteImageCategoryByImageID(ctx context.Context, imageID int64) error {
+	_, err := q.db.ExecContext(ctx, deleteImageCategoryByImageID, imageID)
+	return err
+}
+
 const getImageCategory = `-- name: GetImageCategory :one
 SELECT id, image_id, category_id
 FROM image_categories
-WHERE image_id = $1 AND category_id = $2
+WHERE image_id = $1
+  AND category_id = $2
 LIMIT 1
 `
 

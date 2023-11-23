@@ -76,8 +76,24 @@ const AdminModalEditImage: React.FC<
     setSelectedTypeId(event.target.value);
   };
 
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        setImageData(e.target?.result as string);
+      };
+      setFile(selectedFile);
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setFile(null);
+    }
+  };
+
   // フロントの画像データをサーバーに送信する
-  const editImage = async (event: React.FormEvent<HTMLFormElement>) => {
+  const editImage = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     const formData = new FormData();
@@ -101,30 +117,24 @@ const AdminModalEditImage: React.FC<
           },
         }
       );
-      console.log(types.filter((t) => t.id === response.data.image.type_id));
       onEditSuccess(
         response.data.image,
         types.filter((type) => type.id === response.data.image.type_id)[0],
         selectedCategories
       );
     } catch (error) {
-      console.error("Upload failed:", error);
+      console.error("Upload image failed:", error);
     }
   };
 
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const selectedFile = files[0];
-      const reader = new FileReader();
-
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        setImageData(e.target?.result as string);
-      };
-      setFile(selectedFile);
-      reader.readAsDataURL(selectedFile);
-    } else {
-      setFile(null);
+  const deleteImage = async (id: number) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/admin/delete/${id}`
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Delete image failed:", error);
     }
   };
 
@@ -146,14 +156,11 @@ const AdminModalEditImage: React.FC<
 
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
-      <form
+      <div
         className="modal-image__content"
         onClick={(e) => {
           e.stopPropagation();
           closeCategoryModal();
-        }}
-        onSubmit={(e) => {
-          editImage(e);
         }}
       >
         <button onClick={toggleOpenModal} className="cancel">
@@ -239,17 +246,22 @@ const AdminModalEditImage: React.FC<
           </div>
 
           <div className="modal-image__content__desc__button">
-            <button className="download" type="submit">
+            <button className="download" onClick={(e) => editImage(e)}>
               <img src="/download-icon.png" />
               Upload
             </button>
-            <button className="download delete" type="submit">
+            <button
+              className="download delete"
+              onClick={() => {
+                deleteImage(id);
+              }}
+            >
               <img src="/download-icon.png" />
               Delete
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

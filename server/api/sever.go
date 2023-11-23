@@ -27,6 +27,7 @@ func NewServer(store *db.Store, config util.Config) *Server {
 	admin.GET("/", server.ListImages)
 	admin.POST("/upload", server.UploadImage)
 	admin.PUT("/edit/:id", server.EditImage)
+	admin.DELETE("/delete/:id", server.DeleteImage)
 
 	adminType := admin.Group("/type")
 	adminType.GET("/", server.ListTypes)

@@ -20,6 +20,7 @@ type Querier interface {
 	DeleteCategory(ctx context.Context, id int64) error
 	DeleteImage(ctx context.Context, id int64) error
 	DeleteImageCategory(ctx context.Context, arg DeleteImageCategoryParams) error
+	DeleteImageCategoryByImageID(ctx context.Context, imageID int64) error
 	DeleteType(ctx context.Context, id int64) error
 	GetCategory(ctx context.Context, id int64) (Category, error)
 	GetCategoryByName(ctx context.Context, name string) (Category, error)
