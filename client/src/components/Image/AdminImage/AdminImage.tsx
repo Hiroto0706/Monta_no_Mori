@@ -10,7 +10,14 @@ import {
 
 import "./AdminImage.css";
 
-const ImageList: React.FC<Image> = ({ id, src, title, type, categories }) => {
+const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
+  id,
+  src,
+  title,
+  type,
+  categories,
+  reFetchImages,
+}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [imageTitleMaxLength] = useState(50);
   const [imgTitle, setImgTitle] = useState(title);
@@ -64,6 +71,7 @@ const ImageList: React.FC<Image> = ({ id, src, title, type, categories }) => {
           categories={imgCategories}
           toggleOpenModal={() => toggleOpenModal()}
           onEditSuccess={handleEditImage}
+          onDeleteSuccess={() => reFetchImages()}
         />
       )}
     </li>

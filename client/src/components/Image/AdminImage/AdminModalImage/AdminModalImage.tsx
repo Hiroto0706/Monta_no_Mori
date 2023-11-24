@@ -30,8 +30,18 @@ const AdminModalEditImage: React.FC<
         updatedType: Type,
         updatedCategories: Category[]
       ) => void;
+      onDeleteSuccess: () => void;
     }
-> = ({ id, src, title, type, categories, toggleOpenModal, onEditSuccess }) => {
+> = ({
+  id,
+  src,
+  title,
+  type,
+  categories,
+  toggleOpenModal,
+  onEditSuccess,
+  onDeleteSuccess,
+}) => {
   const [editableTitle, setEditableTitle] = useState<string>(title);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [types, setTypes] = useState<Type[]>([]);
@@ -133,6 +143,7 @@ const AdminModalEditImage: React.FC<
         `http://localhost:8080/admin/delete/${id}`
       );
       console.log(response.data);
+      onDeleteSuccess();
     } catch (error) {
       console.error("Delete image failed:", error);
     }

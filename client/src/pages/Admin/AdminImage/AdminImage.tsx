@@ -42,6 +42,10 @@ export default function AdminImage() {
     setIsOpenAddImageModal(!isOpenAddImageModal);
   };
 
+  const reFetchImages = () => {
+    fetchImages(setImages);
+  };
+
   useEffect(() => {
     fetchImages(setImages);
   }, []);
@@ -74,6 +78,7 @@ export default function AdminImage() {
                 title={image.title}
                 type={image.type}
                 categories={image.categories}
+                reFetchImages={() => reFetchImages()}
               />
             ))}
           </ul>
