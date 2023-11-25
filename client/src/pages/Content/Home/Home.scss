@@ -13,19 +13,13 @@
     flex-wrap: wrap;
     padding: 0;
 
-    li {
-      width: 23%;
-      max-width: 280px;
-      min-width: 180px;
-      height: auto;
-      margin-bottom: 4rem;
-    }
-
     &::after,
     &::before {
       content: "";
       display: block;
-      width: 23%;
+      width: calc(23% + 2 * 0.5rem);
+      max-width: 280px;
+      min-width: 180px;
     }
 
     &::before {

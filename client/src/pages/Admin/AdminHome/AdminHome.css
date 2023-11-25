@@ -30,24 +30,18 @@ li {
 .admin-component__inner h2 {
   margin: 0;
 }
-.admin-component__inner button {
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-}
-.admin-component__inner button:hover {
-  opacity: 0.75;
-}
 .admin-component__inner__contents {
   margin-bottom: 10rem;
   margin-top: 2rem;
 }
-.admin-component__inner__contents button {
-  width: 100%;
+.admin-component__inner__contents a {
+  width: calc(100% - 4rem - 3px);
   padding: 1.125rem 2rem;
   min-width: 200px;
   margin-bottom: 1.5rem;
+  text-decoration: none;
   background-color: transparent;
+  border-radius: 5px;
   border: solid 1.5px #4caf50;
   color: #4caf50;
   font-size: 1.4rem;
@@ -55,17 +49,23 @@ li {
   align-items: center;
   justify-content: left;
 }
-.admin-component__inner__contents button img {
+.admin-component__inner__contents a img {
   width: 30px;
   height: 30px;
   margin-right: 1.5rem;
 }
+.admin-component__inner__contents a:hover {
+  opacity: 0.75;
+}
 .admin-component__inner .logout {
-  width: 100%;
+  width: calc(100% - 4rem);
   color: white;
   background-color: #ff3e49;
-  font-size: 1.4rem;
-  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 0.75rem 2rem;
+  border: none;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,4 +75,15 @@ li {
   width: 30px;
   height: 30px;
   margin-right: 0.75rem;
+}
+.admin-component__inner .logout:hover {
+  opacity: 0.75;
+}
+.admin-component__inner button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admin-component__inner button:hover {
+  opacity: 0.75;
 }/*# sourceMappingURL=AdminHome.css.map */

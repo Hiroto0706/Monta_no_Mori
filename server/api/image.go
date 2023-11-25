@@ -12,19 +12,16 @@ import (
 	"github.com/lib/pq"
 )
 
+const FILE_TYPE_IMAGE = "image"
+
 type responseImage struct {
 	Image      db.Image      `json:"image"`
 	ImageType  db.Type       `json:"type"`
 	Categories []db.Category `json:"categories"`
 }
 
-func (server *Server) GetImages(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Hello World! from GinServer",
-	})
-}
-
 func (server *Server) ListImages(ctx *gin.Context) {
+	// TODO: 引数が固定なので修正する必要あり
 	arg := db.ListImageParams{
 		Limit:  100,
 		Offset: 0,
@@ -74,7 +71,6 @@ func (server *Server) ListImages(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "List images successfully",
-		"images":  images,
 		"payload": resImages,
 	})
 }
@@ -109,8 +105,7 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	// GCSにアップロード
-	fileType := "image"
-	urlPath, err := server.UploadToGCS(ctx, file, fileType)
+	urlPath, err := server.UploadToGCS(ctx, file, FILE_TYPE_IMAGE)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -150,5 +145,169 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "image create successfully",
 		"image":   image,
+	})
+}
+
+func (server *Server) EditImage(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("bad request : %w", err)))
+		return
+	}
+	typeId, err := strconv.Atoi(ctx.PostForm("typeId"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+	title := ctx.PostForm("title")
+	categoryData := ctx.PostFormArray("categories")
+	type Category struct {
+		ID   int    `json:"id"`
+		Name string `json:"name"`
+	}
+	var newCategories []Category
+	for _, data := range categoryData {
+		parts := strings.Split(data, ":")
+		if len(parts) == 2 {
+			id, _ := strconv.Atoi(parts[0])
+			name := parts[1]
+			newCategories = append(newCategories, Category{ID: id, Name: name})
+		}
+	}
+	// 新しいカテゴリーのセットを作成
+	newImageCategorySet := make(map[int64]struct{})
+	for _, category := range newCategories {
+		newImageCategorySet[int64(category.ID)] = struct{}{}
+	}
+
+	image, err := server.store.GetImage(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image from db : %w", err)))
+		return
+	}
+
+	// 古いカテゴリーのセットを作成
+	oldImageCategories, err := server.store.ListImageCategoriesByImage(ctx, image.ID)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to list image_categories by imageID : %w", err)))
+		return
+	}
+	oldImageCategorySet := make(map[int64]struct{})
+	for _, imageCategory := range oldImageCategories {
+		oldImageCategorySet[imageCategory.CategoryID] = struct{}{}
+	}
+
+	// 新しいカテゴリーを追加（古いカテゴリーに存在しないもののみ）
+	for _, category := range newCategories {
+		if _, exists := oldImageCategorySet[int64(category.ID)]; !exists {
+			argImageCategory := db.CreateImageCategoryParams{
+				ImageID:    image.ID,
+				CategoryID: int64(category.ID),
+			}
+			_, err := server.store.CreateImageCategory(ctx, argImageCategory)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+				return
+			}
+		}
+	}
+
+	// 古いカテゴリーを削除（新しいカテゴリーに存在しないもののみ）
+	for _, category := range oldImageCategories {
+		if _, exists := newImageCategorySet[category.CategoryID]; !exists {
+			err := server.store.DeleteImageCategory(ctx, db.DeleteImageCategoryParams{
+				ImageID:    image.ID,
+				CategoryID: category.CategoryID,
+			})
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+				return
+			}
+		}
+	}
+
+	// urlPathはfileの更新がなければ既存のものを使う
+	var urlPath string
+	file, err := ctx.FormFile("file")
+	if err != nil {
+		if err.Error() == "http: no such file" {
+			urlPath = image.Src
+		} else {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("get file is bad request : %w", err)))
+			return
+		}
+	} else {
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("get file data is failed : %w", err)))
+			return
+		}
+
+		// GCSにアップロード
+		urlPath, err = server.UploadToGCS(ctx, file, FILE_TYPE_IMAGE)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to upload file to GCS: %w", err)))
+			return
+		}
+
+		// 既存イメージの削除
+		err = server.DeleteFileFromGCS(ctx, image.Src, FILE_TYPE_IMAGE)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete existing file from GCS failed : %w", err)))
+			return
+		}
+	}
+
+	argImage := db.UpdateImageParams{
+		ID:     int64(id),
+		Title:  title,
+		Src:    urlPath,
+		TypeID: int64(typeId),
+	}
+
+	newImage, err := server.store.UpdateImage(ctx, argImage)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to update image : %w", err)))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "image update successfully",
+		"image":   newImage,
+	})
+}
+
+func (server *Server) DeleteImage(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("bad request : %w", err)))
+		return
+	}
+
+	err = server.store.DeleteImageCategoryByImageID(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image_categories failed : %w", err)))
+		return
+	}
+
+	image, err := server.store.GetImage(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("get image failed : %w", err)))
+		return
+	}
+
+	err = server.store.DeleteImage(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image failed : %w", err)))
+		return
+	}
+
+	err = server.DeleteFileFromGCS(ctx, image.Src, FILE_TYPE)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image from GCS failed : %w", err)))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "delete image successfully",
 	})
 }

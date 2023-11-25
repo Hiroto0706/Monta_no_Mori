@@ -20,23 +20,26 @@ func NewServer(store *db.Store, config util.Config) *Server {
 	router.Use(CORSMiddleware())
 
 	// UserサイドAPI
-	router.GET("/", server.GetImages)
+	router.GET("/", server.ListImages)
+	router.GET("/category/:id", server.ListImageCategories)
 
 	// AdminサイドAPI
 	admin := router.Group("/admin")
 	admin.GET("/", server.ListImages)
 	admin.POST("/upload", server.UploadImage)
+	admin.PUT("/edit/:id", server.EditImage)
+	admin.DELETE("/delete/:id", server.DeleteImage)
 
 	adminType := admin.Group("/type")
 	adminType.GET("/", server.ListTypes)
 	adminType.POST("/upload", server.UploadType)
-	adminType.PUT("/edit", server.EditType)
+	adminType.PUT("/edit/:id", server.EditType)
 	adminType.DELETE("/delete/:id", server.DeleteType)
 
 	adminCategory := admin.Group("/category")
 	adminCategory.GET("/", server.ListCategories)
 	adminCategory.POST("/create", server.CreateCategory)
-	adminCategory.PUT("/edit", server.EditCategory)
+	adminCategory.PUT("/edit/:id", server.EditCategory)
 	adminCategory.DELETE("/delete/:id", server.DeleteCategory)
 
 	server.router = router

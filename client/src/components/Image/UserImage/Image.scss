@@ -2,10 +2,10 @@
 
 .image-box {
   width: 23%;
-  max-width: 280px;
-  min-width: 180px;
+  max-width: calc(280px);
+  min-width: calc(180px);
   height: auto;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 10px;

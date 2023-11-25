@@ -36,7 +36,7 @@ const AdminModalImageCategoryModal: React.FC<Props> = ({
                     checked={category.selected}
                     onChange={() => onCategoryChange(category.id)}
                   />
-                  # {category.name}
+                  #{category.name}
                 </label>
               </li>
             ))}

@@ -10,6 +10,7 @@ import "./AdminImage.css";
 export interface Category {
   id: number;
   name: string;
+  selected: boolean;
 }
 
 export interface Type {
@@ -23,7 +24,7 @@ export interface Image {
   src: string;
   title: string;
   type: Type;
-  categories?: Category[];
+  categories: Category[];
 }
 
 interface responsePayload {
@@ -39,6 +40,10 @@ export default function AdminImage() {
 
   const toggleIsOpenAddImageModal = () => {
     setIsOpenAddImageModal(!isOpenAddImageModal);
+  };
+
+  const reFetchImages = () => {
+    fetchImages(setImages);
   };
 
   useEffect(() => {
@@ -73,6 +78,7 @@ export default function AdminImage() {
                 title={image.title}
                 type={image.type}
                 categories={image.categories}
+                reFetchImages={() => reFetchImages()}
               />
             ))}
           </ul>
@@ -90,7 +96,6 @@ export const fetchImages = (
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);
-      console.log(transformedImages);
       setImages(transformedImages);
     })
     .catch((error) => {
@@ -98,12 +103,15 @@ export const fetchImages = (
     });
 };
 
-export const transformPayloadToImage = (payload: responsePayload) => {
+const transformPayloadToImage = (payload: responsePayload) => {
   return {
     id: payload.image.id,
     src: payload.image.src,
     title: payload.image.title,
     type: payload.type,
-    categories: payload.categories,
+    categories: payload.categories.map((cat) => ({
+      ...cat,
+      selected: true,
+    })),
   };
 };

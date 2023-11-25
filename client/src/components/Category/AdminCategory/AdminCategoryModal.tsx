@@ -16,7 +16,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
   toggleOpenModal,
   onCategoryUpdated,
 }) => {
-  const [, setName] = useState(name);
+  const [defaultName, setName] = useState(name);
   const [editableName, setEditableName] = useState(name);
 
   const handleCategoryName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,18 +24,17 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
   };
 
   const editCategory = async (id: number) => {
-    if (name == editableName) {
-      console.log("there is no diff");
+    if (defaultName == editableName) {
+      console.error("there is no diff");
       return;
     }
 
     const formData = new FormData();
-    formData.append("id", id.toString());
     formData.append("name", editableName);
 
     try {
       const response = await axios.put(
-        "http://localhost:8080/admin/category/edit",
+        `http://localhost:8080/admin/category/edit/${id}`,
         formData
       );
       setName(response.data.category.name);

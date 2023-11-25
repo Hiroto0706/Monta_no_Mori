@@ -2,36 +2,61 @@ import React, { useState } from "react";
 
 import ModalImage from "./AdminModalImage/AdminModalImage";
 import { EllipsisText } from "../../Sidebar/UserSidebar/Sidebar";
-import { Image, Category } from "./../../../pages/Admin/AdminImage/AdminImage";
+import {
+  Image,
+  Category,
+  Type,
+} from "./../../../pages/Admin/AdminImage/AdminImage";
 
 import "./AdminImage.css";
 
-const ImageList: React.FC<Image> = ({ src, title, type, categories }) => {
+const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
+  id,
+  src,
+  title,
+  type,
+  categories,
+  reFetchImages,
+}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const [imageTitleMaxLength] = useState(10);
+  const [imageTitleMaxLength] = useState(50);
+  const [imgTitle, setImgTitle] = useState(title);
+  const [imgSrc, setImgSrc] = useState(src);
+  const [imgType, setImgType] = useState(type);
+  const [imgCategories, setImgCategories] = useState(categories);
 
   const toggleOpenModal = () => {
     setIsModalVisible(!isModalVisible);
   };
 
+  const handleEditImage = (
+    updatedImage: Image,
+    updatedType: Type,
+    updatedCategories: Category[]
+  ) => {
+    setImgTitle(updatedImage.title);
+    setImgSrc(updatedImage.src);
+    setImgType(updatedType);
+    setImgCategories(updatedCategories);
+  };
+
   return (
     <li className="admin-image-box" onClick={() => toggleOpenModal()}>
       <div className="admin-image-box__img admin">
-        <img src={src} alt={title} />
+        <img src={imgSrc} alt={imgTitle} />
       </div>
       <div className="admin-image-box__title admin">
         <h3>
-          <EllipsisText text={title} maxLength={imageTitleMaxLength} />
+          <EllipsisText text={imgTitle} maxLength={imageTitleMaxLength} />
         </h3>
         <div className="type">
           <span>
-            <img src={type.src} />
-            {type.name}
+            <img src={imgType.src} />
+            {imgType.name}
           </span>
         </div>
         <div className="category">
-          {categories?.map((category: Category) => (
+          {imgCategories?.map((category: Category) => (
             <span key={category.id}># {category.name}</span>
           ))}
         </div>
@@ -39,9 +64,14 @@ const ImageList: React.FC<Image> = ({ src, title, type, categories }) => {
 
       {isModalVisible && (
         <ModalImage
-          src={src}
-          title={title}
+          id={id}
+          src={imgSrc}
+          title={imgTitle}
+          type={imgType}
+          categories={imgCategories}
           toggleOpenModal={() => toggleOpenModal()}
+          onEditSuccess={handleEditImage}
+          onDeleteSuccess={() => reFetchImages()}
         />
       )}
     </li>

@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import {
+  fetchCategories,
+  BasicCategory,
+} from "../../../pages/Admin/AdminCategory/AdminCategory";
+import { fetchTypes, Type } from "../../../pages/Admin/AdminType/AdminType";
 
 import "./Sidebar.css";
 
@@ -18,7 +24,15 @@ export const EllipsisText: React.FC<EllipsisTextProps> = ({
 
 const Sidebar: React.FC = () => {
   const [typeMaxLength] = useState(10);
-  const [categoryMaxLength] = useState(10);
+  const [categoryMaxLength] = useState(15);
+
+  const [categories, setCategories] = useState<BasicCategory[]>([]);
+  const [types, setTypes] = useState<Type[]>([]);
+
+  useEffect(() => {
+    fetchCategories(setCategories);
+    fetchTypes(setTypes);
+  }, []);
 
   return (
     <>
@@ -26,96 +40,27 @@ const Sidebar: React.FC = () => {
         <div className="sidebar__inner">
           <div className="sidebar__inner__type">
             <h3>Type</h3>
-            <a href="" className="type-link">
-              <EllipsisText text="テストテススト" maxLength={typeMaxLength} />{" "}
-              <div>
-                <img src="/pc-img.png" />
-              </div>
-            </a>
-            <a href="" className="type-link">
-              <EllipsisText text="テストテストテ" maxLength={typeMaxLength} />{" "}
-              <div>
-                <img src="/pc-img.png" />
-              </div>
-            </a>
-            <a href="" className="type-link">
-              <EllipsisText text="テスト" maxLength={typeMaxLength} />{" "}
-              <div>
-                <img src="/pc-img.png" />
-              </div>
-            </a>
-            <a href="" className="type-link">
-              <EllipsisText text="テストテストテ" maxLength={typeMaxLength} />{" "}
-              <div>
-                <img src="/pc-img.png" />
-              </div>
-            </a>
+            {types.map((type) => (
+              <a href="" className="type-link">
+                <EllipsisText text={type.name} maxLength={typeMaxLength} />
+                <div>
+                  <img src={type.src} />
+                </div>
+              </a>
+            ))}
           </div>
 
           <div className="sidebar__inner__category">
             <h3>Category</h3>
-            <a href="" className="category-link">
-              #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText text="テスト" maxLength={categoryMaxLength} />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
-            </a>
-            <a href="" className="category-link">
-              #
-              <EllipsisText
-                text="テストテストテストテストテストテストテスト"
-                maxLength={categoryMaxLength}
-              />
-            </a>
+            {categories.map((category) => (
+              <a href="" className="category-link">
+                #
+                <EllipsisText
+                  text={category.name}
+                  maxLength={categoryMaxLength}
+                />
+              </a>
+            ))}
           </div>
         </div>
       </div>

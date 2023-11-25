@@ -114,14 +114,17 @@ li {
   position: relative;
   display: flex;
   width: calc(850px - 4rem);
-  height: 80%;
-  max-height: calc(450px - 4rem);
+  height: 65%;
+  max-height: calc(500px - 4rem);
   background-color: white;
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.1);
   z-index: 1001;
   cursor: default;
+}
+.modal-image__content.user-modal {
+  max-height: calc(430px - 4rem);
 }
 .modal-image__content .cancel {
   position: absolute;
@@ -148,7 +151,12 @@ li {
   flex-flow: column;
   height: 100%;
 }
-.modal-image__content__img img {
+.modal-image__content__img .img {
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.modal-image__content__img .img img {
   width: 100%;
   height: auto;
 }

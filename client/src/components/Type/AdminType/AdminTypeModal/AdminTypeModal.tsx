@@ -17,7 +17,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
   toggleOpenModal,
   onTypeUpdated,
 }) => {
-  const [, setName] = useState(name);
+  const [defaultName, setName] = useState(name);
   const [editableName, setEditableName] = useState(name);
   const [editableImagePath, setEditableImagePath] = useState<string>(src);
   const [editableFile, setEditableFile] = useState<File | null>(null);
@@ -43,13 +43,12 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
   };
 
   const editType = async (id: number) => {
-    if (editableName == name && editableFile == null) {
-      console.log("there is no diff");
+    if (editableName == defaultName && editableFile == null) {
+      console.error("there is no diff");
       return;
     }
 
     const formData = new FormData();
-    formData.append("id", id.toString());
     formData.append("name", editableName);
     if (editableFile) {
       formData.append("file", editableFile);
@@ -57,7 +56,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
 
     try {
       const response = await axios.put(
-        "http://localhost:8080/admin/type/edit",
+        `http://localhost:8080/admin/type/edit/${id}`,
         formData,
         {
           headers: {
