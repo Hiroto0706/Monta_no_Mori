@@ -20,13 +20,8 @@ type responseImage struct {
 	Categories []db.Category `json:"categories"`
 }
 
-func (server *Server) GetImages(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Hello World! from GinServer",
-	})
-}
-
 func (server *Server) ListImages(ctx *gin.Context) {
+	// TODO: 引数が固定なので修正する必要あり
 	arg := db.ListImageParams{
 		Limit:  100,
 		Offset: 0,

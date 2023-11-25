@@ -28,6 +28,10 @@
   z-index: 1001;
   cursor: default;
 
+  &.user-modal {
+    max-height: calc(430px - 2 * 2rem);
+  }
+
   .cancel {
     position: absolute;
     border: none;
@@ -56,9 +60,15 @@
     flex-flow: column;
     height: 100%;
 
-    img {
-      width: 100%;
-      height: auto;
+    .img {
+      background-color: #e5e5e5;
+      border-radius: 10px;
+      padding: 1rem;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
 
     &.default {

@@ -21,8 +21,6 @@ func (server *Server) CreateCategory(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Println(category)
-
 	ctx.JSON(http.StatusOK, gin.H{
 		"message":  "category created successfully",
 		"category": category,
@@ -70,6 +68,41 @@ func (server *Server) ListCategories(ctx *gin.Context) {
 
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message":  "list categories successfully",
+		"category": categories,
+	})
+}
+
+func (server *Server) ListImageCategories(ctx *gin.Context) {
+	image_id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("bad request : %w", err)))
+		return
+	}
+
+	imageCategoriesIDs, err := server.store.ListImageCategoriesByImage(ctx, int64(image_id))
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("failed to list imageCategories by imageID : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	var categories []db.Category
+	for _, imageCategory := range imageCategoriesIDs {
+		category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+		if err != nil {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("failed to get category image.categoryID : %d, err : %w", imageCategory.CategoryID, err)))
+			return
+		}
+
+		categories = append(categories, category)
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{

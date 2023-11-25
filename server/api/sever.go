@@ -20,7 +20,8 @@ func NewServer(store *db.Store, config util.Config) *Server {
 	router.Use(CORSMiddleware())
 
 	// UserサイドAPI
-	router.GET("/", server.GetImages)
+	router.GET("/", server.ListImages)
+	router.GET("/category/:id", server.ListImageCategories)
 
 	// AdminサイドAPI
 	admin := router.Group("/admin")

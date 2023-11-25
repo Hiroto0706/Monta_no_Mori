@@ -31,17 +31,12 @@ li {
   flex-wrap: wrap;
   padding: 0;
 }
-.home__image-list li {
-  width: 23%;
-  max-width: 280px;
-  min-width: 180px;
-  height: auto;
-  margin-bottom: 4rem;
-}
 .home__image-list::after, .home__image-list::before {
   content: "";
   display: block;
-  width: 23%;
+  width: calc(23% + 1rem);
+  max-width: 280px;
+  min-width: 180px;
 }
 .home__image-list::before {
   order: 1;
