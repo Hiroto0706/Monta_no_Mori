@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
-import OrderBy from "../../../components/Form/OrderBy/OrderBy";
+// import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
 
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="home">
-        <OrderBy />
+        {/* <OrderBy /> */}
         <ul className="home__image-list">
           {images.map((image) => (
             <ImageCard

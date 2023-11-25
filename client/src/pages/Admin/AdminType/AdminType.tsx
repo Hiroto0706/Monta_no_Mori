@@ -8,7 +8,7 @@ import AdminTypeList from "./../../../components/Type/AdminType/AdminTypeList/Ad
 import "./../AdminImage/AdminImage.css";
 import "./AdminType.css";
 
-interface Type {
+export interface Type {
   id: number;
   src: string;
   name: string;
