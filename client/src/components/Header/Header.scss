@@ -29,7 +29,7 @@ $header-top-padding: 0.5rem;
     $favorite-top-margin: 0.5rem;
 
     margin: $favorite-top-margin 0;
-    padding: 0.75rem 2rem;
+    padding: 0.5rem;
     background-color: transparent;
     border-radius: 5px;
     border: none;
@@ -40,6 +40,8 @@ $header-top-padding: 0.5rem;
     font-size: 1.4em;
     font-weight: normal;
     display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);

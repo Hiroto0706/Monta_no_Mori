@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
           <div className="sidebar__inner__type">
             <h3>Type</h3>
             {types.map((type) => (
-              <a href="" className="type-link">
+              <a href="" className="type-link" key={type.id}>
                 <EllipsisText text={type.name} maxLength={typeMaxLength} />
                 <div>
                   <img src={type.src} />
@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
           <div className="sidebar__inner__category">
             <h3>Category</h3>
             {categories.map((category) => (
-              <a href="" className="category-link">
+              <a href="" className="category-link" key={category.id}>
                 #
                 <EllipsisText
                   text={category.name}

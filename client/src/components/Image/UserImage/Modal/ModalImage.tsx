@@ -13,6 +13,7 @@ interface ModalImageProps {
   title: string;
   type: UserType;
   toggleOpenModal: () => void;
+  toggleLike: (id: string) => void;
 }
 
 interface Category {
@@ -26,15 +27,23 @@ const ModalImage: React.FC<ModalImageProps> = ({
   title,
   type,
   toggleOpenModal,
+  toggleLike,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
 
-  const toggleLike = (isLiked: boolean) => {
+  const toggleLikeFromModal = () => {
+    toggleLike(id.toString());
     setIsLiked(!isLiked);
   };
 
   useEffect(() => {
+    if (localStorage.getItem("favorites")?.includes(id.toString())) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+
     axios
       .get(`http://localhost:8080/category/${id}`)
       .then((response) => {
@@ -68,8 +77,8 @@ const ModalImage: React.FC<ModalImageProps> = ({
               <img
                 src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
                 onClick={(e) => {
-                  toggleLike(isLiked);
                   e.stopPropagation();
+                  toggleLikeFromModal();
                 }}
               />
             </div>

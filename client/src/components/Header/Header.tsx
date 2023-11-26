@@ -13,10 +13,10 @@ export default function Header() {
         </a>
       </div>
       <Search />
-      <button className="header__favorite">
+      <a className="header__favorite" href="/favorite">
         <img src="/heart-icon.png" />
         <p>Favorite</p>
-      </button>
+      </a>
     </header>
   );
 }

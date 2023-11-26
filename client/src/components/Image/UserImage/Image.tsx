@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ModalImage from "./Modal/ModalImage";
 
@@ -7,19 +7,38 @@ import { UserImage } from "./../../../pages/Content/Home/Home";
 
 import "./Image.css";
 
-const Image: React.FC<UserImage> = ({ id, title, src, type }) => {
+const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
+  id,
+  title,
+  src,
+  type,
+  toggleFavorite,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [imageTitleMaxLength] = useState(10);
 
-  const toggleLike = (isLiked: boolean) => {
-    setIsLiked(!isLiked);
+  const toggleLike = (id: string) => {
+    toggleFavorite(id);
+    if (localStorage.getItem("favorites")?.includes(id)) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
   };
 
   const toggleOpenModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("favorites")?.includes(id.toString())) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, []);
 
   return (
     <li className="image-box" onClick={() => toggleOpenModal()}>
@@ -33,7 +52,7 @@ const Image: React.FC<UserImage> = ({ id, title, src, type }) => {
         <img
           src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
           onClick={(e) => {
-            toggleLike(isLiked);
+            toggleLike(id.toString());
             e.stopPropagation();
           }}
         />
@@ -46,6 +65,7 @@ const Image: React.FC<UserImage> = ({ id, title, src, type }) => {
           title={title}
           type={type}
           toggleOpenModal={() => toggleOpenModal()}
+          toggleLike={() => toggleLike(id.toString())}
         />
       )}
     </li>

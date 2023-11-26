@@ -24,6 +24,9 @@ li {
   margin: auto;
   padding: 2.5% 2%;
 }
+.home h1 {
+  margin: 0 0 0.5em 0;
+}
 .home__image-list {
   padding: 2rem 0;
   display: flex;

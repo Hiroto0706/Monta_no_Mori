@@ -1,6 +1,6 @@
 import Home from "./pages/Content/Home/Home";
 import About from "./pages/Content/About";
-import Detail from "./pages/Content/Detail";
+import Favorite from "./pages/Content/Home/Favorite";
 import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 import AdminImage from "./pages/Admin/AdminImage/AdminImage";
 import AdminType from "./pages/Admin/AdminType/AdminType";
@@ -37,9 +37,9 @@ const routes: RouteType[] = [
     name: "About",
   },
   {
-    path: "/detail",
-    component: Detail,
-    name: "Detail",
+    path: "/favorite",
+    component: Favorite,
+    name: "Favorite",
   },
   {
     path: "/admin",
