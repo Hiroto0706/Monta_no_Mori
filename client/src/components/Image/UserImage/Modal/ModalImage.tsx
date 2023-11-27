@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { saveAs } from "file-saver";
 
 import { EllipsisText } from "../../../Sidebar/UserSidebar/Sidebar";
 import { UserType } from "../../../../pages/Content/Home/Home";
@@ -35,6 +36,30 @@ const ModalImage: React.FC<ModalImageProps> = ({
   const toggleLikeFromModal = () => {
     toggleLike(id.toString());
     setIsLiked(!isLiked);
+  };
+
+  const downloadImage = async () => {
+    try {
+      const response = await axios.get(src, {
+        responseType: "blob",
+      });
+      const fileName = src.substring(src.lastIndexOf("/") + 1);
+      saveAs(response.data, fileName);
+    } catch (error) {
+      console.error("Image download failed", error);
+    }
+  };
+
+  const copyImageToClipboard = async () => {
+    try {
+      const response = await axios.get(src, { responseType: "blob" });
+      const blob = response.data;
+      const clipboardItem = new ClipboardItem({ [blob.type]: blob });
+      await navigator.clipboard.write([clipboardItem]);
+      console.log("image copied successfully!");
+    } catch (err) {
+      console.error("Failed to copy on clipboard", err);
+    }
   };
 
   useEffect(() => {
@@ -103,11 +128,16 @@ const ModalImage: React.FC<ModalImageProps> = ({
           </div>
 
           <div className="modal-image__content__desc__button">
-            <button className="download">
+            <button
+              className="download"
+              onClick={() => {
+                downloadImage();
+              }}
+            >
               <img src="/download-icon.png" />
               Download
             </button>
-            <button className="copy">
+            <button className="copy" onClick={() => copyImageToClipboard()}>
               <img src="/copy-icon.png" />
               Copy
             </button>
