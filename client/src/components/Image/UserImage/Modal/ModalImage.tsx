@@ -56,6 +56,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
       const blob = response.data;
       const clipboardItem = new ClipboardItem({ [blob.type]: blob });
       await navigator.clipboard.write([clipboardItem]);
+      console.log("image copied successfully!");
     } catch (err) {
       console.error("Failed to copy on clipboard", err);
     }
