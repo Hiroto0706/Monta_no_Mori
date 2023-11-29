@@ -20,7 +20,6 @@ const Search: React.FC = () => {
           q: searchText,
         },
       });
-      console.log(response.data); // 検索結果を処理
       fetchUsersImages(dispatch, response.data.result);
     } catch (error) {
       console.error("Error during image search", error);

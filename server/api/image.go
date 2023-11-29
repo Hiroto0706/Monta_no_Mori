@@ -78,21 +78,25 @@ func (server *Server) ListImages(ctx *gin.Context) {
 func (server *Server) SearchImages(ctx *gin.Context) {
 	searchText := ctx.Query("q")
 	args := db.ListImageByTitleParams{
-		Title:  searchText,
 		Limit:  100,
 		Offset: 0,
+		Title: sql.NullString{
+			String: searchText,
+			Valid:  true,
+		},
 	}
 	images, err := server.store.ListImageByTitle(ctx, args)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("No images were found for the title received : %w", err)))
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no images were found for the title received : %w", err)))
 			return
 		}
 
-		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("Failed to ListImageByTitle() : %w", err)))
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to ListImageByTitle() : %w", err)))
 		return
 	}
 
+	// TODO: この箇所はListImageと重複しているので修正する必要あり
 	resImages := []responseImage{}
 	for _, image := range images {
 		resImage := responseImage{}

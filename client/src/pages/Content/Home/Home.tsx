@@ -60,17 +60,23 @@ const Home: React.FC = () => {
       <div className="home">
         {/* <OrderBy /> */}
         <ul className="home__image-list">
-          {images.map((i: UserImage) => (
-            <ImageCard
-              key={i.id}
-              id={i.id}
-              title={i.title}
-              src={i.src}
-              type_id={i.type_id}
-              type={i.type}
-              toggleFavorite={() => toggleFavorite(i.id.toString())}
-            />
-          ))}
+          {images.length > 0 ? (
+            images.map((image) => (
+              <ImageCard
+                key={image.id}
+                id={image.id}
+                title={image.title}
+                src={image.src}
+                type_id={image.type_id}
+                type={image.type}
+                toggleFavorite={() => toggleFavorite(image.id.toString())}
+              />
+            ))
+          ) : (
+            <p>
+              がぞうはみつからなかったよ！
+            </p>
+          )}
         </ul>
       </div>
     </>

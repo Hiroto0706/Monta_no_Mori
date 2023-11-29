@@ -25,6 +25,6 @@ WHERE id = $1;
 -- name: ListImageByTitle :many
 SELECT *
 FROM images
-WHERE title = $1
+WHERE title LIKE '%' || COALESCE(sqlc.arg(title)) || '%'
 ORDER BY id DESC
-LIMIT $2 OFFSET $3;
+LIMIT $1 OFFSET $2;

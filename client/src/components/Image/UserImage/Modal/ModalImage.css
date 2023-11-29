@@ -113,7 +113,7 @@ li {
 .modal-image__content {
   position: relative;
   display: flex;
-  width: calc(850px - 4rem);
+  width: calc(900px - 4rem);
   height: calc(500px - 4rem);
   background-color: white;
   padding: 2rem;
@@ -143,7 +143,7 @@ li {
   opacity: 0.6;
 }
 .modal-image__content__img {
-  width: 35%;
+  width: 45%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -168,7 +168,7 @@ li {
 }
 .modal-image__content__img.default div {
   width: calc(100% - 2rem);
-  height: 60%;
+  height: 55%;
   background-color: #e5e5e5;
   padding: 1rem;
   display: flex;

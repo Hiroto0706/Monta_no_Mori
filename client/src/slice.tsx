@@ -15,7 +15,6 @@ const imagesSlice = createSlice({
   initialState,
   reducers: {
     setImages: (state, action: PayloadAction<UserImage[]>) => {
-      console.log(action.payload)
       state.images = action.payload;
     },
   },

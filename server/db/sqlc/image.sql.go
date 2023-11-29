@@ -7,6 +7,7 @@ package db
 
 import (
 	"context"
+	"database/sql"
 )
 
 const createImage = `-- name: CreateImage :one
@@ -111,19 +112,19 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 const listImageByTitle = `-- name: ListImageByTitle :many
 SELECT id, title, src, type_id, updated_at, created_at
 FROM images
-WHERE title = $1
+WHERE title LIKE '%' || COALESCE($3) || '%'
 ORDER BY id DESC
-LIMIT $2 OFFSET $3
+LIMIT $1 OFFSET $2
 `
 
 type ListImageByTitleParams struct {
-	Title  string `json:"title"`
-	Limit  int32  `json:"limit"`
-	Offset int32  `json:"offset"`
+	Limit  int32          `json:"limit"`
+	Offset int32          `json:"offset"`
+	Title  sql.NullString `json:"title"`
 }
 
 func (q *Queries) ListImageByTitle(ctx context.Context, arg ListImageByTitleParams) ([]Image, error) {
-	rows, err := q.db.QueryContext(ctx, listImageByTitle, arg.Title, arg.Limit, arg.Offset)
+	rows, err := q.db.QueryContext(ctx, listImageByTitle, arg.Limit, arg.Offset, arg.Title)
 	if err != nil {
 		return nil, err
 	}
