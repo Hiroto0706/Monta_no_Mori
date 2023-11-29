@@ -108,6 +108,50 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 	return items, nil
 }
 
+const listImageByTitle = `-- name: ListImageByTitle :many
+SELECT id, title, src, type_id, updated_at, created_at
+FROM images
+WHERE title = $1
+ORDER BY id DESC
+LIMIT $2 OFFSET $3
+`
+
+type ListImageByTitleParams struct {
+	Title  string `json:"title"`
+	Limit  int32  `json:"limit"`
+	Offset int32  `json:"offset"`
+}
+
+func (q *Queries) ListImageByTitle(ctx context.Context, arg ListImageByTitleParams) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listImageByTitle, arg.Title, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Image{}
+	for rows.Next() {
+		var i Image
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Src,
+			&i.TypeID,
+			&i.UpdatedAt,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateImage = `-- name: UpdateImage :one
 UPDATE images
 SET title = $2,

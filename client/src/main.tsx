@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 
 import Header from "./components/Header/Header.tsx";
 import AdminHeader from "./components/Header/AdminHeader/AdminHeader.tsx";
@@ -13,22 +15,24 @@ import AdminSidebar from "./components/Sidebar/AdminSidebar/AdminSidebar.tsx";
 import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin/*" element={<AdminHeader />} />
-        <Route path="/*" element={<Header />} />
-      </Routes>
-    </BrowserRouter>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin/*" element={<AdminSidebar />} />
-        <Route path="/*" element={<Sidebar />} />
-      </Routes>
-    </BrowserRouter>
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin/*" element={<AdminHeader />} />
+          <Route path="/*" element={<Header />} />
+        </Routes>
+      </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin/*" element={<AdminSidebar />} />
+          <Route path="/*" element={<Sidebar />} />
+        </Routes>
+      </BrowserRouter>
 
-    <App />
+      <App />
 
-    <Footer />
-  </React.StrictMode>
+      <Footer />
+    </React.StrictMode>
+  </Provider>
 );

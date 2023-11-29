@@ -15,7 +15,7 @@ export default function Header() {
       <Search />
       <a className="header__favorite" href="/favorite">
         <img src="/heart-icon.png" />
-        <p>Favorite</p>
+        <p>おきにいり</p>
       </a>
     </header>
   );

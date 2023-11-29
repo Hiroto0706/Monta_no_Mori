@@ -32,6 +32,7 @@ type Querier interface {
 	GetUser(ctx context.Context, username string) (User, error)
 	ListCategories(ctx context.Context, arg ListCategoriesParams) ([]Category, error)
 	ListImage(ctx context.Context, arg ListImageParams) ([]Image, error)
+	ListImageByTitle(ctx context.Context, arg ListImageByTitleParams) ([]Image, error)
 	ListImageCategoriesByCategory(ctx context.Context, categoryID int64) ([]ImageCategory, error)
 	ListImageCategoriesByImage(ctx context.Context, imageID int64) ([]ImageCategory, error)
 	ListType(ctx context.Context, arg ListTypeParams) ([]Type, error)

@@ -62,8 +62,18 @@ li {
   height: 25px;
   margin-right: 0.25rem;
 }
+@media screen and (max-width: 800px) {
+  .header__favorite img {
+    margin-right: 0;
+  }
+}
 .header__favorite p {
   margin: 0;
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
+}
+@media screen and (max-width: 800px) {
+  .header__favorite p {
+    display: none;
+  }
 }/*# sourceMappingURL=Header.css.map */

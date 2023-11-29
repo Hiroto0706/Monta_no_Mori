@@ -75,6 +75,59 @@ func (server *Server) ListImages(ctx *gin.Context) {
 	})
 }
 
+func (server *Server) SearchImages(ctx *gin.Context) {
+	searchText := ctx.Query("q")
+	args := db.ListImageByTitleParams{
+		Title:  searchText,
+		Limit:  100,
+		Offset: 0,
+	}
+	images, err := server.store.ListImageByTitle(ctx, args)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("No images were found for the title received : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("Failed to ListImageByTitle() : %w", err)))
+		return
+	}
+
+	resImages := []responseImage{}
+	for _, image := range images {
+		resImage := responseImage{}
+		resImage.Image = image
+
+		typeID := resImage.Image.TypeID
+		imageType, err := server.store.GetType(ctx, typeID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+			return
+		}
+		resImage.ImageType = imageType
+
+		imageID := resImage.Image.ID
+		imageCategories, err := server.store.ListImageCategoriesByImage(ctx, imageID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image_categories by image id : %w", err)))
+			return
+		}
+		categories := []db.Category{}
+		for _, imageCategory := range imageCategories {
+			category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get category : %w", err)))
+				return
+			}
+			categories = append(categories, category)
+		}
+		resImage.Categories = categories
+		resImages = append(resImages, resImage)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"result": resImages})
+}
+
 func (server *Server) UploadImage(ctx *gin.Context) {
 	title := ctx.PostForm("title")
 	typeIdStr := ctx.PostForm("typeId")

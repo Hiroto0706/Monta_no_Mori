@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Dispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setImages } from "../../../slice";
+import { AppState } from "../../../store";
 import axios from "axios";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
@@ -26,8 +30,11 @@ export interface responsePayload {
 }
 
 const Home: React.FC = () => {
-  const [images, setImages] = useState<UserImage[]>([]);
+  const images = useSelector((state: AppState) => state.images.images);
+
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+
+  const dispatch = useDispatch();
 
   const toggleFavorite = (imageId: string) => {
     let updatedFavorites;
@@ -45,23 +52,23 @@ const Home: React.FC = () => {
       localStorage.getItem("favorites") || "[]"
     );
     setFavoriteIDs(storedFavorites);
-    fetchUsersImages(setImages);
-  }, []);
+    fetchUsersImages(dispatch, null);
+  }, [dispatch]);
 
   return (
     <>
       <div className="home">
         {/* <OrderBy /> */}
         <ul className="home__image-list">
-          {images.map((image) => (
+          {images.map((i: UserImage) => (
             <ImageCard
-              key={image.id}
-              id={image.id}
-              title={image.title}
-              src={image.src}
-              type_id={image.type_id}
-              type={image.type}
-              toggleFavorite={() => toggleFavorite(image.id.toString())}
+              key={i.id}
+              id={i.id}
+              title={i.title}
+              src={i.src}
+              type_id={i.type_id}
+              type={i.type}
+              toggleFavorite={() => toggleFavorite(i.id.toString())}
             />
           ))}
         </ul>
@@ -72,19 +79,22 @@ const Home: React.FC = () => {
 
 export default Home;
 
-export const fetchUsersImages = (
-  setImages: React.Dispatch<React.SetStateAction<UserImage[]>>
-) => {
-  axios
-    .get("http://localhost:8080/")
-    .then((response) => {
-      const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(transformPayloadToImage);
-      setImages(transformedImages);
-    })
-    .catch((error) => {
-      console.log("List images failed : ", error);
-    });
+export const fetchUsersImages = (dispatch: Dispatch, data: any) => {
+  if (data) {
+    const transformedImages = data.map(transformPayloadToImage);
+    dispatch(setImages(transformedImages));
+  } else {
+    axios
+      .get("http://localhost:8080/")
+      .then((response) => {
+        const responsePayload = response.data.payload;
+        const transformedImages = responsePayload.map(transformPayloadToImage);
+        dispatch(setImages(transformedImages));
+      })
+      .catch((error) => {
+        console.log("List images failed : ", error);
+      });
+  }
 };
 
 export const transformPayloadToImage = (payload: responsePayload) => {

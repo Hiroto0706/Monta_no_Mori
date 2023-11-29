@@ -22,3 +22,9 @@ RETURNING *;
 -- name: DeleteImage :exec
 DELETE FROM images
 WHERE id = $1;
+-- name: ListImageByTitle :many
+SELECT *
+FROM images
+WHERE title = $1
+ORDER BY id DESC
+LIMIT $2 OFFSET $3;

@@ -48,7 +48,9 @@ const Favorite: React.FC = () => {
               />
             ))
           ) : (
-            <p>Your favorite image is nothing. select your favorite image !</p>
+            <p>
+              あなたのおきにいりがぞうはまだないよ！すきながぞうはぜひはーとをくりっくしてね！
+            </p>
           )}
         </ul>
       </div>
