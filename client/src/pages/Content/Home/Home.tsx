@@ -52,7 +52,8 @@ const Home: React.FC = () => {
       localStorage.getItem("favorites") || "[]"
     );
     setFavoriteIDs(storedFavorites);
-    fetchUsersImages(dispatch, null);
+
+    fetchUsersImages(dispatch);
   }, [dispatch]);
 
   return (
@@ -73,9 +74,7 @@ const Home: React.FC = () => {
               />
             ))
           ) : (
-            <p>
-              がぞうはみつからなかったよ！
-            </p>
+            <p>がぞうはみつからなかったよ！</p>
           )}
         </ul>
       </div>
@@ -85,22 +84,17 @@ const Home: React.FC = () => {
 
 export default Home;
 
-export const fetchUsersImages = (dispatch: Dispatch, data: any) => {
-  if (data) {
-    const transformedImages = data.map(transformPayloadToImage);
-    dispatch(setImages(transformedImages));
-  } else {
-    axios
-      .get("http://localhost:8080/")
-      .then((response) => {
-        const responsePayload = response.data.payload;
-        const transformedImages = responsePayload.map(transformPayloadToImage);
-        dispatch(setImages(transformedImages));
-      })
-      .catch((error) => {
-        console.log("List images failed : ", error);
-      });
-  }
+export const fetchUsersImages = (dispatch: Dispatch) => {
+  axios
+    .get("http://localhost:8080/")
+    .then((response) => {
+      const responsePayload = response.data.payload;
+      const transformedImages = responsePayload.map(transformPayloadToImage);
+      dispatch(setImages(transformedImages));
+    })
+    .catch((error) => {
+      console.error("List images failed : ", error);
+    });
 };
 
 export const transformPayloadToImage = (payload: responsePayload) => {

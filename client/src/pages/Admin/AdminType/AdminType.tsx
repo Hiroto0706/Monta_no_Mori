@@ -91,6 +91,6 @@ export const fetchTypes = (
       setTypes(response.data.types);
     })
     .catch((error) => {
-      console.log("List types failed:", error);
+      console.error("List types failed:", error);
     });
 };

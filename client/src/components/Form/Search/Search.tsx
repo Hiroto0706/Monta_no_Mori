@@ -1,40 +1,42 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Dispatch } from "redux";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchUsersImages } from "../../../pages/Content/Home/Home";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { setSearchQueryParameter } from "../../../slice";
+
+import axios from "axios";
 
 import "./Search.css";
+import { SearchUserImages } from "../../../pages/Content/Home/SearchHome";
 
 const Search: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const changeSearchText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
 
-  const searchImages = async (searchText: string) => {
-    try {
-      const response = await axios.get("http://localhost:8080/search", {
-        params: {
-          q: searchText,
-        },
-      });
-      fetchUsersImages(dispatch, response.data.result);
-    } catch (error) {
-      console.error("Error during image search", error);
-    }
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    searchImages(searchText, dispatch);
+    navigate(`/search?q=${encodeURIComponent(searchText)}`);
+    e.preventDefault();
   };
+
+  useEffect(() => {
+    if (location.pathname === "/search") {
+      const query = searchParams.get("q");
+      dispatch(setSearchQueryParameter(query));
+    }
+  }, [location, searchParams, dispatch]);
 
   return (
     <>
-      <form
-        className="search"
-        onSubmit={(e) => {
-          searchImages(searchText);
-          e.preventDefault();
-        }}
-      >
+      <form className="search" onSubmit={handleSearchSubmit}>
         <input
           placeholder="いらすとをけんさく"
           value={searchText}
@@ -49,3 +51,16 @@ const Search: React.FC = () => {
 };
 
 export default Search;
+
+export const searchImages = async (searchText: string, dispatch: Dispatch) => {
+  try {
+    const response = await axios.get("http://localhost:8080/search", {
+      params: {
+        q: searchText,
+      },
+    });
+    SearchUserImages(dispatch, response.data.result);
+  } catch (error) {
+    console.error("Error during image search", error);
+  }
+};

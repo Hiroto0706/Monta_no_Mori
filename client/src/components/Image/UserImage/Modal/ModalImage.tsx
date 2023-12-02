@@ -75,7 +75,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
         setCategories(response.data.category);
       })
       .catch((error) => {
-        console.log("List categories failed:", error);
+        console.error("List categories failed:", error);
       });
   }, []);
 

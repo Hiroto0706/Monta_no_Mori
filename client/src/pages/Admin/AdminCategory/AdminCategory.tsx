@@ -92,6 +92,6 @@ export const fetchCategories = <T extends BasicCategory>(
       setCategories(transformData ? transformData(data) : data);
     })
     .catch((error) => {
-      console.log("List categories failed:", error);
+      console.error("List categories failed:", error);
     });
 };

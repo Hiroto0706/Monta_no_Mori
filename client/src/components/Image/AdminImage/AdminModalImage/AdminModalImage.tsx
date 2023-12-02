@@ -139,10 +139,7 @@ const AdminModalEditImage: React.FC<
 
   const deleteImage = async (id: number) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8080/admin/delete/${id}`
-      );
-      console.log(response.data);
+      await axios.delete(`http://localhost:8080/admin/delete/${id}`);
       onDeleteSuccess();
     } catch (error) {
       console.error("Delete image failed:", error);

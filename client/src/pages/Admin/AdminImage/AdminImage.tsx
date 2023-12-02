@@ -99,7 +99,7 @@ export const fetchImages = (
       setImages(transformedImages);
     })
     .catch((error) => {
-      console.log("List images failed : ", error);
+      console.error("List images failed : ", error);
     });
 };
 
