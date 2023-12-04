@@ -89,7 +89,7 @@ export const fetchUsersImages = (dispatch: Dispatch) => {
     .get("http://localhost:8080/")
     .then((response) => {
       const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(transformPayloadToImage);
+      const transformedImages = responsePayload.map(TransformPayloadToImage);
       dispatch(setImages(transformedImages));
     })
     .catch((error) => {
@@ -97,7 +97,7 @@ export const fetchUsersImages = (dispatch: Dispatch) => {
     });
 };
 
-export const transformPayloadToImage = (payload: responsePayload) => {
+export const TransformPayloadToImage = (payload: responsePayload) => {
   return {
     id: payload.image.id,
     src: payload.image.src,

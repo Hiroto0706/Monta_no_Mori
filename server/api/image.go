@@ -368,3 +368,131 @@ func (server *Server) DeleteImage(ctx *gin.Context) {
 		"message": "delete image successfully",
 	})
 }
+
+func (server *Server) SearchImagesByType(ctx *gin.Context) {
+	typeName := ctx.Param("name")
+	searchType, err := server.store.GetTypeByName(ctx, typeName)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no type was found for the title received : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetTypeByName() : %w", err)))
+		return
+	}
+	args := db.ListImageByTypeParams{
+		TypeID: searchType.ID,
+		Limit:  100,
+		Offset: 0,
+	}
+	images, err := server.store.ListImageByType(ctx, args)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no images were found for the title received : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to ListImageByTitle() : %w", err)))
+		return
+	}
+
+	// TODO: この箇所はListImageと重複しているので修正する必要あり
+	resImages := []responseImage{}
+	for _, image := range images {
+		resImage := responseImage{}
+		resImage.Image = image
+
+		typeID := resImage.Image.TypeID
+		imageType, err := server.store.GetType(ctx, typeID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+			return
+		}
+		resImage.ImageType = imageType
+
+		imageID := resImage.Image.ID
+		imageCategories, err := server.store.ListImageCategoriesByImage(ctx, imageID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image_categories by image id : %w", err)))
+			return
+		}
+		categories := []db.Category{}
+		for _, imageCategory := range imageCategories {
+			category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get category : %w", err)))
+				return
+			}
+			categories = append(categories, category)
+		}
+		resImage.Categories = categories
+		resImages = append(resImages, resImage)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"payload": resImages})
+}
+
+func (server *Server) SearchImagesByCategory(ctx *gin.Context) {
+	categoryName := ctx.Param("name")
+	searchCategory, err := server.store.GetCategoryByName(ctx, categoryName)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no category was found for the title received : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetCategoryByName() : %w", err)))
+		return
+	}
+
+	imageCategories, err := server.store.ListImageCategoriesByCategory(ctx, searchCategory.ID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no imageCategories were found for the title received : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to ListImageCategoriesByCategory() : %w", err)))
+		return
+	}
+
+	// TODO: この箇所はListImageと重複しているので修正する必要あり
+	resImages := []responseImage{}
+	for _, imgCate := range imageCategories {
+		resImage := responseImage{}
+		i, err := server.store.GetImage(ctx, imgCate.ImageID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetImage() : err = %w, image_id = %d", err, imgCate.ImageID)))
+		}
+		resImage.Image = i
+
+		typeID := resImage.Image.TypeID
+		imageType, err := server.store.GetType(ctx, typeID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+			return
+		}
+		resImage.ImageType = imageType
+
+		imageID := resImage.Image.ID
+		imageCategories, err := server.store.ListImageCategoriesByImage(ctx, imageID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image_categories by image id : %w", err)))
+			return
+		}
+		categories := []db.Category{}
+		for _, imageCategory := range imageCategories {
+			category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get category : %w", err)))
+				return
+			}
+			categories = append(categories, category)
+		}
+		resImage.Categories = categories
+		resImages = append(resImages, resImage)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"payload": resImages})
+}

@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
+
 import { setSearchQueryParameter } from "../../../slice";
 
 import axios from "axios";
@@ -31,6 +32,8 @@ const Search: React.FC = () => {
     if (location.pathname === "/search") {
       const query = searchParams.get("q");
       dispatch(setSearchQueryParameter(query));
+
+      if (query != null) setSearchText(query);
     }
   }, [location, searchParams, dispatch]);
 

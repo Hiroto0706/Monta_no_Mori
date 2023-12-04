@@ -3,38 +3,26 @@ import { Dispatch } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import { setImages } from "../../../slice";
 import { AppState } from "../../../store";
-import { searchImages } from "../../../components/Form/Search/Search";
-import { TransformPayloadToImage } from "./Home";
+import axios from "axios";
+
+import { UserImage, UserType, TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
+import { useParams } from "react-router-dom";
 
-interface UserType {
-  id: number;
-  name: string;
-  src: string;
-}
-
-interface UserImage {
-  id: number;
-  title: string;
-  src: string;
-  type_id: number;
-  type: UserType;
-}
-
-interface responsePayload {
+export interface responsePayload {
   image: UserImage;
   type: UserType;
 }
 
-const SearchHome: React.FC = () => {
+const SearchCategoryHome: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
-  const searchQuery = useSelector((state: AppState) => state.images.query);
 
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+  const { name } = useParams<{ name: string }>();
 
   const dispatch = useDispatch();
 
@@ -55,15 +43,16 @@ const SearchHome: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    if (searchQuery != null) {
-      searchImages(searchQuery, dispatch);
+    if (name) {
+      fetchUsersImagesByCategory(dispatch, name);
     }
-  }, [searchQuery, dispatch]);
+  }, [dispatch]);
 
   return (
     <>
       <div className="home">
         {/* <OrderBy /> */}
+        <h2>かてごりが『{name}』のけんさくけっか</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (
             images.map((image) => (
@@ -78,7 +67,7 @@ const SearchHome: React.FC = () => {
               />
             ))
           ) : (
-            <p style={{ margin: 0 }}>がぞうはみつからなかったよ！</p>
+            <p>がぞうはみつからなかったよ！</p>
           )}
         </ul>
       </div>
@@ -86,12 +75,21 @@ const SearchHome: React.FC = () => {
   );
 };
 
-export default SearchHome;
+export default SearchCategoryHome;
 
-export const SearchUserImages = (
+const fetchUsersImagesByCategory = (
   dispatch: Dispatch,
-  data: responsePayload[]
+  category_name: string
 ) => {
-  const transformedImages = data.map(TransformPayloadToImage);
-  dispatch(setImages(transformedImages));
+  axios
+    .get(`http://localhost:8080/search/category/${category_name}`)
+    .then((response) => {
+      console.log(response.data);
+      const responsePayload = response.data.payload;
+      const transformedImages = responsePayload.map(TransformPayloadToImage);
+      dispatch(setImages(transformedImages));
+    })
+    .catch((error) => {
+      console.error("List images failed : ", error);
+    });
 };
