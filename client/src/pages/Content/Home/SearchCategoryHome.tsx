@@ -84,7 +84,6 @@ const fetchUsersImagesByCategory = (
   axios
     .get(`http://localhost:8080/search/category/${category_name}`)
     .then((response) => {
-      console.log(response.data);
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(TransformPayloadToImage);
       dispatch(setImages(transformedImages));

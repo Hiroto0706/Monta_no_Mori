@@ -19,7 +19,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
   const addCategory = async () => {
     if (!name) {
-      console.log("category name is required");
+      console.error("category name is required");
     }
 
     const formData = new FormData();
