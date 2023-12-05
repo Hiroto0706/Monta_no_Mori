@@ -22,3 +22,15 @@ RETURNING *;
 -- name: DeleteImage :exec
 DELETE FROM images
 WHERE id = $1;
+-- name: ListImageByTitle :many
+SELECT *
+FROM images
+WHERE title LIKE '%' || COALESCE(sqlc.arg(title)) || '%'
+ORDER BY id DESC
+LIMIT $1 OFFSET $2;
+-- name: ListImageByType :many
+SELECT *
+FROM images
+WHERE type_id = $1
+ORDER BY id DESC
+LIMIT $2 OFFSET $3;

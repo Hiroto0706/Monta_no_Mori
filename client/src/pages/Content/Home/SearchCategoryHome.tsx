@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { Dispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setImages } from "../../../slice";
+import { AppState } from "../../../store";
 import axios from "axios";
-import { UserImage, responsePayload } from "./Home";
+
+import { UserImage, UserType, TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
+// import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
+import { useParams } from "react-router-dom";
 
-const Favorite: React.FC = () => {
-  const [images, setImages] = useState<UserImage[]>([]);
+export interface responsePayload {
+  image: UserImage;
+  type: UserType;
+}
+
+const SearchCategoryHome: React.FC = () => {
+  const images = useSelector((state: AppState) => state.images.images);
+
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+  const { name } = useParams<{ name: string }>();
+
+  const dispatch = useDispatch();
 
   const toggleFavorite = (imageId: string) => {
-    let updatedFavorites: string[];
+    let updatedFavorites;
     if (favoriteIDs.includes(imageId)) {
       updatedFavorites = favoriteIDs.filter((id) => id !== imageId);
     } else {
@@ -26,14 +42,17 @@ const Favorite: React.FC = () => {
       localStorage.getItem("favorites") || "[]"
     );
     setFavoriteIDs(storedFavorites);
-    fetchFavoriteImages(setImages, storedFavorites);
-  }, []);
+
+    if (name) {
+      fetchUsersImagesByCategory(dispatch, name);
+    }
+  }, [dispatch]);
 
   return (
     <>
       <div className="home">
-        <h1>おきにいりのがぞうたち</h1>
         {/* <OrderBy /> */}
+        <h2>かてごりが『{name}』のけんさくけっか</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (
             images.map((image) => (
@@ -48,9 +67,7 @@ const Favorite: React.FC = () => {
               />
             ))
           ) : (
-            <p>
-              あなたのおきにいりがぞうはまだないよ！すきながぞうはぜひはーとをくりっくしてね！
-            </p>
+            <p>がぞうはみつからなかったよ！</p>
           )}
         </ul>
       </div>
@@ -58,35 +75,20 @@ const Favorite: React.FC = () => {
   );
 };
 
-export default Favorite;
+export default SearchCategoryHome;
 
-const fetchFavoriteImages = (
-  setImages: React.Dispatch<React.SetStateAction<UserImage[]>>,
-  favoriteIDs: string[]
+const fetchUsersImagesByCategory = (
+  dispatch: Dispatch,
+  category_name: string
 ) => {
   axios
-    .get("http://localhost:8080/")
+    .get(`http://localhost:8080/search/category/${category_name}`)
     .then((response) => {
       const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(transformPayloadToImage);
-
-      const favoriteImages = transformedImages.filter((image: UserImage) =>
-        favoriteIDs.includes(image.id.toString())
-      );
-
-      setImages(favoriteImages);
+      const transformedImages = responsePayload.map(TransformPayloadToImage);
+      dispatch(setImages(transformedImages));
     })
     .catch((error) => {
-      console.error("List favorite images failed : ", error);
+      console.error("List images failed : ", error);
     });
-};
-
-const transformPayloadToImage = (payload: responsePayload) => {
-  return {
-    id: payload.image.id,
-    src: payload.image.src,
-    title: payload.image.title,
-    type_id: payload.image.type_id,
-    type: payload.type,
-  };
 };

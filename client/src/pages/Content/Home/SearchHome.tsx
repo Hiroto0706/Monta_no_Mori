@@ -3,20 +3,21 @@ import { Dispatch } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import { setImages } from "../../../slice";
 import { AppState } from "../../../store";
-import axios from "axios";
+import { searchImages } from "../../../components/Form/Search/Search";
+import { TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
 
-export interface UserType {
+interface UserType {
   id: number;
   name: string;
   src: string;
 }
 
-export interface UserImage {
+interface UserImage {
   id: number;
   title: string;
   src: string;
@@ -24,13 +25,14 @@ export interface UserImage {
   type: UserType;
 }
 
-export interface responsePayload {
+interface responsePayload {
   image: UserImage;
   type: UserType;
 }
 
-const Home: React.FC = () => {
+const SearchHome: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
+  const searchQuery = useSelector((state: AppState) => state.images.query);
 
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
 
@@ -53,8 +55,10 @@ const Home: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    fetchUsersImages(dispatch);
-  }, [dispatch]);
+    if (searchQuery != null) {
+      searchImages(searchQuery, dispatch);
+    }
+  }, [searchQuery, dispatch]);
 
   return (
     <>
@@ -74,7 +78,7 @@ const Home: React.FC = () => {
               />
             ))
           ) : (
-            <p>がぞうはみつからなかったよ！</p>
+            <p style={{ margin: 0 }}>がぞうはみつからなかったよ！</p>
           )}
         </ul>
       </div>
@@ -82,27 +86,12 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default SearchHome;
 
-export const fetchUsersImages = (dispatch: Dispatch) => {
-  axios
-    .get("http://localhost:8080/")
-    .then((response) => {
-      const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(TransformPayloadToImage);
-      dispatch(setImages(transformedImages));
-    })
-    .catch((error) => {
-      console.error("List images failed : ", error);
-    });
-};
-
-export const TransformPayloadToImage = (payload: responsePayload) => {
-  return {
-    id: payload.image.id,
-    src: payload.image.src,
-    title: payload.image.title,
-    type_id: payload.image.type_id,
-    type: payload.type,
-  };
+export const SearchUserImages = (
+  dispatch: Dispatch,
+  data: responsePayload[]
+) => {
+  const transformedImages = data.map(TransformPayloadToImage);
+  dispatch(setImages(transformedImages));
 };

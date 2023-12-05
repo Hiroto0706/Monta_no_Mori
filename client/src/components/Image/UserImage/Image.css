@@ -33,19 +33,18 @@ li {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .image-box__img {
-  width: calc(75% - 3px);
-  max-height: 280px;
+  width: calc(100% - 2.5rem - 3px);
+  height: 220px;
   background-color: white;
   border: 1.5px solid #afafaf;
   border-radius: 10px;
-  padding: 12.5%;
+  padding: 1.25rem;
 }
 .image-box__img img {
   width: 100%;
-  height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
-  vertical-align: bottom;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .image-box__title {
   display: flex;

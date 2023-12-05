@@ -1,5 +1,7 @@
 import Home from "./pages/Content/Home/Home";
-import About from "./pages/Content/About";
+import SearchHome from "./pages/Content/Home/SearchHome";
+import SearchTypeHome from "./pages/Content/Home/SearchTypeHome";
+import SearchCategoryHome from "./pages/Content/Home/SearchCategoryHome";
 import Favorite from "./pages/Content/Home/Favorite";
 import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 import AdminImage from "./pages/Admin/AdminImage/AdminImage";
@@ -22,19 +24,27 @@ const routes: RouteType[] = [
   {
     path: "/",
     component: Home,
-    exact: true,
     name: "Home",
+  },
+  {
+    path: "/search",
+    component: SearchHome,
+    name: "SearchHome",
+  },
+  {
+    path: "/search/type/:name",
+    component: SearchTypeHome,
+    name: "SearchHome",
+  },
+  {
+    path: "/search/category/:name",
+    component: SearchCategoryHome,
+    name: "SearchHome",
   },
   {
     path: "/login",
     component: Login,
-    exact: true,
     name: "Login",
-  },
-  {
-    path: "/about",
-    component: About,
-    name: "About",
   },
   {
     path: "/favorite",

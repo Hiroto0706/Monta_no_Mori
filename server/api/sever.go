@@ -21,6 +21,9 @@ func NewServer(store *db.Store, config util.Config) *Server {
 
 	// UserサイドAPI
 	router.GET("/", server.ListImages)
+	router.GET("/search", server.SearchImages)
+	router.GET("/search/type/:name", server.SearchImagesByType)
+	router.GET("/search/category/:name", server.SearchImagesByCategory)
 	router.GET("/category/:id", server.ListImageCategories)
 
 	// AdminサイドAPI

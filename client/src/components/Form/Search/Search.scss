@@ -9,68 +9,27 @@ $search-border-radius: 0px;
 .search {
   width: 50%;
   min-width: 390px;
-  max-width: 550px;
+  max-width: 600px;
   height: 40px;
   display: flex;
   background-color: transparent;
-
-  button {
-    cursor: pointer;
-  }
-
-  .type-list {
-    font-size: 1.25rem;
-    float: left;
-    background-position: 0 0;
-    min-width: 125px;
-    height: auto;
-    border-left: main.$border-size solid main.$border-line-color;
-    border-top: main.$border-size solid main.$border-line-color;
-    border-bottom: main.$border-size solid main.$border-line-color;
-    border-right: none;
-    background-color: sidebar.$type-btn-bgcolor;
-    transition: all 0.3s;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: main.$base-font-color;
-
-    img {
-      width: 20px;
-      height: 20px;
-      padding-left: 0.5rem;
-    }
-
-    &:hover {
-      background-color: sidebar.$type-btn-bgcolor-hover;
-    }
-  }
 
   input {
     font-size: 1.25rem;
     padding: $padding-search-box-y $padding-search-box-x;
     width: calc(100% - 2 * $padding-search-box-x - 2 * main.$border-size);
     background-color: white;
-
-    border-top: main.$border-size solid main.$border-line-color;
-    border-bottom: main.$border-size solid main.$border-line-color;
-    border-left: main.$border-size solid main.$border-line-color;
+    border-radius: 20px 0 0 20px;
     border-right: none;
-    transition: all 0.2s;
+    border: 2px solid transparent;
 
     &:focus {
-      border-top: main.$border-size solid main.$main-bgcolor;
-      border-bottom: main.$border-size solid main.$main-bgcolor;
-      border-left: main.$border-size solid main.$main-bgcolor;
+      border: 2px solid black;
       outline: none;
     }
 
-    &:focus + .search-button {
-      border-top: main.$border-size solid main.$main-bgcolor;
-      border-bottom: main.$border-size solid main.$main-bgcolor;
-      border-right: main.$border-size solid main.$main-bgcolor;
+    &::placeholder {
+      font-size: 16px;
     }
   }
 
@@ -79,16 +38,15 @@ $search-border-radius: 0px;
     width: auto;
     height: auto;
     background-color: white;
-
-    border-top: main.$border-size solid main.$border-line-color;
-    border-right: main.$border-size solid main.$border-line-color;
-    border-bottom: main.$border-size solid main.$border-line-color;
-    border-left: none;
+    border-radius: 0 20px 20px 0;
+    border: none;
 
     img {
       width: auto;
       height: 100%;
       max-height: 25px;
+      margin-right: 0.5rem;
+      cursor: pointer;
     }
   }
 }

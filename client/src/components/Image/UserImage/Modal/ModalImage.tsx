@@ -75,7 +75,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
         setCategories(response.data.category);
       })
       .catch((error) => {
-        console.log("List categories failed:", error);
+        console.error("List categories failed:", error);
       });
   }, []);
 
@@ -109,7 +109,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
             </div>
 
             <div className="type">
-              <h3>Type</h3>
+              <h3>たいぷ</h3>
               <a href="" className="type-link-modal">
                 <img src={type.src} />
                 <EllipsisText text={type.name} maxLength={100} />{" "}
@@ -117,7 +117,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
             </div>
 
             <div className="category">
-              <h3>Category</h3>
+              <h3>かてごり</h3>
               {categories.map((category) => (
                 <a href="" className="category-link" key={category.id}>
                   #
@@ -135,11 +135,11 @@ const ModalImage: React.FC<ModalImageProps> = ({
               }}
             >
               <img src="/download-icon.png" />
-              Download
+              だうんろーど
             </button>
             <button className="copy" onClick={() => copyImageToClipboard()}>
               <img src="/copy-icon.png" />
-              Copy
+              こぴー
             </button>
           </div>
         </div>

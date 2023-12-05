@@ -128,9 +128,9 @@ li {
 }
 .admin-image-box__img img {
   width: 100%;
-  height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
   vertical-align: bottom;
 }
 .admin-image-box__title {

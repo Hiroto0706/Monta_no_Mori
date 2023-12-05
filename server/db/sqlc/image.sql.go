@@ -7,6 +7,7 @@ package db
 
 import (
 	"context"
+	"database/sql"
 )
 
 const createImage = `-- name: CreateImage :one
@@ -80,6 +81,94 @@ type ListImageParams struct {
 
 func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, error) {
 	rows, err := q.db.QueryContext(ctx, listImage, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Image{}
+	for rows.Next() {
+		var i Image
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Src,
+			&i.TypeID,
+			&i.UpdatedAt,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listImageByTitle = `-- name: ListImageByTitle :many
+SELECT id, title, src, type_id, updated_at, created_at
+FROM images
+WHERE title LIKE '%' || COALESCE($3) || '%'
+ORDER BY id DESC
+LIMIT $1 OFFSET $2
+`
+
+type ListImageByTitleParams struct {
+	Limit  int32          `json:"limit"`
+	Offset int32          `json:"offset"`
+	Title  sql.NullString `json:"title"`
+}
+
+func (q *Queries) ListImageByTitle(ctx context.Context, arg ListImageByTitleParams) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listImageByTitle, arg.Limit, arg.Offset, arg.Title)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Image{}
+	for rows.Next() {
+		var i Image
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Src,
+			&i.TypeID,
+			&i.UpdatedAt,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const listImageByType = `-- name: ListImageByType :many
+SELECT id, title, src, type_id, updated_at, created_at
+FROM images
+WHERE type_id = $1
+ORDER BY id DESC
+LIMIT $2 OFFSET $3
+`
+
+type ListImageByTypeParams struct {
+	TypeID int64 `json:"type_id"`
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) ListImageByType(ctx context.Context, arg ListImageByTypeParams) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listImageByType, arg.TypeID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
