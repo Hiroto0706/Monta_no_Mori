@@ -16,8 +16,6 @@ export default function Login() {
       <form className="form" onSubmit={(e) => handleSubmit(e)}>
         <h2>Login</h2>
 
-        <h3>User Name</h3>
-        <input type="text" name="username" required />
         <h3>Email</h3>
         <input type="email" name="email" required />
         <h3>Password</h3>

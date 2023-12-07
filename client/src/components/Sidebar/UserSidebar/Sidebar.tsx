@@ -6,8 +6,6 @@ import {
 } from "../../../pages/Admin/AdminCategory/AdminCategory";
 import { fetchTypes, Type } from "../../../pages/Admin/AdminType/AdminType";
 
-import "./Sidebar.css";
-
 interface EllipsisTextProps {
   text: string;
   maxLength: number;

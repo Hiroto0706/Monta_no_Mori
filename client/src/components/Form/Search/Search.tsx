@@ -57,7 +57,7 @@ export default Search;
 
 export const searchImages = async (searchText: string, dispatch: Dispatch) => {
   try {
-    const response = await axios.get("http://localhost:8080/search", {
+    const response = await axios.get("http://localhost:8080/api/v1/search", {
       params: {
         q: searchText,
       },

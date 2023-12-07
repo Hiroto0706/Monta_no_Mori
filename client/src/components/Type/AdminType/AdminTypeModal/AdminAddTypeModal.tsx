@@ -43,7 +43,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
     formData.append("name", name);
 
     try {
-      await axios.post("http://localhost:8080/admin/type/upload", formData, {
+      await axios.post("http://localhost:8080/api/v1/admin/type/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

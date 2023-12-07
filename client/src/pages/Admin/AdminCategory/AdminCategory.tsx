@@ -86,7 +86,7 @@ export const fetchCategories = <T extends BasicCategory>(
   transformData?: (data: BasicCategory[]) => T[]
 ) => {
   axios
-    .get("http://localhost:8080/admin/category/")
+    .get("http://localhost:8080/api/v1/admin/category/")
     .then((response) => {
       const data = response.data.category;
       setCategories(transformData ? transformData(data) : data);

@@ -15,14 +15,14 @@ li {
 }
 
 .contents {
-  padding: 4rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
 .sidebar {
   background-color: white;
   width: calc(20vw - 1.5px);
-  min-width: 248.5px;
+  min-width: 258.5px;
   max-width: 278.5px;
   height: 100vh;
   overflow: auto;

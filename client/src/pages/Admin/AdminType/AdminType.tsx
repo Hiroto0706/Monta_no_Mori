@@ -86,7 +86,7 @@ export const fetchTypes = (
   setTypes: React.Dispatch<React.SetStateAction<Type[]>>
 ) => {
   axios
-    .get("http://localhost:8080/admin/type/")
+    .get("http://localhost:8080/api/v1/admin/type/")
     .then((response) => {
       setTypes(response.data.types);
     })

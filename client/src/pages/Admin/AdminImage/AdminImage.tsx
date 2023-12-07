@@ -92,7 +92,7 @@ export const fetchImages = (
   setImages: React.Dispatch<React.SetStateAction<Image[]>>
 ) => {
   axios
-    .get("http://localhost:8080/admin/")
+    .get("http://localhost:8080/api/v1/admin/")
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);

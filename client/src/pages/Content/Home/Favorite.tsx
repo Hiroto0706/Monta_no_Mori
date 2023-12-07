@@ -65,7 +65,7 @@ const fetchFavoriteImages = (
   favoriteIDs: string[]
 ) => {
   axios
-    .get("http://localhost:8080/")
+    .get("http://localhost:8080/api/v1/")
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);

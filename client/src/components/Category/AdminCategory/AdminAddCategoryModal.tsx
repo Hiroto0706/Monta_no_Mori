@@ -26,7 +26,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
     formData.append("name", name);
 
     try {
-      await axios.post("http://localhost:8080/admin/category/create", formData);
+      await axios.post("http://localhost:8080/api/v1/admin/category/create", formData);
     } catch (error) {
       console.error("create category failed:", error);
     }

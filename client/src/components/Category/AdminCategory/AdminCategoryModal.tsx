@@ -34,7 +34,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/admin/category/edit/${id}`,
+        `http://localhost:8080/api/v1/admin/category/edit/${id}`,
         formData
       );
       setName(response.data.category.name);
@@ -47,7 +47,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
   const deleteCategory = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/category/delete/${id}`);
+      await axios.delete(`http://localhost:8080/api/v1/admin/category/delete/${id}`);
       onCategoryUpdated();
       toggleOpenModal();
     } catch (error) {

@@ -56,7 +56,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/admin/type/edit/${id}`,
+        `http://localhost:8080/api/v1/admin/type/edit/${id}`,
         formData,
         {
           headers: {
@@ -75,7 +75,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
 
   const deleteType = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/type/delete/${id}`);
+      await axios.delete(`http://localhost:8080/api/v1/admin/type/delete/${id}`);
       onTypeUpdated();
       toggleOpenModal();
     } catch (error) {

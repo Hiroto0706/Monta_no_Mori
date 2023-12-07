@@ -119,7 +119,7 @@ const AdminModalEditImage: React.FC<
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/admin/edit/${id}`,
+        `http://localhost:8080/api/v1/admin/edit/${id}`,
         formData,
         {
           headers: {
@@ -139,7 +139,7 @@ const AdminModalEditImage: React.FC<
 
   const deleteImage = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/delete/${id}`);
+      await axios.delete(`http://localhost:8080/api/v1/admin/delete/${id}`);
       onDeleteSuccess();
     } catch (error) {
       console.error("Delete image failed:", error);
