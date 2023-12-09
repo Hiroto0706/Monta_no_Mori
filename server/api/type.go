@@ -92,6 +92,11 @@ func (server *Server) EditType(ctx *gin.Context) {
 			ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 			return
 		}
+		err = server.DeleteFileFromGCS(ctx, oldType.Src)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+			return
+		}
 	} else {
 		urlPath = oldType.Src
 	}
@@ -129,7 +134,7 @@ func (server *Server) DeleteType(ctx *gin.Context) {
 		return
 	}
 
-	err = server.DeleteFileFromGCS(ctx, deleteType.Src, FILE_TYPE)
+	err = server.DeleteFileFromGCS(ctx, deleteType.Src)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
