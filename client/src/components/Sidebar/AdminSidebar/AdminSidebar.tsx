@@ -37,19 +37,19 @@ const Sidebar: React.FC = () => {
             <a href="/admin/image" className="type-link">
               <EllipsisText text="Image" maxLength={maxLength} />{" "}
               <div>
-                <img src="/pc-img.png" />
+                <img src="/image-icon-1.png" />
               </div>
             </a>
             <a href="/admin/type" className="type-link">
               <EllipsisText text="Type" maxLength={maxLength} />{" "}
               <div>
-                <img src="/pc-img.png" />
+                <img src="/type-icon-1.png" />
               </div>
             </a>
             <a href="/admin/category" className="type-link">
               <EllipsisText text="Category" maxLength={maxLength} />{" "}
               <div>
-                <img src="/pc-img.png" />
+                <img src="/category-icon-1.png" />
               </div>
             </a>
           </div>

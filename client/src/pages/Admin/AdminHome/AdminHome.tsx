@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import "./AdminHome.css";
@@ -25,15 +25,15 @@ export default function AdminHome() {
 
           <div className="admin-component__inner__contents">
             <a href="/admin/image">
-              <img src="/image-icon.png" />
+              <img src="/image-icon-0.png" />
               Image
             </a>
             <a href="/admin/type">
-              <img src="/image-icon.png" />
+              <img src="/type-icon-0.png" />
               Type
             </a>
             <a href="/admin/category">
-              <img src="/image-icon.png" />
+              <img src="/category-icon-0.png" />
               Category
             </a>
           </div>
