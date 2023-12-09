@@ -16,23 +16,19 @@ const createSession = `-- name: CreateSession :one
 INSERT INTO sessions (
     id,
     username,
+    email,
     refresh_token,
-    user_agent,
-    client_ip,
-    is_blocked,
     expires_at
   )
-VALUES ($1, $2, $3, $4, $5, $6, $7)
-RETURNING id, username, refresh_token, user_agent, client_ip, is_blocked, expires_at, created_at
+VALUES ($1, $2, $3, $4, $5)
+RETURNING id, username, email, refresh_token, expires_at, created_at
 `
 
 type CreateSessionParams struct {
 	ID           uuid.UUID `json:"id"`
 	Username     string    `json:"username"`
+	Email        string    `json:"email"`
 	RefreshToken string    `json:"refresh_token"`
-	UserAgent    string    `json:"user_agent"`
-	ClientIp     string    `json:"client_ip"`
-	IsBlocked    bool      `json:"is_blocked"`
 	ExpiresAt    time.Time `json:"expires_at"`
 }
 
@@ -40,20 +36,16 @@ func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (S
 	row := q.db.QueryRowContext(ctx, createSession,
 		arg.ID,
 		arg.Username,
+		arg.Email,
 		arg.RefreshToken,
-		arg.UserAgent,
-		arg.ClientIp,
-		arg.IsBlocked,
 		arg.ExpiresAt,
 	)
 	var i Session
 	err := row.Scan(
 		&i.ID,
 		&i.Username,
+		&i.Email,
 		&i.RefreshToken,
-		&i.UserAgent,
-		&i.ClientIp,
-		&i.IsBlocked,
 		&i.ExpiresAt,
 		&i.CreatedAt,
 	)
@@ -61,7 +53,7 @@ func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (S
 }
 
 const getSession = `-- name: GetSession :one
-SELECT id, username, refresh_token, user_agent, client_ip, is_blocked, expires_at, created_at
+SELECT id, username, email, refresh_token, expires_at, created_at
 FROM sessions
 WHERE id = $1
 LIMIT 1
@@ -73,10 +65,8 @@ func (q *Queries) GetSession(ctx context.Context, id uuid.UUID) (Session, error)
 	err := row.Scan(
 		&i.ID,
 		&i.Username,
+		&i.Email,
 		&i.RefreshToken,
-		&i.UserAgent,
-		&i.ClientIp,
-		&i.IsBlocked,
 		&i.ExpiresAt,
 		&i.CreatedAt,
 	)

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./../UserSidebar/Sidebar.css";
 import "./AdminSidebar.css";
@@ -19,6 +20,13 @@ export const EllipsisText: React.FC<EllipsisTextProps> = ({
 
 const Sidebar: React.FC = () => {
   const [maxLength] = useState(10);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    console.log("君ログインしてないなぇ！1");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -46,12 +54,12 @@ const Sidebar: React.FC = () => {
             </a>
           </div>
 
-          <a href="/" className="type-link logout">
+          <div className="type-link logout" onClick={() => logout()}>
             <EllipsisText text="LOGOUT" maxLength={maxLength} />{" "}
             <div>
               <img src="/logout-icon.png" />
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </>

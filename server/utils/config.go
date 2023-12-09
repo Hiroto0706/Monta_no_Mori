@@ -1,20 +1,23 @@
 package util
 
 import (
+	"time"
+
 	"github.com/spf13/viper"
 )
 
 type Config struct {
-	DBDriver       string `mapstructure:"DB_DRIVER"`
-	DBSource       string `mapstructure:"DB_SOURCE"`
-	DBName         string `mapstructure:"DB_NAME"`
-	DBUser         string `mapstructure:"DB_USER"`
-	DBPassword     string `mapstructure:"DB_PASSWORD"`
-	DBHost         string `mapstructure:"DB_HOST"`
-	DBPostgresName string `mapstructure:"DB_POSTGRES_NAME"`
-	JsonPath       string `mapstructure:"JSON_PATH"`
-	BucketName     string `mapstructure:"BUCKET_NAME"`
-	ServerAddress  string `mapstructure:"SERVER_ADDRESS"`
+	DBDriver             string        `mapstructure:"DB_DRIVER"`
+	DBSource             string        `mapstructure:"DB_SOURCE"`
+	JsonPath             string        `mapstructure:"JSON_PATH"`
+	BucketName           string        `mapstructure:"BUCKET_NAME"`
+	ServerAddress        string        `mapstructure:"SERVER_ADDRESS"`
+	TokenSymmetricKey    string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
+	AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
+	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
+	MasterUsername       string        `mapstructure:"MASTER_USERNAME"`
+	MasterEmail          string        `mapstructure:"MASTER_EMAIL"`
+	MasterPassword       string        `mapstructure:"MASTER_PASSWORD"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

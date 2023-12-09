@@ -14,7 +14,7 @@ li {
 }
 
 .contents {
-  padding: 4rem 0 0 clamp(248.5px, 20vw, 278.5px);
+  padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
   z-index: 10;
 }
 
@@ -39,6 +39,10 @@ li {
   font-size: 1rem;
   margin: 0;
 }
+.form .error-message {
+  color: red;
+  font-weight: lighter;
+}
 .form input {
   width: calc(100% - 20px - 3px);
   padding: 10px 10px;
@@ -51,11 +55,14 @@ li {
 .form input:focus {
   outline: 1.5px solid #4caf50;
 }
+.form .last-input {
+  margin-bottom: 1.5rem;
+}
 .form button {
   width: 100%;
   height: auto;
   padding: 1rem 2rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   background-color: #4caf50;
   border: none;
   color: #ffffff;

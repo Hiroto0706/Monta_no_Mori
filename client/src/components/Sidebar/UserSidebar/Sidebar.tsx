@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-import {
-  fetchCategories,
-  BasicCategory,
-} from "../../../pages/Admin/AdminCategory/AdminCategory";
-import { fetchTypes, Type } from "../../../pages/Admin/AdminType/AdminType";
-
-import "./Sidebar.css";
+import { BasicCategory } from "../../../pages/Admin/AdminCategory/AdminCategory";
+import { Type } from "../../../pages/Admin/AdminType/AdminType";
 
 interface EllipsisTextProps {
   text: string;
@@ -23,7 +19,7 @@ export const EllipsisText: React.FC<EllipsisTextProps> = ({
 };
 
 const Sidebar: React.FC = () => {
-  const [typeMaxLength] = useState(10);
+  const [typeMaxLength] = useState(15);
   const [categoryMaxLength] = useState(15);
 
   const [categories, setCategories] = useState<BasicCategory[]>([]);
@@ -77,3 +73,29 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
+
+const fetchTypes = (setTypes: React.Dispatch<React.SetStateAction<Type[]>>) => {
+  axios
+    .get("http://localhost:8080/api/v1/type")
+    .then((response) => {
+      setTypes(response.data.types);
+    })
+    .catch((error) => {
+      console.error("List types failed:", error);
+    });
+};
+
+const fetchCategories = <T extends BasicCategory>(
+  setCategories: React.Dispatch<React.SetStateAction<T[]>>,
+  transformData?: (data: BasicCategory[]) => T[]
+) => {
+  axios
+    .get("http://localhost:8080/api/v1/category")
+    .then((response) => {
+      const data = response.data.category;
+      setCategories(transformData ? transformData(data) : data);
+    })
+    .catch((error) => {
+      console.error("List categories failed:", error);
+    });
+};

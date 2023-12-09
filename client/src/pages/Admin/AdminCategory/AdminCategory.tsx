@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 import ModalCategory from "../../../components/Category/AdminCategory/AdminCategoryModal";
 import ModalAddCategory from "./../../../components/Category/AdminCategory/AdminAddCategoryModal";
 import CategoryList from "./../../../components/Category/AdminCategory/AdminCategoryList";
+import { IsLoggedIn } from "../AdminHome/AdminHome";
 
 import "./../AdminImage/AdminImage.css";
 import "./../AdminType/AdminType.css";
@@ -23,6 +25,8 @@ export default function AdminCategory() {
   const [selectedCategory, setSelectedCategory] =
     useState<BasicCategory | null>(null);
 
+  const navigate = useNavigate();
+
   const toggleIsOpenCategoryModal = () => {
     setIsOpenCategoryModal(!isOpenCategoryModal);
   };
@@ -37,7 +41,8 @@ export default function AdminCategory() {
 
   useEffect(() => {
     fetchCategories(setCategories);
-  }, []);
+    IsLoggedIn(localStorage.getItem("access_token"), navigate);
+  }, [navigate]);
 
   return (
     <>
@@ -86,7 +91,11 @@ export const fetchCategories = <T extends BasicCategory>(
   transformData?: (data: BasicCategory[]) => T[]
 ) => {
   axios
-    .get("http://localhost:8080/admin/category/")
+    .get("http://localhost:8080/api/v1/admin/category/", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
     .then((response) => {
       const data = response.data.category;
       setCategories(transformData ? transformData(data) : data);

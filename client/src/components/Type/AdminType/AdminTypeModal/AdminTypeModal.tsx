@@ -56,11 +56,12 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/admin/type/edit/${id}`,
+        `http://localhost:8080/api/v1/admin/type/edit/${id}`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
           },
         }
       );
@@ -75,7 +76,14 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
 
   const deleteType = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/type/delete/${id}`);
+      await axios.delete(
+        `http://localhost:8080/api/v1/admin/type/delete/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        }
+      );
       onTypeUpdated();
       toggleOpenModal();
     } catch (error) {

@@ -34,8 +34,13 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/admin/category/edit/${id}`,
-        formData
+        `http://localhost:8080/api/v1/admin/category/edit/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        }
       );
       setName(response.data.category.name);
       setEditableName(response.data.category.name);
@@ -47,7 +52,14 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
   const deleteCategory = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/category/delete/${id}`);
+      await axios.delete(
+        `http://localhost:8080/api/v1/admin/category/delete/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        }
+      );
       onCategoryUpdated();
       toggleOpenModal();
     } catch (error) {

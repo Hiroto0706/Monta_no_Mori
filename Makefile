@@ -1,5 +1,6 @@
 DB_URL=postgresql://root:secret@localhost:5432/monta_no_mori?sslmode=disable
 
+# postgresコンテナをDocker上で作成する
 postgres:
 	docker run --name monta_no_mori-db -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14-alpine
 
@@ -27,6 +28,7 @@ sqlc:
 server:
 	cd server/ && go run main.go
 
+# 全部起動させる
 dc-up:
 	docker compose up
 
