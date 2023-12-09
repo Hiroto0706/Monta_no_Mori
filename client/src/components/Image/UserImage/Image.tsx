@@ -17,7 +17,7 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
   const [isLiked, setIsLiked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [imageTitleMaxLength] = useState(10);
+  const [imageTitleMaxLength] = useState(15);
 
   const toggleLike = (id: string) => {
     toggleFavorite(id);

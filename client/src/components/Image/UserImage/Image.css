@@ -54,6 +54,7 @@ li {
 .image-box__title h3 {
   margin: 0;
   font-weight: normal;
+  font-size: 14px;
   color: #646464;
 }
 .image-box__title img {

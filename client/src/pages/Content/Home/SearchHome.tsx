@@ -64,6 +64,7 @@ const SearchHome: React.FC = () => {
     <>
       <div className="home">
         {/* <OrderBy /> */}
+        <h2>『{searchQuery}』のけんさくけっか</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (
             images.map((image) => (
