@@ -26,6 +26,7 @@ const Favorite: React.FC = () => {
       localStorage.getItem("favorites") || "[]"
     );
     setFavoriteIDs(storedFavorites);
+    console.log(storedFavorites);
     fetchFavoriteImages(setImages, storedFavorites);
   }, []);
 
@@ -69,6 +70,7 @@ const fetchFavoriteImages = (
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);
+      console.log(transformedImages)
 
       const favoriteImages = transformedImages.filter((image: UserImage) =>
         favoriteIDs.includes(image.id.toString())

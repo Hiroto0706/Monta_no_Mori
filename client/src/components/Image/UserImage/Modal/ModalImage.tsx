@@ -89,7 +89,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
           <img src="/cancel-icon.png" />
         </button>
 
-        <div className="modal-image__content__img">
+        <div className="modal-image__content__img user-modal">
           <div className="img">
             <img src={src} alt={title} />
           </div>
@@ -110,7 +110,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
 
             <div className="type">
               <h3>たいぷ</h3>
-              <a href="" className="type-link-modal">
+              <a href={`/search/type/${type.name}`} className="type-link-modal">
                 <img src={type.src} />
                 <EllipsisText text={type.name} maxLength={100} />{" "}
               </a>
@@ -119,7 +119,11 @@ const ModalImage: React.FC<ModalImageProps> = ({
             <div className="category">
               <h3>かてごり</h3>
               {categories.map((category) => (
-                <a href="" className="category-link" key={category.id}>
+                <a
+                  href={`/search/category/${category.name}`}
+                  className="category-link"
+                  key={category.id}
+                >
                   #
                   <EllipsisText text={category.name} maxLength={100} />
                 </a>

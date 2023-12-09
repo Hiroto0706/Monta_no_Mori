@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 import ImageList from "./../../../components/Image/AdminImage/AdminImage";
 import AddImageModal from "../../../components/Image/AdminImage/AdminModalAddImage/AdminModalAddImage";
+import { IsLoggedIn } from "../AdminHome/AdminHome";
 
 import "./AdminImage.css";
 
@@ -35,8 +37,8 @@ interface responsePayload {
 
 export default function AdminImage() {
   const [isOpenAddImageModal, setIsOpenAddImageModal] = useState(false);
-
   const [images, setImages] = useState<Image[]>([]);
+  const navigate = useNavigate();
 
   const toggleIsOpenAddImageModal = () => {
     setIsOpenAddImageModal(!isOpenAddImageModal);
@@ -48,7 +50,8 @@ export default function AdminImage() {
 
   useEffect(() => {
     fetchImages(setImages);
-  }, []);
+    IsLoggedIn(localStorage.getItem("access_token"), navigate);
+  }, [navigate]);
 
   return (
     <>
@@ -92,7 +95,11 @@ export const fetchImages = (
   setImages: React.Dispatch<React.SetStateAction<Image[]>>
 ) => {
   axios
-    .get("http://localhost:8080/api/v1/admin/")
+    .get("http://localhost:8080/api/v1/admin/", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);

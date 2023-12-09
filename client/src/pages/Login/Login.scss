@@ -26,6 +26,11 @@ $form-margin-y: 5%;
     margin: 0;
   }
 
+  .error-message {
+    color: red;
+    font-weight: lighter;
+  }
+
   input {
     width: calc(100% - 2 * 10px - 2 * main.$border-size);
     padding: 10px 10px;
@@ -40,11 +45,15 @@ $form-margin-y: 5%;
     }
   }
 
+  .last-input {
+    margin-bottom: 1.5rem;
+  }
+
   button {
     width: 100%;
     height: auto;
     padding: 1rem 2rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background-color: main.$main-bgcolor;
     border: none;
     color: main.$main-font-color;

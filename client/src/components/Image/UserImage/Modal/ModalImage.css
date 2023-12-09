@@ -147,8 +147,10 @@ li {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-flow: column;
+}
+.modal-image__content__img.user-modal {
+  align-items: center;
 }
 .modal-image__content__img .img {
   background-color: #e5e5e5;
@@ -168,7 +170,7 @@ li {
 }
 .modal-image__content__img.default div {
   width: calc(100% - 2rem);
-  height: 55%;
+  height: 65%;
   background-color: #e5e5e5;
   padding: 1rem;
   display: flex;

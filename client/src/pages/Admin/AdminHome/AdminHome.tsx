@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import "./AdminHome.css";
+import axios from "axios";
 
 export default function AdminHome() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    console.log("君ログインしてないなぇ！1");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    IsLoggedIn(localStorage.getItem("access_token"), navigate);
+  }, [navigate]);
+
   return (
     <>
       <div className="admin-component">
@@ -24,12 +38,32 @@ export default function AdminHome() {
             </a>
           </div>
 
-          <a href="/login" className="logout">
+          <div className="logout" onClick={() => logout()}>
             <img src="/logout-icon.png" />
             LOGOUT
-          </a>
+          </div>
         </div>
       </div>
     </>
   );
 }
+
+export const IsLoggedIn = async (
+  accessToken: string | null,
+  navigate: NavigateFunction
+) => {
+  if (accessToken === null) {
+    navigate("/login");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("accessToken", accessToken);
+
+  try {
+    await axios.post("http://localhost:8080/api/v1/login/verify", formData);
+  } catch (error) {
+    console.error(error);
+    navigate("/login");
+  }
+};

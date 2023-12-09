@@ -88,6 +88,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
       await axios.post("http://localhost:8080/api/v1/admin/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
         },
       });
     } catch (error) {

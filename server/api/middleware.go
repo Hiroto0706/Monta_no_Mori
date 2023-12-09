@@ -20,7 +20,6 @@ func authMiddleware(tokenMaker token.Maker) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// 認証ヘッダーを取得
 		authorizationHeader := ctx.GetHeader(authorizationHeaderKey)
-		fmt.Println("ちゃんとmiddlewareをとおてるよ")
 
 		// ヘッダーが存在しない場合、エラーを返す
 		if len(authorizationHeader) == 0 {

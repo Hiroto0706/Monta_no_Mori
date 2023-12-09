@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 import ModalType from "../../../components/Type/AdminType/AdminTypeModal/AdminTypeModal";
 import ModalAddType from "../../../components/Type/AdminType/AdminTypeModal/AdminAddTypeModal";
 import AdminTypeList from "./../../../components/Type/AdminType/AdminTypeList/AdminTypeList";
+import { IsLoggedIn } from "../AdminHome/AdminHome";
 
 import "./../AdminImage/AdminImage.css";
 import "./AdminType.css";
@@ -21,6 +24,8 @@ export default function AdminType() {
   const [types, setTypes] = useState<Type[]>([]);
   const [selectedType, setSelectedType] = useState<Type | null>(null);
 
+  const navigate = useNavigate();
+
   const toggleIsOpenTypeModal = () => {
     setIsOpenTypeModal(!isOpenTypeModal);
   };
@@ -35,7 +40,8 @@ export default function AdminType() {
 
   useEffect(() => {
     fetchTypes(setTypes);
-  }, []);
+    IsLoggedIn(localStorage.getItem("access_token"), navigate);
+  }, [navigate]);
 
   return (
     <>
@@ -86,7 +92,11 @@ export const fetchTypes = (
   setTypes: React.Dispatch<React.SetStateAction<Type[]>>
 ) => {
   axios
-    .get("http://localhost:8080/api/v1/admin/type/")
+    .get("http://localhost:8080/api/v1/admin/type/", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
     .then((response) => {
       setTypes(response.data.types);
     })

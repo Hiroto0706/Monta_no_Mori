@@ -2,6 +2,7 @@ package api
 
 import (
 	"database/sql"
+	"fmt"
 	db "monta_no_mori/db/sqlc"
 	util "monta_no_mori/utils"
 	"net/http"
@@ -84,7 +85,7 @@ type loginUserResponse struct {
 func (server *Server) LoginUser(ctx *gin.Context) {
 	var req loginUserRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
-		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("bad request : %w", err)))
 		return
 	}
 
@@ -148,4 +149,16 @@ func (server *Server) LoginUser(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, rsp)
+}
+
+func (server *Server) VerifyAccessToken(ctx *gin.Context) {
+	accessToken := ctx.PostForm("accessToken")
+
+	_, err := server.tokenMaker.VerifyToken(accessToken)
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"result": "success"})
 }

@@ -124,6 +124,7 @@ const AdminModalEditImage: React.FC<
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
           },
         }
       );
@@ -139,7 +140,11 @@ const AdminModalEditImage: React.FC<
 
   const deleteImage = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/admin/delete/${id}`);
+      await axios.delete(`http://localhost:8080/api/v1/admin/delete/${id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      });
       onDeleteSuccess();
     } catch (error) {
       console.error("Delete image failed:", error);
