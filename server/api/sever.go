@@ -49,27 +49,30 @@ func NewServer(store *db.Store, config util.Config) (*Server, error) {
 
 		// AdminサイドAPI
 		admin := v1.Group("/admin")
+		admin.Use(authMiddleware(server.tokenMaker))
 		{
+			// adminの定義位置でmiddlewareを適用すると、adminの型が変わってしまうのでここで定義する
+
 			admin.GET("/", server.ListImages)
 			admin.POST("/upload", server.UploadImage)
 			admin.PUT("/edit/:id", server.EditImage)
 			admin.DELETE("/delete/:id", server.DeleteImage)
-		}
 
-		adminType := admin.Group("/type")
-		{
-			adminType.GET("/", server.ListTypes)
-			adminType.POST("/upload", server.UploadType)
-			adminType.PUT("/edit/:id", server.EditType)
-			adminType.DELETE("/delete/:id", server.DeleteType)
-		}
+			adminType := admin.Group("/type")
+			{
+				adminType.GET("/", server.ListTypes)
+				adminType.POST("/upload", server.UploadType)
+				adminType.PUT("/edit/:id", server.EditType)
+				adminType.DELETE("/delete/:id", server.DeleteType)
+			}
 
-		adminCategory := admin.Group("/category")
-		{
-			adminCategory.GET("/", server.ListCategories)
-			adminCategory.POST("/create", server.CreateCategory)
-			adminCategory.PUT("/edit/:id", server.EditCategory)
-			adminCategory.DELETE("/delete/:id", server.DeleteCategory)
+			adminCategory := admin.Group("/category")
+			{
+				adminCategory.GET("/", server.ListCategories)
+				adminCategory.POST("/create", server.CreateCategory)
+				adminCategory.PUT("/edit/:id", server.EditCategory)
+				adminCategory.DELETE("/delete/:id", server.DeleteCategory)
+			}
 		}
 	}
 
