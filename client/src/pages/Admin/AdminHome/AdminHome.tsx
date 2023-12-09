@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import "./AdminHome.css";
