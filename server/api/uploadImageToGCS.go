@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	"mime/multipart"
-	"path"
+	"strings"
 	"time"
 
 	"cloud.google.com/go/storage"
@@ -45,15 +45,15 @@ func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, 
 }
 
 // GCS上の画像を削除する
-func (server *Server) DeleteFileFromGCS(ctx *gin.Context, deleteSrcPath string, fileType string) error {
+func (server *Server) DeleteFileFromGCS(ctx *gin.Context, deleteSrcPath string) error {
 	client, err := createGCSClient(ctx, server)
 	if err != nil {
 		return fmt.Errorf("failed to create : %w", err)
 	}
 
 	bucket := client.Bucket(server.config.BucketName)
-	objectName := path.Base(deleteSrcPath)
-	obj := bucket.Object(fmt.Sprintf("%s/%s", fileType, objectName))
+	objectPath := strings.TrimPrefix(deleteSrcPath, fmt.Sprintf("https://storage.googleapis.com/%s/", server.config.BucketName))
+	obj := bucket.Object(objectPath)
 
 	err = obj.Delete(ctx)
 	if err != nil {

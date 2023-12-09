@@ -307,7 +307,7 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		}
 
 		// 既存イメージの削除
-		err = server.DeleteFileFromGCS(ctx, image.Src, FILE_TYPE_IMAGE)
+		err = server.DeleteFileFromGCS(ctx, image.Src)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete existing file from GCS failed : %w", err)))
 			return
@@ -358,7 +358,7 @@ func (server *Server) DeleteImage(ctx *gin.Context) {
 		return
 	}
 
-	err = server.DeleteFileFromGCS(ctx, image.Src, FILE_TYPE)
+	err = server.DeleteFileFromGCS(ctx, image.Src)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete image from GCS failed : %w", err)))
 		return
