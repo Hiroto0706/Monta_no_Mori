@@ -4,8 +4,8 @@ services:
   client:
     container_name: monta_no_mori-client
     build:
-      dockerfile: ./client/Dockerfile
-      context: .
+      dockerfile: ./Dockerfile
+      context: ./client
     tty: true
     volumes:
       - ./client:/app
@@ -15,29 +15,31 @@ services:
 
   server:
     container_name: monta_no_mori-server
-    build:
-      dockerfile: ./server/Dockerfile
-      context: .
     tty: true
     ports:
       - 8080:8080
     depends_on:
-      - db
-
-  db:
-    container_name: monta_no_mori-db
-    build:
-      dockerfile: ./server/db/Dockerfile
-      context: .
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DATABASE: monta_no_mori
-    tty: true
-    ports:
-      - 5432:5432
+      - postgres
     volumes:
-      - db-store:/app
+      - ./server:/app
+    environment:
+      - DB_SOURCE=postgresql://root:secret@postgres:5432/monta_no_mori?sslmode=disable
+    build:
+      dockerfile: ./Dockerfile
+      context: ./server
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: monta_no_mori-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=monta_no_mori
+
+    volumes:
+      - db-store:/var/lib/postgresql/data
 
 volumes:
   db-store:

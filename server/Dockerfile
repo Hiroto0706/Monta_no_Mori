@@ -1,14 +1,13 @@
-FROM golang:1.21-alpine3.18
-
-RUN apk update && apk add git
-
-COPY ./server/go.mod ./app
-COPY ./server/go.sum ./app
-
+FROM golang:1.21-alpine3.18 AS builder
 WORKDIR /app
+COPY . .
+RUN go build -o /build/main main.go
 
-COPY ./server .
+FROM alpine:3.18
+WORKDIR /app
+COPY --from=builder /build/main /usr/local/bin/main
+COPY app.env .
+COPY db/migration ./db/migration
 
-RUN go build -o main main.go
-
-CMD [ "/app/main" ]
+EXPOSE 8080
+CMD [ "/usr/local/bin/main" ]

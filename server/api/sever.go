@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"fmt"
 	db "monta_no_mori/db/sqlc"
 	"monta_no_mori/token"
@@ -109,8 +110,7 @@ func CORSMiddleware() gin.HandlerFunc {
 func insertMasterUser(server *Server) error {
 	ctx := &gin.Context{}
 	existingUser, err := server.store.GetUser(ctx, server.config.MasterUsername)
-	if err != nil {
-		fmt.Println(err)
+	if err != nil && err != sql.ErrNoRows {
 		return fmt.Errorf("failed to GetUser : %w", err)
 	}
 

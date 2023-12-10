@@ -30,7 +30,7 @@ server:
 
 # 全部起動させる
 dc-up:
-	docker compose up
+	docker-compose build && docker-compose up
 
 dc-down:
 	docker compose down
