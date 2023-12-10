@@ -7,6 +7,7 @@ import { UserType } from "../../../../pages/Content/Home/Home";
 
 import "./ModalImage.css";
 import "./../../../Sidebar/UserSidebar/Sidebar.css";
+import { Link } from "react-router-dom";
 
 interface ModalImageProps {
   id: number;
@@ -110,23 +111,26 @@ const ModalImage: React.FC<ModalImageProps> = ({
 
             <div className="type">
               <h3>たいぷ</h3>
-              <a href={`/search/type/${type.name}`} className="type-link-modal">
+              <Link
+                to={`/search/type/${type.name}`}
+                className="type-link-modal"
+              >
                 <img src={type.src} />
                 <EllipsisText text={type.name} maxLength={100} />{" "}
-              </a>
+              </Link>
             </div>
 
             <div className="category">
               <h3>かてごり</h3>
               {categories.map((category) => (
-                <a
-                  href={`/search/category/${category.name}`}
+                <Link
+                  to={`/search/category/${category.name}`}
                   className="category-link"
                   key={category.id}
                 >
                   #
                   <EllipsisText text={category.name} maxLength={100} />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
