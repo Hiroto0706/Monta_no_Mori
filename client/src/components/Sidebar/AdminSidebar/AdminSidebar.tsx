@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./../UserSidebar/Sidebar.css";
 import "./AdminSidebar.css";
+import { Link } from "react-router-dom";
 
 interface EllipsisTextProps {
   text: string;
@@ -34,24 +35,24 @@ const Sidebar: React.FC = () => {
         <div className="sidebar__inner admin">
           <div className="sidebar__inner__type">
             <h3>Menu</h3>
-            <a href="/admin/image" className="type-link">
+            <Link to="/admin/image" className="type-link">
               <EllipsisText text="Image" maxLength={maxLength} />{" "}
               <div>
                 <img src="/image-icon-1.png" />
               </div>
-            </a>
-            <a href="/admin/type" className="type-link">
+            </Link>
+            <Link to="/admin/type" className="type-link">
               <EllipsisText text="Type" maxLength={maxLength} />{" "}
               <div>
                 <img src="/type-icon-1.png" />
               </div>
-            </a>
-            <a href="/admin/category" className="type-link">
+            </Link>
+            <Link to="/admin/category" className="type-link">
               <EllipsisText text="Category" maxLength={maxLength} />{" "}
               <div>
                 <img src="/category-icon-1.png" />
               </div>
-            </a>
+            </Link>
           </div>
 
           <div className="type-link logout" onClick={() => logout()}>

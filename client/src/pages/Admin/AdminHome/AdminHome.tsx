@@ -3,6 +3,7 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import "./AdminHome.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function AdminHome() {
   const navigate = useNavigate();
@@ -24,18 +25,18 @@ export default function AdminHome() {
           <h2>Admin Home</h2>
 
           <div className="admin-component__inner__contents">
-            <a href="/admin/image">
+            <Link to="/admin/image">
               <img src="/image-icon-0.png" />
               Image
-            </a>
-            <a href="/admin/type">
+            </Link>
+            <Link to="/admin/type">
               <img src="/type-icon-0.png" />
               Type
-            </a>
-            <a href="/admin/category">
+            </Link>
+            <Link to="/admin/category">
               <img src="/category-icon-0.png" />
               Category
-            </a>
+            </Link>
           </div>
 
           <div className="logout" onClick={() => logout()}>
@@ -61,10 +62,7 @@ export const IsLoggedIn = async (
   formData.append("accessToken", accessToken);
 
   try {
-    await axios.post(
-      import.meta.env.VITE_BASE_URL + "login/verify",
-      formData
-    );
+    await axios.post(import.meta.env.VITE_BASE_URL + "login/verify", formData);
   } catch (error) {
     console.error(error);
     navigate("/login");

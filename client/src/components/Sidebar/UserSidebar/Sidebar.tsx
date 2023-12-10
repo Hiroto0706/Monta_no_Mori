@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { BasicCategory } from "../../../pages/Admin/AdminCategory/AdminCategory";
 import { Type } from "../../../pages/Admin/AdminType/AdminType";
+import { Link } from "react-router-dom";
 
 interface EllipsisTextProps {
   text: string;
@@ -37,8 +38,8 @@ const Sidebar: React.FC = () => {
           <div className="sidebar__inner__type">
             <h3>たいぷ</h3>
             {types.map((type) => (
-              <a
-                href={`/search/type/${type.name}`}
+              <Link
+                to={`/search/type/${type.name}`}
                 className="type-link"
                 key={type.id}
               >
@@ -46,15 +47,15 @@ const Sidebar: React.FC = () => {
                 <div>
                   <img src={type.src} />
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="sidebar__inner__category">
             <h3>かてごり</h3>
             {categories.map((category) => (
-              <a
-                href={`/search/category/${category.name}`}
+              <Link
+                to={`/search/category/${category.name}`}
                 className="category-link"
                 key={category.id}
               >
@@ -63,7 +64,7 @@ const Sidebar: React.FC = () => {
                   text={category.name}
                   maxLength={categoryMaxLength}
                 />
-              </a>
+              </Link>
             ))}
           </div>
         </div>

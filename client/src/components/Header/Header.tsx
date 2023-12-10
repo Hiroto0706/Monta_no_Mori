@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Search from "./../Form/Search/Search";
 
 import "./Header.css";
@@ -6,15 +7,15 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__logo">
-        <a href="/">
+        <Link to="/">
           <img src="/monta_no_mori_logo.svg" />
-        </a>
+        </Link>
       </div>
       <Search />
-      <a className="header__favorite" href="/favorite">
+      <Link className="header__favorite" to="/favorite">
         <img src="/heart-icon.png" />
         <p>おきにいり</p>
-      </a>
+      </Link>
     </header>
   );
 }
