@@ -70,7 +70,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
     }
 
     axios
-      .get(`http://localhost:8080/api/v1/category/${id}`)
+      .get(import.meta.env.VITE_BASE_URL + `category/${id}`)
       .then((response) => {
         setCategories(response.data.category);
       })
