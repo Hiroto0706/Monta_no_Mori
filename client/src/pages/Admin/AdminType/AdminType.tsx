@@ -92,7 +92,7 @@ export const fetchTypes = (
   setTypes: React.Dispatch<React.SetStateAction<Type[]>>
 ) => {
   axios
-    .get("http://localhost:8080/api/v1/admin/type/", {
+    .get(import.meta.env.VITE_BASE_URL + "admin/type/", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },

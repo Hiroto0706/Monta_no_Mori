@@ -76,7 +76,7 @@ export default Sidebar;
 
 const fetchTypes = (setTypes: React.Dispatch<React.SetStateAction<Type[]>>) => {
   axios
-    .get("http://localhost:8080/api/v1/type")
+    .get(import.meta.env.VITE_BASE_URL + "type")
     .then((response) => {
       setTypes(response.data.types);
     })
@@ -90,7 +90,7 @@ const fetchCategories = <T extends BasicCategory>(
   transformData?: (data: BasicCategory[]) => T[]
 ) => {
   axios
-    .get("http://localhost:8080/api/v1/category")
+    .get(import.meta.env.VITE_BASE_URL + "category")
     .then((response) => {
       const data = response.data.category;
       setCategories(transformData ? transformData(data) : data);

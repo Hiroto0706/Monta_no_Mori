@@ -60,7 +60,7 @@ const Home: React.FC = () => {
     <>
       <div className="home">
         {/* <OrderBy /> */}
-        <h2>いちらん</h2>
+        <h2>がぞういちらん</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (
             images.map((image) => (
@@ -87,7 +87,7 @@ export default Home;
 
 export const fetchUsersImages = (dispatch: Dispatch) => {
   axios
-    .get("http://localhost:8080/api/v1/")
+    .get(import.meta.env.VITE_BASE_URL)
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(TransformPayloadToImage);

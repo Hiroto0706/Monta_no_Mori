@@ -66,11 +66,11 @@ const fetchFavoriteImages = (
   favoriteIDs: string[]
 ) => {
   axios
-    .get("http://localhost:8080/api/v1/")
+    .get(import.meta.env.VITE_BASE_URL)
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(transformPayloadToImage);
-      console.log(transformedImages)
+      console.log(transformedImages);
 
       const favoriteImages = transformedImages.filter((image: UserImage) =>
         favoriteIDs.includes(image.id.toString())
