@@ -33,7 +33,7 @@ const Favorite: React.FC = () => {
   return (
     <>
       <div className="home">
-        <h1>おきにいりのがぞうたち</h1>
+        <h2>おきにいりのがぞうたち</h2>
         {/* <OrderBy /> */}
         <ul className="home__image-list">
           {images.length > 0 ? (
