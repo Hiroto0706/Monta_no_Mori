@@ -1,7 +1,11 @@
-FROM node:16.15.0-alpine
+FROM node:16.15.0-alpine AS builder
 
 WORKDIR /app
 
+COPY package*.json ./
+
+RUN npm install
+
 COPY . .
 
-RUN npm i --save prop-types
+CMD ["npm", "run", "dev"]

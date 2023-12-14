@@ -46,7 +46,7 @@ const SearchCategoryHome: React.FC = () => {
     if (name) {
       fetchUsersImagesByCategory(dispatch, name);
     }
-  }, [dispatch]);
+  }, [dispatch, name]);
 
   return (
     <>

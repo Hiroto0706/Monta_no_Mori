@@ -49,13 +49,15 @@ li {
 .image-box__title {
   display: flex;
   justify-content: space-between;
-  margin: 0.5rem 0 1.5rem 0;
+  margin: 0.5rem 0 0.5rem 0;
 }
 .image-box__title h3 {
   margin: 0;
   font-weight: normal;
   font-size: 14px;
   color: #646464;
+  display: flex;
+  align-items: center;
 }
 .image-box__title img {
   width: 25px;

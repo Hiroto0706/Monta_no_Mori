@@ -27,8 +27,8 @@ const Sidebar: React.FC = () => {
   const [types, setTypes] = useState<Type[]>([]);
 
   useEffect(() => {
-    fetchCategories(setCategories);
     fetchTypes(setTypes);
+    fetchCategories(setCategories);
   }, []);
 
   return (
