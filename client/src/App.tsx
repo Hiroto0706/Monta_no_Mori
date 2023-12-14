@@ -5,6 +5,7 @@ import Header from "./components/Header/Header.tsx";
 import AdminHeader from "./components/Header/AdminHeader/AdminHeader.tsx";
 import Sidebar from "./components/Sidebar/UserSidebar/Sidebar.tsx";
 import AdminSidebar from "./components/Sidebar/AdminSidebar/AdminSidebar.tsx";
+import NotFound from "./pages/Content/NotFound.tsx";
 
 import "./main.css";
 
@@ -32,6 +33,7 @@ function App() {
               element={<route.component />}
             />
           ))}
+          <Route element={<NotFound />} />
         </Routes>
       </div>
     </>

@@ -35,13 +35,15 @@
   &__title {
     display: flex;
     justify-content: space-between;
-    margin: 0.5rem 0 1.5rem 0;
+    margin: 0.5rem 0 0.5rem 0;
 
     h3 {
       margin: 0;
       font-weight: normal;
       font-size: 14px;
       color: main.$base-font-color;
+      display: flex;
+      align-items: center;
     }
     img {
       $image-size: 25px;
