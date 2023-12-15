@@ -24,7 +24,7 @@ $category-btn-bgcolor-hover: #f0f0f0;
   overflow: auto;
   position: fixed;
 
-  border-width: 0 main.$border-size 0 0;
+  border-width: 0 0.5px 0 0;
   border-color: main.$border-line-color;
   border-style: solid;
 
@@ -49,6 +49,10 @@ $category-btn-bgcolor-hover: #f0f0f0;
         margin-bottom: 0.5rem;
       }
     }
+  }
+
+  @media screen and (max-width: 880px) {
+    display: none;
   }
 }
 

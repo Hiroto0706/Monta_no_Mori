@@ -5,13 +5,12 @@ import { useDispatch } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import { setSearchQueryParameter } from "../../../slice";
+import { SearchUserImages } from "./SearchHome";
 
 import axios from "axios";
+import "./SearchForm.css";
 
-import "./Search.css";
-import { SearchUserImages } from "../../../pages/Content/Home/SearchHome";
-
-const Search: React.FC = () => {
+const SearchForm: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -39,7 +38,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <form className="search" onSubmit={handleSearchSubmit}>
+      <form className="search-form home" onSubmit={handleSearchSubmit}>
         <input
           placeholder="いらすとをけんさく"
           value={searchText}
@@ -53,18 +52,15 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;
+export default SearchForm;
 
 export const SearchImages = async (searchText: string, dispatch: Dispatch) => {
   try {
-    const response = await axios.get(
-      import.meta.env.VITE_BASE_URL + "search",
-      {
-        params: {
-          q: searchText,
-        },
-      }
-    );
+    const response = await axios.get(import.meta.env.VITE_BASE_URL + "search", {
+      params: {
+        q: searchText,
+      },
+    });
     SearchUserImages(dispatch, response.data.result);
   } catch (error) {
     console.error("Error during image search", error);

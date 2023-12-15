@@ -1,13 +1,13 @@
 @use "./../../../main.scss" as main;
 
 .home {
-  width: calc(100% - 2 * 2%);
+  width: calc(100% - 2 * 1.25rem);
   max-width: 1200px;
   margin: auto;
   padding: 0.5rem 1.25rem 1.25rem 1.25rem;
 
-  h1 {
-    margin: 0 0 0.5em 0;
+  h2 {
+    overflow-wrap: break-word;
   }
 
   &__image-list {
@@ -28,6 +28,16 @@
 
     &::before {
       order: 1;
+    }
+  }
+
+  @media screen and (max-width: 880px) {
+    padding: 0.5rem;
+    width: calc(100% - 2 * 0.5rem);
+
+    h2 {
+      font-size: 1.5rem;
+      margin-left: 0.5rem;
     }
   }
 }

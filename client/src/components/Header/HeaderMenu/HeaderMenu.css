@@ -104,4 +104,32 @@ li {
 }
 .category-link:hover {
   background-color: #f0f0f0;
-}/*# sourceMappingURL=Sidebar.css.map */
+}
+
+.header-menu {
+  width: calc(100vw - 4rem);
+  height: 100vh;
+  padding: 4rem 2rem;
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 99;
+}
+.header-menu__inner__favorite {
+  text-decoration: none;
+  color: #646464;
+  display: block;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  background-color: #f4f4f4;
+  border: 1.25px solid #afafaf;
+  padding: 0.25rem 0.5rem;
+  border-radius: 15px;
+}
+@media screen and (max-width: 880px) {
+  .header-menu {
+    display: block;
+  }
+}/*# sourceMappingURL=HeaderMenu.css.map */

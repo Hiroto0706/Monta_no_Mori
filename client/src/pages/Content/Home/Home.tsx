@@ -6,6 +6,7 @@ import { AppState } from "../../../store";
 import axios from "axios";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
+import SearchForm from "./SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
@@ -60,6 +61,7 @@ const Home: React.FC = () => {
     <>
       <div className="home">
         {/* <OrderBy /> */}
+        <SearchForm />
         <h2>がぞういちらん</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (
@@ -85,7 +87,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-export const fetchUsersImages = (dispatch: Dispatch) => {
+const fetchUsersImages = (dispatch: Dispatch) => {
   axios
     .get(import.meta.env.VITE_BASE_URL)
     .then((response) => {

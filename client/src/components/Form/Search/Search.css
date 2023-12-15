@@ -17,6 +17,11 @@ li {
   padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
   z-index: 10;
 }
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
 
 .sidebar {
   background-color: white;
@@ -26,7 +31,7 @@ li {
   height: 100vh;
   overflow: auto;
   position: fixed;
-  border-width: 0 1.5px 0 0;
+  border-width: 0 0.5px 0 0;
   border-color: #afafaf;
   border-style: solid;
 }
@@ -47,6 +52,11 @@ li {
 }
 .sidebar__inner__category h3 {
   margin-bottom: 0.5rem;
+}
+@media screen and (max-width: 880px) {
+  .sidebar:not(.admin) {
+    display: none;
+  }
 }
 
 .category-link, .type-link {
@@ -137,4 +147,9 @@ li {
   max-height: 25px;
   margin-right: 0.5rem;
   cursor: pointer;
+}
+@media screen and (max-width: 880px) {
+  .search {
+    display: none;
+  }
 }/*# sourceMappingURL=Search.css.map */

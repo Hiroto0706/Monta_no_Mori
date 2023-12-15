@@ -17,6 +17,11 @@ li {
   padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
   z-index: 10;
 }
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
 
 .image-box {
   width: 23%;
@@ -34,7 +39,7 @@ li {
 }
 .image-box__img {
   width: calc(100% - 2.5rem - 3px);
-  height: 220px;
+  height: 200px;
   background-color: white;
   border: 1.5px solid #afafaf;
   border-radius: 10px;
@@ -65,4 +70,24 @@ li {
   display: block;
   margin: auto 0;
   cursor: pointer;
+}
+@media screen and (max-width: 880px) {
+  .image-box {
+    width: 30%;
+    max-width: 220px;
+    min-width: 120px;
+  }
+  .image-box__img {
+    height: 200px;
+  }
+}
+@media screen and (max-width: 880px) and (max-width: 677px) {
+  .image-box {
+    width: 50%;
+    max-width: 160px;
+    min-width: 100px;
+  }
+  .image-box__img {
+    height: 145px;
+  }
 }/*# sourceMappingURL=Image.css.map */

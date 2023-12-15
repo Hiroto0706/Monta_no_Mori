@@ -17,15 +17,20 @@ li {
   padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
   z-index: 10;
 }
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
 
 .home {
-  width: 96%;
+  width: calc(100% - 2.5rem);
   max-width: 1200px;
   margin: auto;
   padding: 0.5rem 1.25rem 1.25rem 1.25rem;
 }
-.home h1 {
-  margin: 0 0 0.5em 0;
+.home h2 {
+  overflow-wrap: break-word;
 }
 .home__image-list {
   padding: 2rem 0;
@@ -43,4 +48,14 @@ li {
 }
 .home__image-list::before {
   order: 1;
+}
+@media screen and (max-width: 880px) {
+  .home {
+    padding: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+  .home h2 {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+  }
 }/*# sourceMappingURL=Home.css.map */

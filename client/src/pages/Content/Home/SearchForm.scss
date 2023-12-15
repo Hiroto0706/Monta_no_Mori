@@ -1,18 +1,17 @@
 @use "./../../../main.scss" as main;
-@use "./../../Sidebar/UserSidebar/Sidebar.scss" as sidebar;
 
+$padding-x: 0.5rem;
 $padding-search-box-x: 1.5rem;
 $padding-search-box-y: 0.45rem;
 
 $search-border-radius: 0px;
 
-.search {
-  width: 50%;
-  min-width: 390px;
-  max-width: 600px;
-  height: 40px;
-  display: flex;
+.search-form.home {
+  width: calc(100% - 2 * $padding-x);
   background-color: transparent;
+  height: 40px;
+  margin-top: 1rem;
+  display: none;
 
   input {
     font-size: 1.25rem;
@@ -22,15 +21,16 @@ $search-border-radius: 0px;
     border-radius: 20px 0 0 20px;
     border-right: none;
     border: 2px solid transparent;
+    box-shadow: 1px 2px 1px 0px rgba(0, 0, 0, 0.1);
+  }
 
-    &:focus {
-      border: 2px solid black;
-      outline: none;
-    }
+  &:focus {
+    border: 2px solid black;
+    outline: none;
+  }
 
-    &::placeholder {
-      font-size: 16px;
-    }
+  &::placeholder {
+    font-size: 16px;
   }
 
   .search-button {
@@ -40,6 +40,7 @@ $search-border-radius: 0px;
     background-color: white;
     border-radius: 0 20px 20px 0;
     border: none;
+    box-shadow: 1px 2px 1px 0px rgba(0, 0, 0, 0.1);
 
     img {
       width: auto;
@@ -51,6 +52,6 @@ $search-border-radius: 0px;
   }
 
   @media screen and (max-width: 880px) {
-    display: none;
+    display: flex;
   }
 }

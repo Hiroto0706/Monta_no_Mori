@@ -7,10 +7,6 @@ import Sidebar from "./components/Sidebar/UserSidebar/Sidebar.tsx";
 import AdminSidebar from "./components/Sidebar/AdminSidebar/AdminSidebar.tsx";
 import NotFound from "./pages/Content/NotFound.tsx";
 
-import "./main.css";
-
-// import axios from 'axios'
-
 function App() {
   return (
     <>

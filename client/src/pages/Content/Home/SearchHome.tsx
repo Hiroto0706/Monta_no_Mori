@@ -3,10 +3,11 @@ import { Dispatch } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import { setImages } from "../../../slice";
 import { AppState } from "../../../store";
-import { searchImages } from "../../../components/Form/Search/Search";
+import { SearchImages } from "../../../components/Form/Search/Search";
 import { TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
+import SearchForm from "./SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
@@ -56,7 +57,7 @@ const SearchHome: React.FC = () => {
     setFavoriteIDs(storedFavorites);
 
     if (searchQuery != null) {
-      searchImages(searchQuery, dispatch);
+      SearchImages(searchQuery, dispatch);
     }
   }, [searchQuery, dispatch]);
 
@@ -64,6 +65,7 @@ const SearchHome: React.FC = () => {
     <>
       <div className="home">
         {/* <OrderBy /> */}
+        <SearchForm />
         <h2>『{searchQuery}』のけんさくけっか</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (

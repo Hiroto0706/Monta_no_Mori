@@ -1,0 +1,32 @@
+@use "../../Sidebar/UserSidebar/Sidebar.scss" as sidebar;
+
+.header-menu {
+  width: calc(100vw - 2 * 2rem);
+  height: calc(100vh);
+  padding: 4rem 2rem;
+  position: fixed;
+  background-color: white;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 99;
+
+  &__inner {
+    &__favorite {
+      text-decoration: none;
+      color: sidebar.$type-btn-font-color;
+      display: block;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      background-color: sidebar.$type-btn-bgcolor;
+      border: sidebar.$type-btn-line-size solid sidebar.$type-btn-line-color;
+      padding: sidebar.$type-btn-padding-y sidebar.$type-btn-padding-x;
+
+      border-radius: 15px;
+    }
+  }
+
+  @media screen and (max-width: 880px) {
+    display: block;
+  }
+}

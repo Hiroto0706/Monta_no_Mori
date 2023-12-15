@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./../UserSidebar/Sidebar.css";
 import "./AdminSidebar.css";
 import { Link } from "react-router-dom";
 
@@ -31,7 +30,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      <div className="sidebar">
+      <div className="sidebar admin">
         <div className="sidebar__inner admin">
           <div className="sidebar__inner__type">
             <h3>Menu</h3>

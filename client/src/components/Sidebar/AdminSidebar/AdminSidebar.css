@@ -17,6 +17,11 @@ li {
   padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
   z-index: 10;
 }
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
 
 .sidebar__inner.admin {
   display: flex;

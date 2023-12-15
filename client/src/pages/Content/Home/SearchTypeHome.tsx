@@ -8,6 +8,7 @@ import axios from "axios";
 import { UserImage, UserType, TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
+import SearchForm from "./SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 
 import "./Home.css";
@@ -52,6 +53,7 @@ const SearchTypeHome: React.FC = () => {
     <>
       <div className="home">
         {/* <OrderBy /> */}
+        <SearchForm />
         <h2>たいぷが『{name}』のけんさくけっか</h2>
         <ul className="home__image-list">
           {images.length > 0 ? (

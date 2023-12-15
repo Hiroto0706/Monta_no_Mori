@@ -18,24 +18,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Footer />
     </React.StrictMode>
   </Provider>
-  // <Provider store={store}>
-  //   <React.StrictMode>
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path="/admin/*" element={<AdminHeader />} />
-  //         <Route path="/*" element={<Header />} />
-  //       </Routes>
-  //     </BrowserRouter>
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path="/admin/*" element={<AdminSidebar />} />
-  //         <Route path="/*" element={<Sidebar />} />
-  //       </Routes>
-  //     </BrowserRouter>
-
-  //     <App />
-
-  //     <Footer />
-  //   </React.StrictMode>
-  // </Provider>
 );
