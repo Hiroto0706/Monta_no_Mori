@@ -86,7 +86,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
         className="modal-image__content user-modal"
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={toggleOpenModal} className="cancel">
+        <button onClick={toggleOpenModal} className="cancel user-modal">
           <img src="/cancel-icon.png" />
         </button>
 
@@ -96,7 +96,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
           </div>
         </div>
 
-        <div className="modal-image__content__desc">
+        <div className="modal-image__content__desc user-modal">
           <div>
             <div className="title">
               <h2>{title} </h2>
@@ -135,7 +135,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
             </div>
           </div>
 
-          <div className="modal-image__content__desc__button">
+          <div className="modal-image__content__desc__button user-modal">
             <button
               className="download"
               onClick={() => {

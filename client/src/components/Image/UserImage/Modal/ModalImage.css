@@ -54,7 +54,7 @@ li {
   margin-bottom: 0.5rem;
 }
 @media screen and (max-width: 880px) {
-  .sidebar:not(.admin) {
+  .sidebar {
     display: none;
   }
 }
@@ -289,4 +289,84 @@ li {
   width: 20px;
   height: 20px;
   margin-right: 0.25rem;
+}
+@media screen and (max-width: 880px) {
+  .modal-image__content.user-modal {
+    display: block;
+    width: 80%;
+    max-width: calc(600px - 3rem);
+    min-width: calc(300px - 3rem);
+    height: calc(600px - 3rem);
+    background-color: white;
+    padding: 1.5rem;
+    box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.1);
+    max-height: calc(600px - 3rem);
+  }
+  .modal-image__content .cancel.user-modal {
+    top: 4px;
+    right: 4px;
+    width: 30px;
+    height: 30px;
+  }
+  .modal-image__content__img.user-modal {
+    width: 100%;
+    height: 30%;
+    display: block;
+    margin: 0.25rem auto 0 auto;
+  }
+  .modal-image__content__img.user-modal .img {
+    padding: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+  }
+  .modal-image__content__desc.user-modal {
+    width: 100%;
+    height: 70%;
+    padding-left: 0rem;
+  }
+  .modal-image__content__desc.user-modal .title {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .modal-image__content__desc.user-modal .title h2 {
+    margin-left: 0;
+    font-size: 1rem;
+  }
+  .modal-image__content__desc.user-modal .title img {
+    width: 20px;
+    height: 20px;
+    margin-left: 0.5rem;
+  }
+  .modal-image__content__desc.user-modal .category h3,
+  .modal-image__content__desc.user-modal .type h3,
+  .modal-image__content__desc.user-modal .image h3 {
+    font-size: 0.75rem;
+  }
+  .modal-image__content__desc.user-modal .type {
+    margin-bottom: 0.5rem;
+  }
+  .modal-image__content__desc.user-modal .type .type-link-modal {
+    font-size: 0.75rem;
+  }
+  .modal-image__content__desc.user-modal .type .type-link-modal img {
+    width: 15px;
+    height: 15px;
+    padding-right: 0.5rem;
+  }
+  .modal-image__content__desc.user-modal .category {
+    margin-bottom: 0.5rem;
+  }
+  .modal-image__content__desc__button.user-modal .download,
+  .modal-image__content__desc__button.user-modal .copy {
+    padding: 0.25rem 1rem;
+    font-size: 1rem;
+  }
+  .modal-image__content__desc__button.user-modal .download img {
+    width: 22px;
+    height: 22px;
+  }
+  .modal-image__content__desc__button.user-modal .copy img {
+    width: 16px;
+    height: 16px;
+  }
 }/*# sourceMappingURL=ModalImage.css.map */
