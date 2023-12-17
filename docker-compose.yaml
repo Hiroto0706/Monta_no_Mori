@@ -22,7 +22,7 @@ services:
     volumes:
       - ./server:/app
     environment:
-      - DB_SOURCE=postgresql://root:secret@postgres:5432/monta_no_mori?sslmode=disable
+      - DATABASE_URL=postgresql://root:secret@postgres:5432/monta_no_mori?sslmode=disable
     build:
       dockerfile: ./Dockerfile
       context: ./server
