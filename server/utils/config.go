@@ -8,7 +8,7 @@ import (
 
 type Config struct {
 	DBDriver             string        `mapstructure:"DB_DRIVER"`
-	DBSource             string        `mapstructure:"DB_SOURCE"`
+	DBSource             string        `mapstructure:"DATABASE_URL"`
 	MigrationURL         string        `mapstructure:"MIGRATION_URL"`
 	JsonPath             string        `mapstructure:"JSON_PATH"`
 	BucketName           string        `mapstructure:"BUCKET_NAME"`
