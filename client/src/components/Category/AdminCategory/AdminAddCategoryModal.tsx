@@ -27,7 +27,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
     try {
       await axios.post(
-        import.meta.env.VITE_BASE_URL + "admin/category/create",
+        import.meta.env.VITE_BASE_API + "admin/category/create",
         formData,
         {
           headers: {

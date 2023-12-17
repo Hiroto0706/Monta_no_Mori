@@ -86,7 +86,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
 
     try {
       await axios.post(
-        import.meta.env.VITE_BASE_URL + "admin/upload",
+        import.meta.env.VITE_BASE_API + "admin/upload",
         formData,
         {
           headers: {

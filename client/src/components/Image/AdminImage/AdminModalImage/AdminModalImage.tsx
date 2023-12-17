@@ -119,7 +119,7 @@ const AdminModalEditImage: React.FC<
 
     try {
       const response = await axios.put(
-        import.meta.env.VITE_BASE_URL + `admin/edit/${id}`,
+        import.meta.env.VITE_BASE_API + `admin/edit/${id}`,
         formData,
         {
           headers: {
@@ -141,7 +141,7 @@ const AdminModalEditImage: React.FC<
   const deleteImage = async (id: number) => {
     try {
       await axios.delete(
-        import.meta.env.VITE_BASE_URL + `admin/delete/${id}`,
+        import.meta.env.VITE_BASE_API + `admin/delete/${id}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token"),

@@ -91,7 +91,7 @@ export const fetchCategories = <T extends BasicCategory>(
   transformData?: (data: BasicCategory[]) => T[]
 ) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + "admin/category/", {
+    .get(import.meta.env.VITE_BASE_API + "admin/category/", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },

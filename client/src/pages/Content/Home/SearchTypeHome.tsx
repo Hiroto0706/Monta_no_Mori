@@ -81,7 +81,7 @@ export default SearchTypeHome;
 
 const fetchUsersImagesByType = (dispatch: Dispatch, type_name: string) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + `search/type/${type_name}`)
+    .get(import.meta.env.VITE_BASE_API + `search/type/${type_name}`)
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(TransformPayloadToImage);

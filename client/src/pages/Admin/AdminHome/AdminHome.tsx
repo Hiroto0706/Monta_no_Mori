@@ -62,7 +62,7 @@ export const IsLoggedIn = async (
   formData.append("accessToken", accessToken);
 
   try {
-    await axios.post(import.meta.env.VITE_BASE_URL + "login/verify", formData);
+    await axios.post(import.meta.env.VITE_BASE_API + "login/verify", formData);
   } catch (error) {
     console.error(error);
     navigate("/login");

@@ -84,7 +84,7 @@ const fetchUsersImagesByCategory = (
   category_name: string
 ) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + `search/category/${category_name}`)
+    .get(import.meta.env.VITE_BASE_API + `search/category/${category_name}`)
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(TransformPayloadToImage);

@@ -44,7 +44,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
 
     try {
       await axios.post(
-        import.meta.env.VITE_BASE_URL + "admin/type/upload",
+        import.meta.env.VITE_BASE_API + "admin/type/upload",
         formData,
         {
           headers: {

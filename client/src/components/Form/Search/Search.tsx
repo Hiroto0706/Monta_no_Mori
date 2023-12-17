@@ -58,7 +58,7 @@ export default Search;
 export const SearchImages = async (searchText: string, dispatch: Dispatch) => {
   try {
     const response = await axios.get(
-      import.meta.env.VITE_BASE_URL + "search",
+      import.meta.env.VITE_BASE_API + "search",
       {
         params: {
           q: searchText,

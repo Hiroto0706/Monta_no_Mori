@@ -41,7 +41,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        import.meta.env.VITE_BASE_URL + "login",
+        import.meta.env.VITE_BASE_API + "login",
         formData
       );
       localStorage.setItem("access_token", response.data.access_token);

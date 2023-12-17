@@ -89,7 +89,7 @@ export default Home;
 
 const fetchUsersImages = (dispatch: Dispatch) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL)
+    .get(import.meta.env.VITE_BASE_API)
     .then((response) => {
       const responsePayload = response.data.payload;
       const transformedImages = responsePayload.map(TransformPayloadToImage);

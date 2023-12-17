@@ -91,7 +91,7 @@ export default HeaderMenu;
 
 const fetchTypes = (setTypes: React.Dispatch<React.SetStateAction<Type[]>>) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + "type")
+    .get(import.meta.env.VITE_BASE_API + "type")
     .then((response) => {
       setTypes(response.data.types);
     })
@@ -105,7 +105,7 @@ const fetchCategories = <T extends BasicCategory>(
   transformData?: (data: BasicCategory[]) => T[]
 ) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + "category")
+    .get(import.meta.env.VITE_BASE_API + "category")
     .then((response) => {
       const data = response.data.category;
       setCategories(transformData ? transformData(data) : data);

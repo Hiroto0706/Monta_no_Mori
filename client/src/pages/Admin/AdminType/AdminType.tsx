@@ -92,7 +92,7 @@ export const fetchTypes = (
   setTypes: React.Dispatch<React.SetStateAction<Type[]>>
 ) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + "admin/type/", {
+    .get(import.meta.env.VITE_BASE_API + "admin/type/", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },

@@ -34,7 +34,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
 
     try {
       const response = await axios.put(
-        import.meta.env.VITE_BASE_URL + `admin/category/edit/${id}`,
+        import.meta.env.VITE_BASE_API + `admin/category/edit/${id}`,
         formData,
         {
           headers: {
@@ -53,7 +53,7 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
   const deleteCategory = async (id: number) => {
     try {
       await axios.delete(
-        import.meta.env.VITE_BASE_URL + `admin/category/delete/${id}`,
+        import.meta.env.VITE_BASE_API + `admin/category/delete/${id}`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("access_token"),

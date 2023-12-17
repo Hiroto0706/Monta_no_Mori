@@ -95,7 +95,7 @@ export const fetchImages = (
   setImages: React.Dispatch<React.SetStateAction<Image[]>>
 ) => {
   axios
-    .get(import.meta.env.VITE_BASE_URL + "admin/", {
+    .get(import.meta.env.VITE_BASE_API + "admin/", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("access_token"),
       },
