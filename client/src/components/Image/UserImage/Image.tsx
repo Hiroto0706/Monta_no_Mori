@@ -31,6 +31,9 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
   const toggleOpenModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+  const closeOpeningModal = () => {
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("favorites")?.includes(id.toString())) {
@@ -66,6 +69,7 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
           type={type}
           toggleOpenModal={() => toggleOpenModal()}
           toggleLike={() => toggleLike(id.toString())}
+          closeOpeningModal={() => closeOpeningModal()}
         />
       )}
     </li>
