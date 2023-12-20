@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"monta_no_mori/api"
 	db "monta_no_mori/db/sqlc"
@@ -19,6 +20,8 @@ func main() {
 	if err != nil {
 		log.Fatal("cannot load config :", err)
 	}
+
+	fmt.Println(config.DBSource)
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db: ", err)

@@ -19,11 +19,35 @@
 
     &::after,
     &::before {
+      $base-image-width: 280px;
+
       content: "";
       display: block;
-      width: calc(23% + 2 * 0.5rem);
-      max-width: 280px;
-      min-width: 180px;
+      width: calc($base-image-width + 2 * 0.5rem);
+
+      @media screen and (max-width: 1510px) {
+        $image-width-xl: 220px;
+
+        width: calc($image-width-xl + 2 * 0.5rem);
+
+        @media screen and (max-width: 1245px) {
+          $image-width-x: 180px;
+
+          width: calc($image-width-x + 2 * 0.5rem);
+
+          @media screen and (max-width: 880px) {
+            $image-width-md: 190px;
+
+            width: calc($image-width-md + 2 * 0.5rem);
+
+            @media screen and (max-width: 677px) {
+              $image-width-sp: 160px;
+
+              width: calc($image-width-sp + 2 * 0.5rem);
+            }
+          }
+        }
+      }
     }
 
     &::before {
