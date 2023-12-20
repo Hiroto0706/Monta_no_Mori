@@ -16,6 +16,7 @@ interface ModalImageProps {
   type: UserType;
   toggleOpenModal: () => void;
   toggleLike: (id: string) => void;
+  closeOpeningModal: () => void;
 }
 
 interface Category {
@@ -30,6 +31,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
   type,
   toggleOpenModal,
   toggleLike,
+  closeOpeningModal,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -128,6 +130,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
               <Link
                 to={`/search/type/${type.name}`}
                 className="type-link-modal"
+                onClick={() => closeOpeningModal()}
               >
                 <img src={type.src} />
                 <EllipsisText text={type.name} maxLength={100} />{" "}
@@ -141,6 +144,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
                   to={`/search/category/${category.name}`}
                   className="category-link"
                   key={category.id}
+                  onClick={() => closeOpeningModal()}
                 >
                   #
                   <EllipsisText text={category.name} maxLength={100} />
