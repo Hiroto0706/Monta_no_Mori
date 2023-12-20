@@ -290,6 +290,9 @@ li {
   height: 20px;
   margin-right: 0.25rem;
 }
+.modal-image__content__desc__button .download-copy-text {
+  display: none;
+}
 @media screen and (max-width: 880px) {
   .modal-image__content.user-modal {
     display: block;
@@ -368,5 +371,16 @@ li {
   .modal-image__content__desc__button.user-modal .copy img {
     width: 16px;
     height: 16px;
+  }
+}
+@media screen and (max-width: 880px) and (max-width: 440px) {
+  .modal-image__content__desc__button.user-modal .download,
+  .modal-image__content__desc__button.user-modal .copy {
+    display: none;
+  }
+  .modal-image__content__desc__button.user-modal .download-copy-text {
+    display: block;
+    margin: 0;
+    font-size: 0.9rem;
   }
 }/*# sourceMappingURL=ModalImage.css.map */

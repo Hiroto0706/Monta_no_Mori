@@ -1,9 +1,9 @@
 @use "./../../../main.scss" as main;
 
 .image-box {
-  width: 23%;
-  max-width: calc(280px);
-  min-width: calc(180px);
+  $base-image-width: 280px;
+
+  width: $base-image-width;
   height: auto;
   margin-bottom: 2rem;
   padding: 0.5rem;
@@ -19,7 +19,7 @@
     $img-padding: 1.25rem;
 
     width: calc(100% - 2 * $img-padding - 2 * main.$border-size);
-    height: 200px;
+    height: calc($base-image-width - 2 * $img-padding - 2 * main.$border-size);
     background-color: white;
     border: main.$border-size solid main.$border-line-color;
     border-radius: 10px;
@@ -56,24 +56,108 @@
     }
   }
 
-  @media screen and (max-width: 880px) {
-    width: 30%;
-    max-width: calc(220px);
-    min-width: calc(120px);
+  @media screen and (max-width: 1510px) {
+    $image-width-xl: 220px;
+    $img-padding: 1.25rem;
+
+    width: $image-width-xl;
 
     &__img {
-      $img-padding-sp: 0.5rem;
-      height: 200px;
+      height: calc($image-width-xl - 2 * $img-padding - 2 * main.$border-size);
     }
 
-    @media screen and (max-width: 677px) {
-      width: 50%;
+    @media screen and (max-width: 1245px) {
+      $image-width-l: 175px;
+      $img-padding: 1.25rem;
 
-      max-width: calc(160px);
-      min-width: calc(100px);
+      width: $image-width-l;
 
       &__img {
-        height: 145px;
+        height: calc($image-width-l - 2 * $img-padding - 2 * main.$border-size);
+      }
+
+      @media screen and (max-width: 880px) {
+        $image-width-md: 190px;
+
+        width: $image-width-md;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        &__img {
+          $img-padding-sp: 1.25rem;
+          height: calc(
+            $image-width-md - 2 * $img-padding-sp - 2 * main.$border-size
+          );
+        }
+
+        @media screen and (max-width: 677px) {
+          $image-width-sm: 160px;
+
+          width: $image-width-sm;
+
+          &__img {
+            $img-padding-sp: 1.25rem;
+            height: calc(
+              $image-width-sm - 2 * $img-padding-sp - 2 * main.$border-size
+            );
+          }
+
+          @media screen and (max-width: 550px) {
+            $image-width-sp: 180px;
+
+            width: $image-width-sp;
+
+            &__img {
+              $img-padding-sp: 1.25rem;
+              height: calc(
+                $image-width-sp - 2 * $img-padding-sp - 2 * main.$border-size
+              );
+            }
+
+            @media screen and (max-width: 450px) {
+              $image-width-s: 160px;
+
+              width: $image-width-s;
+
+              &__img {
+                $img-padding-sp: 1.25rem;
+                height: calc(
+                  $image-width-s - 2 * $img-padding-sp - 2 * main.$border-size
+                );
+              }
+
+              @media screen and (max-width: 410px) {
+                $image-width-xs: 150px;
+
+                width: $image-width-xs;
+
+                &__img {
+                  $img-padding-sp: 1.25rem;
+                  height: calc(
+                    $image-width-xs - 2 * $img-padding-sp - 2 *
+                      main.$border-size
+                  );
+                }
+
+                @media screen and (max-width: 370px) {
+                  $image-width-xxs: 120px;
+
+                  width: $image-width-xxs;
+
+                  &__img {
+                    $img-padding-sp: 1.25rem;
+                    height: calc(
+                      $image-width-xxs - 2 * $img-padding-sp - 2 *
+                        main.$border-size
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

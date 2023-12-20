@@ -55,9 +55,23 @@ const ModalImage: React.FC<ModalImageProps> = ({
     try {
       const response = await axios.get(src, { responseType: "blob" });
       const blob = response.data;
-      const clipboardItem = new ClipboardItem({ [blob.type]: blob });
-      await navigator.clipboard.write([clipboardItem]);
-      console.log("image copied successfully!");
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const image = await createImageBitmap(blob);
+      canvas.width = image.width;
+      canvas.height = image.height;
+      if (ctx) {
+        ctx.drawImage(image, 0, 0);
+      }
+
+      canvas.toBlob(async (newBlob) => {
+        if (newBlob) {
+          const clipboardItem = new ClipboardItem({ [newBlob.type]: newBlob });
+          await navigator.clipboard.write([clipboardItem]);
+          console.log("image copied successfully!");
+        }
+      }, blob.type);
     } catch (err) {
       console.error("Failed to copy on clipboard", err);
     }
@@ -149,6 +163,9 @@ const ModalImage: React.FC<ModalImageProps> = ({
               <img src="/copy-icon.png" />
               こぴー
             </button>
+            <p className="download-copy-text">
+              画像を長押しして保存またはコピーしてね！
+            </p>
           </div>
         </div>
       </div>

@@ -42,9 +42,27 @@ li {
 .home__image-list::after, .home__image-list::before {
   content: "";
   display: block;
-  width: calc(23% + 1rem);
-  max-width: 280px;
-  min-width: 180px;
+  width: calc(280px + 1rem);
+}
+@media screen and (max-width: 1510px) {
+  .home__image-list::after, .home__image-list::before {
+    width: calc(220px + 1rem);
+  }
+}
+@media screen and (max-width: 1510px) and (max-width: 1245px) {
+  .home__image-list::after, .home__image-list::before {
+    width: calc(180px + 1rem);
+  }
+}
+@media screen and (max-width: 1510px) and (max-width: 1245px) and (max-width: 880px) {
+  .home__image-list::after, .home__image-list::before {
+    width: calc(190px + 1rem);
+  }
+}
+@media screen and (max-width: 1510px) and (max-width: 1245px) and (max-width: 880px) and (max-width: 677px) {
+  .home__image-list::after, .home__image-list::before {
+    width: calc(160px + 1rem);
+  }
 }
 .home__image-list::before {
   order: 1;

@@ -213,6 +213,10 @@
           margin-right: 0.25rem;
         }
       }
+
+      .download-copy-text {
+        display: none;
+      }
     }
   }
 
@@ -320,6 +324,22 @@
               width: 16px;
               height: 16px;
             }
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 440px) {
+      &__desc__button {
+        &.user-modal {
+          .download,
+          .copy {
+            display: none;
+          }
+          .download-copy-text {
+            display: block;
+            margin: 0;
+            font-size: 0.9rem;
           }
         }
       }
