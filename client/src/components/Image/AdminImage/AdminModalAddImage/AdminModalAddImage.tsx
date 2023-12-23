@@ -10,6 +10,7 @@ import "./../AdminModalImage/AdminModalImage.css";
 
 interface ModalImageProps {
   toggleOpenModal: () => void;
+  onAddSuccess: () => void;
 }
 
 interface Type {
@@ -23,7 +24,10 @@ interface Category {
   selected: boolean;
 }
 
-const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
+const AdminModalAddImage: React.FC<ModalImageProps> = ({
+  toggleOpenModal,
+  onAddSuccess,
+}) => {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [types, setTypes] = useState<Type[]>([]);
@@ -66,6 +70,12 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     setSelectedTypeId(event.target.value);
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await uploadImage();
+    toggleOpenModal();
+  };
+
   // フロントの画像データをサーバーに送信する
   const uploadImage = async () => {
     if (!file) {
@@ -85,7 +95,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
     });
 
     try {
-      await axios.post(
+      const response = await axios.post(
         import.meta.env.VITE_BASE_API + "admin/upload",
         formData,
         {
@@ -95,6 +105,9 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
           },
         }
       );
+      if (response.data) {
+        onAddSuccess();
+      }
     } catch (error) {
       console.error("Upload failed:", error);
     }
@@ -131,8 +144,8 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({ toggleOpenModal }) => {
           e.stopPropagation();
           closeCategoryModal();
         }}
-        onSubmit={() => {
-          uploadImage();
+        onSubmit={(e) => {
+          handleSubmit(e);
         }}
       >
         <button onClick={toggleOpenModal} className="cancel">

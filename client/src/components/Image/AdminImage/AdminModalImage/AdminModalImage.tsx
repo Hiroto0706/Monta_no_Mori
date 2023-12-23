@@ -133,6 +133,7 @@ const AdminModalEditImage: React.FC<
         types.filter((type) => type.id === response.data.image.type_id)[0],
         selectedCategories
       );
+      toggleOpenModal();
     } catch (error) {
       console.error("Upload image failed:", error);
     }
@@ -140,14 +141,11 @@ const AdminModalEditImage: React.FC<
 
   const deleteImage = async (id: number) => {
     try {
-      await axios.delete(
-        import.meta.env.VITE_BASE_API + `admin/delete/${id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("access_token"),
-          },
-        }
-      );
+      await axios.delete(import.meta.env.VITE_BASE_API + `admin/delete/${id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      });
       onDeleteSuccess();
     } catch (error) {
       console.error("Delete image failed:", error);
