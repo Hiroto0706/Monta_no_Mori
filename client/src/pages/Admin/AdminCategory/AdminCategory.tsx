@@ -40,8 +40,8 @@ export default function AdminCategory() {
   };
 
   useEffect(() => {
-    fetchCategories(setCategories);
     IsLoggedIn(localStorage.getItem("access_token"), navigate);
+    fetchCategories(setCategories);
   }, [navigate]);
 
   return (

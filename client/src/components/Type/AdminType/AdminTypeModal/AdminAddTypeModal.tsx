@@ -5,9 +5,13 @@ import "./AdminTypeModal.css";
 
 interface ModalTypeProps {
   toggleOpenModal: () => void;
+  onAddSuccess: () => void;
 }
 
-const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
+const AdminModalType: React.FC<ModalTypeProps> = ({
+  toggleOpenModal,
+  onAddSuccess,
+}) => {
   const [name, setName] = useState("");
   const [imageData, setImageData] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
@@ -43,7 +47,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
     formData.append("name", name);
 
     try {
-      await axios.post(
+      const response = await axios.post(
         import.meta.env.VITE_BASE_API + "admin/type/upload",
         formData,
         {
@@ -53,6 +57,10 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
           },
         }
       );
+      if (response.data) {
+        onAddSuccess();
+        toggleOpenModal();
+      }
     } catch (error) {
       console.error("Upload failed:", error);
     }
@@ -63,7 +71,10 @@ const AdminModalType: React.FC<ModalTypeProps> = ({ toggleOpenModal }) => {
       <form
         className="admin-type-modal add"
         onClick={(e) => e.stopPropagation()}
-        onSubmit={() => uploadType()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          uploadType();
+        }}
       >
         <button onClick={toggleOpenModal} className="cancel">
           <img src="/cancel-icon.png" />
