@@ -94,7 +94,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
       .catch((error) => {
         console.error("List categories failed:", error);
       });
-  }, []);
+  }, [id]);
 
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>

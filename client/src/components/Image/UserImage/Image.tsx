@@ -41,7 +41,7 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
     } else {
       setIsLiked(false);
     }
-  }, []);
+  }, [id]);
 
   return (
     <li className="image-box" onClick={() => toggleOpenModal()}>
