@@ -49,8 +49,8 @@ export default function AdminImage() {
   };
 
   useEffect(() => {
-    fetchImages(setImages);
     IsLoggedIn(localStorage.getItem("access_token"), navigate);
+    fetchImages(setImages);
   }, [navigate]);
 
   return (
@@ -69,6 +69,7 @@ export default function AdminImage() {
             {isOpenAddImageModal && (
               <AddImageModal
                 toggleOpenModal={() => toggleIsOpenAddImageModal()}
+                onAddSuccess={() => reFetchImages()}
               />
             )}
           </div>
@@ -91,7 +92,7 @@ export default function AdminImage() {
   );
 }
 
-export const fetchImages = (
+const fetchImages = (
   setImages: React.Dispatch<React.SetStateAction<Image[]>>
 ) => {
   axios
