@@ -10,7 +10,6 @@ export default function AdminHome() {
 
   const logout = () => {
     localStorage.removeItem("access_token");
-    console.log("君ログインしてないなぇ！1");
     navigate("/login");
   };
 
