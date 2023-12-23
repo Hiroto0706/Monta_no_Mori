@@ -39,8 +39,8 @@ export default function AdminType() {
   };
 
   useEffect(() => {
-    fetchTypes(setTypes);
     IsLoggedIn(localStorage.getItem("access_token"), navigate);
+    fetchTypes(setTypes);
   }, [navigate]);
 
   return (
@@ -58,7 +58,10 @@ export default function AdminType() {
           </div>
 
           {isOpenAddTypeModal && (
-            <ModalAddType toggleOpenModal={() => toggleIsOpenAddTypeModal()} />
+            <ModalAddType
+              toggleOpenModal={() => toggleIsOpenAddTypeModal()}
+              onAddSuccess={() => fetchTypes(setTypes)}
+            />
           )}
 
           <ul className="admin-component__image-list">
@@ -78,7 +81,10 @@ export default function AdminType() {
                 src={selectedType.src}
                 name={selectedType.name}
                 toggleOpenModal={() => toggleIsOpenTypeModal()}
-                onTypeUpdated={() => fetchTypes(setTypes)}
+                onTypeUpdated={() => {
+                  fetchTypes(setTypes);
+                  toggleIsOpenTypeModal();
+                }}
               />
             )}
           </ul>

@@ -1,16 +1,16 @@
 @use "../../Sidebar/UserSidebar/Sidebar.scss" as sidebar;
 
 .header-menu {
-  width: calc(100vw - 2 * 2rem);
-  height: calc(100vh);
-  padding: 4rem 2rem;
+  padding: 4rem 2rem 2rem 2rem;
   position: fixed;
   background-color: white;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   display: none;
   z-index: 99;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &__inner {
     &__favorite {
