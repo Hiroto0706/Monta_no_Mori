@@ -12,6 +12,11 @@ import (
 	"google.golang.org/api/option"
 )
 
+const (
+	ImagePathDev = "dev"
+	ImagePathPrd = "prd"
+)
+
 // GCSアップロード
 func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, fileType string) (string, error) {
 	// setting for upload request
@@ -22,7 +27,12 @@ func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, 
 
 	bucket := client.Bucket(server.config.BucketName)
 	currentTime := time.Now()
-	gcsFileName := fmt.Sprintf("%s/%s.png", fileType, currentTime.Format("20060102150405"))
+	var gcsFileName string
+	if server.config.Environment == ImagePathPrd {
+		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathPrd, currentTime.Format("20060102150405"))
+	} else {
+		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathDev, currentTime.Format("20060102150405"))
+	}
 
 	src, err := file.Open()
 	if err != nil {
