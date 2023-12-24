@@ -17,6 +17,7 @@ $search-border-radius: 0px;
     font-size: 1.25rem;
     padding: $padding-search-box-y $padding-search-box-x;
     width: calc(100% - 2 * $padding-search-box-x - 2 * main.$border-size);
+
     background-color: white;
     border-radius: 20px 0 0 20px;
     border-right: none;

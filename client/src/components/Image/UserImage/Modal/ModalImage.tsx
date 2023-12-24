@@ -115,7 +115,9 @@ const ModalImage: React.FC<ModalImageProps> = ({
         <div className="modal-image__content__desc user-modal">
           <div>
             <div className="title">
-              <h2>{title} </h2>
+              <h2>
+                <Link to={`/${title}`}>{title}</Link>
+              </h2>
               <img
                 src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
                 onClick={(e) => {
