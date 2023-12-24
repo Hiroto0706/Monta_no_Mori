@@ -10,6 +10,7 @@ import AdminCategory from "./pages/Admin/AdminCategory/AdminCategory";
 import NotFound from "./pages/Content/NotFound";
 
 import Login from "./pages/Login/Login";
+import ImageDetail from "./pages/Content/ImageDetail/ImageDetail";
 
 // ルート情報の型を定義
 interface RouteType {
@@ -25,6 +26,11 @@ const routes: RouteType[] = [
     path: "/",
     component: Home,
     name: "Home",
+  },
+  {
+    path: "/:title",
+    component: ImageDetail,
+    name: "ImageDetail",
   },
   {
     path: "/search",

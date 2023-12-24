@@ -16,8 +16,14 @@ dropdb:
 migrateup:
 	migrate -path server/db/migration -database "$(DB_URL)" -verbose up
 
+migrateup1:
+	migrate -path server/db/migration -database "$(DB_URL)" -verbose up 1
+
 migratedown:
 	migrate -path server/db/migration -database "$(DB_URL)" -verbose down
+
+migratedown1:
+	migrate -path server/db/migration -database "$(DB_URL)" -verbose down 1
 
 new_migration:
 	migrate create -ext sql -dir server/db/migration -seq $(name)
