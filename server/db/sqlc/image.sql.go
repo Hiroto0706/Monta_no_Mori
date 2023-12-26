@@ -11,19 +11,25 @@ import (
 )
 
 const createImage = `-- name: CreateImage :one
-INSERT INTO images (title, src, type_id)
-VALUES ($1, $2, $3)
-RETURNING id, title, src, type_id, updated_at, created_at
+INSERT INTO images (title, src, type_id, filename)
+VALUES ($1, $2, $3, $4)
+RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename
 `
 
 type CreateImageParams struct {
-	Title  string `json:"title"`
-	Src    string `json:"src"`
-	TypeID int64  `json:"type_id"`
+	Title    string         `json:"title"`
+	Src      string         `json:"src"`
+	TypeID   int64          `json:"type_id"`
+	Filename sql.NullString `json:"filename"`
 }
 
 func (q *Queries) CreateImage(ctx context.Context, arg CreateImageParams) (Image, error) {
-	row := q.db.QueryRowContext(ctx, createImage, arg.Title, arg.Src, arg.TypeID)
+	row := q.db.QueryRowContext(ctx, createImage,
+		arg.Title,
+		arg.Src,
+		arg.TypeID,
+		arg.Filename,
+	)
 	var i Image
 	err := row.Scan(
 		&i.ID,
@@ -32,6 +38,8 @@ func (q *Queries) CreateImage(ctx context.Context, arg CreateImageParams) (Image
 		&i.TypeID,
 		&i.UpdatedAt,
 		&i.CreatedAt,
+		&i.ViewCount,
+		&i.Filename,
 	)
 	return i, err
 }
@@ -47,7 +55,7 @@ func (q *Queries) DeleteImage(ctx context.Context, id int64) error {
 }
 
 const getImage = `-- name: GetImage :one
-SELECT id, title, src, type_id, updated_at, created_at
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
 WHERE id = $1
 LIMIT 1
@@ -63,12 +71,14 @@ func (q *Queries) GetImage(ctx context.Context, id int64) (Image, error) {
 		&i.TypeID,
 		&i.UpdatedAt,
 		&i.CreatedAt,
+		&i.ViewCount,
+		&i.Filename,
 	)
 	return i, err
 }
 
 const listImage = `-- name: ListImage :many
-SELECT id, title, src, type_id, updated_at, created_at
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
 ORDER BY id DESC
 LIMIT $1 OFFSET $2
@@ -95,6 +105,8 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 			&i.TypeID,
 			&i.UpdatedAt,
 			&i.CreatedAt,
+			&i.ViewCount,
+			&i.Filename,
 		); err != nil {
 			return nil, err
 		}
@@ -110,7 +122,7 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 }
 
 const listImageByTitle = `-- name: ListImageByTitle :many
-SELECT id, title, src, type_id, updated_at, created_at
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
 WHERE title LIKE '%' || COALESCE($3) || '%'
 ORDER BY id DESC
@@ -139,6 +151,8 @@ func (q *Queries) ListImageByTitle(ctx context.Context, arg ListImageByTitlePara
 			&i.TypeID,
 			&i.UpdatedAt,
 			&i.CreatedAt,
+			&i.ViewCount,
+			&i.Filename,
 		); err != nil {
 			return nil, err
 		}
@@ -154,7 +168,7 @@ func (q *Queries) ListImageByTitle(ctx context.Context, arg ListImageByTitlePara
 }
 
 const listImageByType = `-- name: ListImageByType :many
-SELECT id, title, src, type_id, updated_at, created_at
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
 WHERE type_id = $1
 ORDER BY id DESC
@@ -183,6 +197,8 @@ func (q *Queries) ListImageByType(ctx context.Context, arg ListImageByTypeParams
 			&i.TypeID,
 			&i.UpdatedAt,
 			&i.CreatedAt,
+			&i.ViewCount,
+			&i.Filename,
 		); err != nil {
 			return nil, err
 		}
@@ -201,16 +217,18 @@ const updateImage = `-- name: UpdateImage :one
 UPDATE images
 SET title = $2,
   src = $3,
-  type_id = $4
+  type_id = $4,
+  filename = $5
 WHERE id = $1
-RETURNING id, title, src, type_id, updated_at, created_at
+RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename
 `
 
 type UpdateImageParams struct {
-	ID     int64  `json:"id"`
-	Title  string `json:"title"`
-	Src    string `json:"src"`
-	TypeID int64  `json:"type_id"`
+	ID       int64          `json:"id"`
+	Title    string         `json:"title"`
+	Src      string         `json:"src"`
+	TypeID   int64          `json:"type_id"`
+	Filename sql.NullString `json:"filename"`
 }
 
 func (q *Queries) UpdateImage(ctx context.Context, arg UpdateImageParams) (Image, error) {
@@ -219,6 +237,7 @@ func (q *Queries) UpdateImage(ctx context.Context, arg UpdateImageParams) (Image
 		arg.Title,
 		arg.Src,
 		arg.TypeID,
+		arg.Filename,
 	)
 	var i Image
 	err := row.Scan(
@@ -228,6 +247,8 @@ func (q *Queries) UpdateImage(ctx context.Context, arg UpdateImageParams) (Image
 		&i.TypeID,
 		&i.UpdatedAt,
 		&i.CreatedAt,
+		&i.ViewCount,
+		&i.Filename,
 	)
 	return i, err
 }

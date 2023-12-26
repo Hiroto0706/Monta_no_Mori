@@ -32,7 +32,6 @@ sqlc:
 	cd server/ && sqlc generate
 
 server:
-	make postgres
 	cd server/ && go run main.go
 
 # 全部起動させる

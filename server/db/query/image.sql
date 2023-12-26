@@ -1,6 +1,6 @@
 -- name: CreateImage :one
-INSERT INTO images (title, src, type_id)
-VALUES ($1, $2, $3)
+INSERT INTO images (title, src, type_id, filename)
+VALUES ($1, $2, $3, $4)
 RETURNING *;
 -- name: GetImage :one
 SELECT *
@@ -16,7 +16,8 @@ LIMIT $1 OFFSET $2;
 UPDATE images
 SET title = $2,
   src = $3,
-  type_id = $4
+  type_id = $4,
+  filename = $5
 WHERE id = $1
 RETURNING *;
 -- name: DeleteImage :exec

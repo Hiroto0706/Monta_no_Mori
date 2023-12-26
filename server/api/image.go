@@ -134,6 +134,7 @@ func (server *Server) SearchImages(ctx *gin.Context) {
 
 func (server *Server) UploadImage(ctx *gin.Context) {
 	title := ctx.PostForm("title")
+	filename := strings.ReplaceAll(ctx.PostForm("filename"), " ", "-")
 	typeIdStr := ctx.PostForm("typeId")
 	typeId, err := strconv.Atoi(typeIdStr)
 	if err != nil {
@@ -162,7 +163,7 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	// GCSにアップロード
-	urlPath, err := server.UploadToGCS(ctx, file, FILE_TYPE_IMAGE)
+	urlPath, err := server.UploadToGCS(ctx, file, filename, FILE_TYPE_IMAGE)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -172,6 +173,10 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 		Title:  title,
 		Src:    urlPath,
 		TypeID: int64(typeId),
+		Filename: sql.NullString{
+			String: filename,
+			Valid:  true,
+		},
 	}
 	image, err := server.store.CreateImage(ctx, argImage)
 	if err != nil {
@@ -217,6 +222,7 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		return
 	}
 	title := ctx.PostForm("title")
+	filename := strings.ReplaceAll(ctx.PostForm("filename"), " ", "-")
 	categoryData := ctx.PostFormArray("categories")
 	type Category struct {
 		ID   int    `json:"id"`
@@ -300,7 +306,7 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		}
 
 		// GCSにアップロード
-		urlPath, err = server.UploadToGCS(ctx, file, FILE_TYPE_IMAGE)
+		urlPath, err = server.UploadToGCS(ctx, file, filename, FILE_TYPE_IMAGE)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to upload file to GCS: %w", err)))
 			return
@@ -319,6 +325,10 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		Title:  title,
 		Src:    urlPath,
 		TypeID: int64(typeId),
+		Filename: sql.NullString{
+			String: filename,
+			Valid:  true,
+		},
 	}
 
 	newImage, err := server.store.UpdateImage(ctx, argImage)

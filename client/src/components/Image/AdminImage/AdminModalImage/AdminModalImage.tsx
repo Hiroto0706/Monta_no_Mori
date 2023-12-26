@@ -36,6 +36,7 @@ const AdminModalEditImage: React.FC<
   id,
   src,
   title,
+  filename,
   type,
   categories,
   toggleOpenModal,
@@ -43,6 +44,7 @@ const AdminModalEditImage: React.FC<
   onDeleteSuccess,
 }) => {
   const [editableTitle, setEditableTitle] = useState<string>(title);
+  const [editableFilename, setEditableFilename] = useState<string>(filename);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [types, setTypes] = useState<Type[]>([]);
   const [selectedTypeId, setSelectedTypeId] = useState<number | string>(
@@ -82,6 +84,9 @@ const AdminModalEditImage: React.FC<
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditableTitle(event.target.value);
   };
+  const handleFilenameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditableFilename(event.target.value);
+  };
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTypeId(event.target.value);
   };
@@ -108,6 +113,7 @@ const AdminModalEditImage: React.FC<
 
     const formData = new FormData();
     formData.append("title", editableTitle);
+    formData.append("filename", editableFilename);
     formData.append("typeId", selectedTypeId.toString());
     const selectedCategories = editableCategories.filter((c) => c.selected);
     selectedCategories.forEach((category) => {
@@ -171,7 +177,7 @@ const AdminModalEditImage: React.FC<
   return (
     <div className="modal-image__overlay" onClick={toggleOpenModal}>
       <div
-        className="modal-image__content"
+        className="modal-image__content admin"
         onClick={(e) => {
           e.stopPropagation();
           closeCategoryModal();
@@ -206,6 +212,14 @@ const AdminModalEditImage: React.FC<
                 value={editableTitle}
                 placeholder="input image title"
                 onChange={handleTitleChange}
+              />
+            </div>
+            <div className="type">
+              <h3>Filename</h3>
+              <input
+                value={editableFilename}
+                placeholder="input image filename"
+                onChange={handleFilenameChange}
               />
             </div>
 
@@ -248,14 +262,15 @@ const AdminModalEditImage: React.FC<
                 }}
               >
                 {isCategoryModalOpen ? "CLOSE" : "+ ADD"}
-                {isCategoryModalOpen && (
-                  <AdminCategoryModal
-                    onClose={handleCategoryModal}
-                    categories={editableCategories}
-                    onCategoryChange={handleCategoryChange}
-                  />
-                )}
               </span>
+
+              {isCategoryModalOpen && (
+                <AdminCategoryModal
+                  onClose={handleCategoryModal}
+                  categories={editableCategories}
+                  onCategoryChange={handleCategoryChange}
+                />
+              )}
             </div>
           </div>
 

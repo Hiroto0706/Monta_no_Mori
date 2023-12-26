@@ -18,7 +18,7 @@ const (
 )
 
 // GCSアップロード
-func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, fileType string) (string, error) {
+func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, filename string, fileType string) (string, error) {
 	// setting for upload request
 	client, err := createGCSClient(ctx, server)
 	if err != nil {
@@ -26,12 +26,14 @@ func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, 
 	}
 
 	bucket := client.Bucket(server.config.BucketName)
-	currentTime := time.Now()
+	if filename == "" {
+		filename = time.Now().Format("20060102150405")
+	}
 	var gcsFileName string
 	if server.config.Environment == ImagePathPrd {
-		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathPrd, currentTime.Format("20060102150405"))
+		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathPrd, filename)
 	} else {
-		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathDev, currentTime.Format("20060102150405"))
+		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathDev, filename)
 	}
 
 	src, err := file.Open()
