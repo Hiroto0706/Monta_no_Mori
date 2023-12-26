@@ -37,6 +37,7 @@ const Home: React.FC = () => {
 
   const dispatch = useDispatch();
 
+  // 引数のIDをもとにローカルホストとReact上のIDsを更新する
   const toggleFavorite = (imageId: string) => {
     let updatedFavorites;
     if (favoriteIDs.includes(imageId)) {

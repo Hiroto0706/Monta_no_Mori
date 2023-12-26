@@ -7,6 +7,11 @@ SELECT *
 FROM images
 WHERE id = $1
 LIMIT 1;
+-- name: GetImageByTitle :one
+SELECT *
+FROM images
+WHERE title = $1
+LIMIT 1;
 -- name: ListImage :many
 SELECT *
 FROM images

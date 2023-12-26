@@ -19,7 +19,7 @@ interface ModalImageProps {
   closeOpeningModal: () => void;
 }
 
-interface Category {
+export interface ModalCategory {
   id: number;
   name: string;
 }
@@ -34,7 +34,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
   closeOpeningModal,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<ModalCategory[]>([]);
 
   const toggleLikeFromModal = () => {
     toggleLike(id.toString());

@@ -77,6 +77,29 @@ func (q *Queries) GetImage(ctx context.Context, id int64) (Image, error) {
 	return i, err
 }
 
+const getImageByTitle = `-- name: GetImageByTitle :one
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+FROM images
+WHERE title = $1
+LIMIT 1
+`
+
+func (q *Queries) GetImageByTitle(ctx context.Context, title string) (Image, error) {
+	row := q.db.QueryRowContext(ctx, getImageByTitle, title)
+	var i Image
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Src,
+		&i.TypeID,
+		&i.UpdatedAt,
+		&i.CreatedAt,
+		&i.ViewCount,
+		&i.Filename,
+	)
+	return i, err
+}
+
 const listImage = `-- name: ListImage :many
 SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
