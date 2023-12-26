@@ -52,6 +52,11 @@ func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, 
 		return "", fmt.Errorf("error closing file : %w", err)
 	}
 
+	err = updateMetadata(ctx, client, bucket, obj)
+	if err != nil {
+		return "", fmt.Errorf("error update storage metadata : %w", err)
+	}
+
 	resImagePath := fmt.Sprintf("https://storage.googleapis.com/%s/%s", server.config.BucketName, gcsFileName)
 	return resImagePath, nil
 }
@@ -68,7 +73,7 @@ func (server *Server) DeleteFileFromGCS(ctx *gin.Context, deleteSrcPath string) 
 	obj := bucket.Object(objectPath)
 
 	err = obj.Delete(ctx)
-	if err != nil {
+	if err != nil && err != storage.ErrObjectNotExist {
 		return fmt.Errorf("failed to delete object : %w", err)
 	}
 
@@ -86,4 +91,15 @@ func createGCSClient(ctx *gin.Context, server *Server) (*storage.Client, error) 
 	defer client.Close()
 
 	return client, err
+}
+
+func updateMetadata(ctx *gin.Context, client *storage.Client, bucket *storage.BucketHandle, object *storage.ObjectHandle) error {
+	// メタデータの更新
+	attrsToUpdate := storage.ObjectAttrsToUpdate{
+		CacheControl: "no-cache",
+	}
+	if _, err := object.Update(ctx, attrsToUpdate); err != nil {
+		return err
+	}
+	return nil
 }

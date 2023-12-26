@@ -170,13 +170,10 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	argImage := db.CreateImageParams{
-		Title:  title,
-		Src:    urlPath,
-		TypeID: int64(typeId),
-		Filename: sql.NullString{
-			String: filename,
-			Valid:  true,
-		},
+		Title:    title,
+		Src:      urlPath,
+		TypeID:   int64(typeId),
+		Filename: filename,
 	}
 	image, err := server.store.CreateImage(ctx, argImage)
 	if err != nil {
@@ -305,6 +302,13 @@ func (server *Server) EditImage(ctx *gin.Context) {
 			return
 		}
 
+		// 既存イメージの削除
+		err = server.DeleteFileFromGCS(ctx, image.Src)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete existing file from GCS failed : %w", err)))
+			return
+		}
+
 		// GCSにアップロード
 		urlPath, err = server.UploadToGCS(ctx, file, filename, FILE_TYPE_IMAGE)
 		if err != nil {
@@ -312,23 +316,14 @@ func (server *Server) EditImage(ctx *gin.Context) {
 			return
 		}
 
-		// 既存イメージの削除
-		err = server.DeleteFileFromGCS(ctx, image.Src)
-		if err != nil {
-			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete existing file from GCS failed : %w", err)))
-			return
-		}
 	}
 
 	argImage := db.UpdateImageParams{
-		ID:     int64(id),
-		Title:  title,
-		Src:    urlPath,
-		TypeID: int64(typeId),
-		Filename: sql.NullString{
-			String: filename,
-			Valid:  true,
-		},
+		ID:       int64(id),
+		Title:    title,
+		Src:      urlPath,
+		TypeID:   int64(typeId),
+		Filename: filename,
 	}
 
 	newImage, err := server.store.UpdateImage(ctx, argImage)

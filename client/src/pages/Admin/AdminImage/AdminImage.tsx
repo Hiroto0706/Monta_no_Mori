@@ -118,7 +118,7 @@ const transformPayloadToImage = (payload: responsePayload) => {
     id: payload.image.id,
     src: payload.image.src,
     title: payload.image.title,
-    filename: payload.image.filename.String,
+    filename: payload.image.filename,
     type: payload.type,
     categories: payload.categories.map((cat) => ({
       ...cat,

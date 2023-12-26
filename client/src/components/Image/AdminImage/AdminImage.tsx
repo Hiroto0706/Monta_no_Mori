@@ -37,7 +37,7 @@ const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
     updatedCategories: Category[]
   ) => {
     setImgTitle(updatedImage.title);
-    setImgFilename(updatedImage.filename.String);
+    setImgFilename(updatedImage.filename);
     setImgSrc(updatedImage.src);
     setImgType(updatedType);
     setImgCategories(updatedCategories);

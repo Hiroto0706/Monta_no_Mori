@@ -1,1 +1,4 @@
-ALTER TABLE "images" ADD COLUMN "filename" VARCHAR(255) UNIQUE;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+ALTER TABLE "images"
+ADD COLUMN "filename" VARCHAR(255) NOT NULL UNIQUE DEFAULT uuid_generate_v4();

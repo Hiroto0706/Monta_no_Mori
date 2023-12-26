@@ -17,10 +17,10 @@ RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename
 `
 
 type CreateImageParams struct {
-	Title    string         `json:"title"`
-	Src      string         `json:"src"`
-	TypeID   int64          `json:"type_id"`
-	Filename sql.NullString `json:"filename"`
+	Title    string `json:"title"`
+	Src      string `json:"src"`
+	TypeID   int64  `json:"type_id"`
+	Filename string `json:"filename"`
 }
 
 func (q *Queries) CreateImage(ctx context.Context, arg CreateImageParams) (Image, error) {
@@ -224,11 +224,11 @@ RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename
 `
 
 type UpdateImageParams struct {
-	ID       int64          `json:"id"`
-	Title    string         `json:"title"`
-	Src      string         `json:"src"`
-	TypeID   int64          `json:"type_id"`
-	Filename sql.NullString `json:"filename"`
+	ID       int64  `json:"id"`
+	Title    string `json:"title"`
+	Src      string `json:"src"`
+	TypeID   int64  `json:"type_id"`
+	Filename string `json:"filename"`
 }
 
 func (q *Queries) UpdateImage(ctx context.Context, arg UpdateImageParams) (Image, error) {
