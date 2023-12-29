@@ -12,8 +12,13 @@ import (
 	"google.golang.org/api/option"
 )
 
+const (
+	ImagePathDev = "dev"
+	ImagePathPrd = "prd"
+)
+
 // GCSアップロード
-func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, fileType string) (string, error) {
+func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, filename string, fileType string) (string, error) {
 	// setting for upload request
 	client, err := createGCSClient(ctx, server)
 	if err != nil {
@@ -21,8 +26,15 @@ func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, 
 	}
 
 	bucket := client.Bucket(server.config.BucketName)
-	currentTime := time.Now()
-	gcsFileName := fmt.Sprintf("%s/%s.png", fileType, currentTime.Format("20060102150405"))
+	if filename == "" {
+		filename = time.Now().Format("20060102150405")
+	}
+	var gcsFileName string
+	if server.config.Environment == ImagePathPrd {
+		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathPrd, filename)
+	} else {
+		gcsFileName = fmt.Sprintf("%s/%s/%s.png", fileType, ImagePathDev, filename)
+	}
 
 	src, err := file.Open()
 	if err != nil {
@@ -38,6 +50,11 @@ func (server *Server) UploadToGCS(ctx *gin.Context, file *multipart.FileHeader, 
 	}
 	if err = wc.Close(); err != nil {
 		return "", fmt.Errorf("error closing file : %w", err)
+	}
+
+	err = updateMetadata(ctx, client, bucket, obj)
+	if err != nil {
+		return "", fmt.Errorf("error update storage metadata : %w", err)
 	}
 
 	resImagePath := fmt.Sprintf("https://storage.googleapis.com/%s/%s", server.config.BucketName, gcsFileName)
@@ -56,7 +73,7 @@ func (server *Server) DeleteFileFromGCS(ctx *gin.Context, deleteSrcPath string) 
 	obj := bucket.Object(objectPath)
 
 	err = obj.Delete(ctx)
-	if err != nil {
+	if err != nil && err != storage.ErrObjectNotExist {
 		return fmt.Errorf("failed to delete object : %w", err)
 	}
 
@@ -74,4 +91,15 @@ func createGCSClient(ctx *gin.Context, server *Server) (*storage.Client, error) 
 	defer client.Close()
 
 	return client, err
+}
+
+func updateMetadata(ctx *gin.Context, client *storage.Client, bucket *storage.BucketHandle, object *storage.ObjectHandle) error {
+	// メタデータの更新
+	attrsToUpdate := storage.ObjectAttrsToUpdate{
+		CacheControl: "no-cache",
+	}
+	if _, err := object.Update(ctx, attrsToUpdate); err != nil {
+		return err
+	}
+	return nil
 }

@@ -10,7 +10,6 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-*.local
 *.prd
 cors-config.json
 
@@ -25,3 +24,5 @@ cors-config.json
 *.sln
 *.sw?
 *.mjs
+*.css
+*.css.map

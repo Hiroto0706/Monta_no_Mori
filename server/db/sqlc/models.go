@@ -24,6 +24,8 @@ type Image struct {
 	TypeID    int64     `json:"type_id"`
 	UpdatedAt time.Time `json:"updated_at"`
 	CreatedAt time.Time `json:"created_at"`
+	ViewCount int32     `json:"view_count"`
+	Filename  string    `json:"filename"`
 }
 
 type ImageCategory struct {

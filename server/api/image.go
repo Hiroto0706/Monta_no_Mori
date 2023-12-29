@@ -134,6 +134,7 @@ func (server *Server) SearchImages(ctx *gin.Context) {
 
 func (server *Server) UploadImage(ctx *gin.Context) {
 	title := ctx.PostForm("title")
+	filename := strings.ReplaceAll(ctx.PostForm("filename"), " ", "-")
 	typeIdStr := ctx.PostForm("typeId")
 	typeId, err := strconv.Atoi(typeIdStr)
 	if err != nil {
@@ -162,16 +163,17 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 
 	// GCSにアップロード
-	urlPath, err := server.UploadToGCS(ctx, file, FILE_TYPE_IMAGE)
+	urlPath, err := server.UploadToGCS(ctx, file, filename, FILE_TYPE_IMAGE)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
 	argImage := db.CreateImageParams{
-		Title:  title,
-		Src:    urlPath,
-		TypeID: int64(typeId),
+		Title:    title,
+		Src:      urlPath,
+		TypeID:   int64(typeId),
+		Filename: filename,
 	}
 	image, err := server.store.CreateImage(ctx, argImage)
 	if err != nil {
@@ -217,6 +219,7 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		return
 	}
 	title := ctx.PostForm("title")
+	filename := strings.ReplaceAll(ctx.PostForm("filename"), " ", "-")
 	categoryData := ctx.PostFormArray("categories")
 	type Category struct {
 		ID   int    `json:"id"`
@@ -299,26 +302,28 @@ func (server *Server) EditImage(ctx *gin.Context) {
 			return
 		}
 
-		// GCSにアップロード
-		urlPath, err = server.UploadToGCS(ctx, file, FILE_TYPE_IMAGE)
-		if err != nil {
-			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to upload file to GCS: %w", err)))
-			return
-		}
-
 		// 既存イメージの削除
 		err = server.DeleteFileFromGCS(ctx, image.Src)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("delete existing file from GCS failed : %w", err)))
 			return
 		}
+
+		// GCSにアップロード
+		urlPath, err = server.UploadToGCS(ctx, file, filename, FILE_TYPE_IMAGE)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to upload file to GCS: %w", err)))
+			return
+		}
+
 	}
 
 	argImage := db.UpdateImageParams{
-		ID:     int64(id),
-		Title:  title,
-		Src:    urlPath,
-		TypeID: int64(typeId),
+		ID:       int64(id),
+		Title:    title,
+		Src:      urlPath,
+		TypeID:   int64(typeId),
+		Filename: filename,
 	}
 
 	newImage, err := server.store.UpdateImage(ctx, argImage)
@@ -495,4 +500,49 @@ func (server *Server) SearchImagesByCategory(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"payload": resImages})
+}
+
+func (server *Server) GetImageFromTitle(ctx *gin.Context) {
+	title := ctx.Param("title")
+	image, err := server.store.GetImageByTitle(ctx, title)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no images were found for the title received : %w", err)))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetImageByTitle() : %w", err)))
+		return
+	}
+
+	// TODO: この箇所はListImageと重複しているので修正する必要あり
+	resImage := responseImage{}
+	resImage.Image = image
+
+	typeID := resImage.Image.TypeID
+	imageType, err := server.store.GetType(ctx, typeID)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+		return
+	}
+	resImage.ImageType = imageType
+
+	imageID := resImage.Image.ID
+	imageCategories, err := server.store.ListImageCategoriesByImage(ctx, imageID)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image_categories by image id : %w", err)))
+		return
+	}
+	categories := []db.Category{}
+	for _, imageCategory := range imageCategories {
+		category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get category : %w", err)))
+			return
+		}
+		categories = append(categories, category)
+	}
+	resImage.Categories = categories
+
+	ctx.JSON(http.StatusOK, gin.H{"result": resImage})
 }

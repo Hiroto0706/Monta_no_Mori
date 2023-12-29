@@ -45,6 +45,7 @@ func NewServer(store *db.Store, config util.Config) (*Server, error) {
 		v1.GET("/search", server.SearchImages)
 		v1.GET("/search/type/:name", server.SearchImagesByType)
 		v1.GET("/search/category/:name", server.SearchImagesByCategory)
+		v1.GET("/image/:title", server.GetImageFromTitle)
 		v1.GET("/category/:id", server.ListImageCategories)
 		v1.GET("/category", server.ListCategories)
 		v1.GET("/type", server.ListTypes)

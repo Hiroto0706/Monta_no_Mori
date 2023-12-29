@@ -30,6 +30,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
 }) => {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [filename, setFilename] = useState("");
   const [types, setTypes] = useState<Type[]>([]);
   const [selectedTypeId, setSelectedTypeId] = useState<number | string>(""); //select boxの初期値はstringのため
   const [categories, setCategories] = useState<Category[]>([]);
@@ -66,6 +67,9 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
+  const handleFilenameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilename(event.target.value);
+  };
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTypeId(event.target.value);
   };
@@ -86,6 +90,7 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
+    formData.append("filename", filename);
     formData.append("typeId", selectedTypeId.toString());
     const selectedCategories = categories.filter(
       (category) => category.selected
@@ -177,6 +182,14 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
                 value={title}
                 placeholder="input image title"
                 onChange={handleTitleChange}
+              />
+            </div>
+            <div className="type">
+              <h3>Filename</h3>
+              <input
+                value={filename}
+                placeholder="input image filename"
+                onChange={handleFilenameChange}
               />
             </div>
 

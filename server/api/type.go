@@ -41,7 +41,7 @@ func (server *Server) UploadType(ctx *gin.Context) {
 		return
 	}
 
-	urlPath, err := server.UploadToGCS(ctx, file, FILE_TYPE)
+	urlPath, err := server.UploadToGCS(ctx, file, "", FILE_TYPE)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -87,7 +87,7 @@ func (server *Server) EditType(ctx *gin.Context) {
 
 	var urlPath string
 	if file != nil {
-		urlPath, err = server.UploadToGCS(ctx, file, FILE_TYPE)
+		urlPath, err = server.UploadToGCS(ctx, file, "", FILE_TYPE)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 			return

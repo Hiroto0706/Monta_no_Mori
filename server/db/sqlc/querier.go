@@ -25,6 +25,7 @@ type Querier interface {
 	GetCategory(ctx context.Context, id int64) (Category, error)
 	GetCategoryByName(ctx context.Context, name string) (Category, error)
 	GetImage(ctx context.Context, id int64) (Image, error)
+	GetImageByTitle(ctx context.Context, title string) (Image, error)
 	GetImageCategory(ctx context.Context, arg GetImageCategoryParams) (ImageCategory, error)
 	GetSession(ctx context.Context, id uuid.UUID) (Session, error)
 	GetType(ctx context.Context, id int64) (Type, error)

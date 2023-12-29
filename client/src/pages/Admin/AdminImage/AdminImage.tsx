@@ -25,6 +25,7 @@ export interface Image {
   id: number;
   src: string;
   title: string;
+  filename: string;
   type: Type;
   categories: Category[];
 }
@@ -80,6 +81,7 @@ export default function AdminImage() {
                 id={image.id}
                 src={image.src}
                 title={image.title}
+                filename={image.filename}
                 type={image.type}
                 categories={image.categories}
                 reFetchImages={() => reFetchImages()}
@@ -116,6 +118,7 @@ const transformPayloadToImage = (payload: responsePayload) => {
     id: payload.image.id,
     src: payload.image.src,
     title: payload.image.title,
+    filename: payload.image.filename,
     type: payload.type,
     categories: payload.categories.map((cat) => ({
       ...cat,

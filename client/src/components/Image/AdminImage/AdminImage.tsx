@@ -14,6 +14,7 @@ const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
   id,
   src,
   title,
+  filename,
   type,
   categories,
   reFetchImages,
@@ -21,6 +22,7 @@ const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [imageTitleMaxLength] = useState(50);
   const [imgTitle, setImgTitle] = useState(title);
+  const [imgFilename, setImgFilename] = useState(filename);
   const [imgSrc, setImgSrc] = useState(src);
   const [imgType, setImgType] = useState(type);
   const [imgCategories, setImgCategories] = useState(categories);
@@ -35,6 +37,7 @@ const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
     updatedCategories: Category[]
   ) => {
     setImgTitle(updatedImage.title);
+    setImgFilename(updatedImage.filename);
     setImgSrc(updatedImage.src);
     setImgType(updatedType);
     setImgCategories(updatedCategories);
@@ -67,6 +70,7 @@ const ImageList: React.FC<Image & { reFetchImages: () => void }> = ({
           id={id}
           src={imgSrc}
           title={imgTitle}
+          filename={imgFilename}
           type={imgType}
           categories={imgCategories}
           toggleOpenModal={() => toggleOpenModal()}
