@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { saveAs } from "file-saver";
 
 import { EllipsisText } from "../../../Sidebar/UserSidebar/Sidebar";
 import { UserType } from "../../../../pages/Content/Home/Home";
+import { Link } from "react-router-dom";
+import { downloadImage, copyImageToClipboard } from "../../imageUtil";
 
 import "./ModalImage.css";
 import "./../../../Sidebar/UserSidebar/Sidebar.css";
-import { Link } from "react-router-dom";
 
 interface ModalImageProps {
   id: number;
@@ -39,44 +39,6 @@ const ModalImage: React.FC<ModalImageProps> = ({
   const toggleLikeFromModal = () => {
     toggleLike(id.toString());
     setIsLiked(!isLiked);
-  };
-
-  const downloadImage = async () => {
-    try {
-      const response = await axios.get(src, {
-        responseType: "blob",
-      });
-      const fileName = src.substring(src.lastIndexOf("/") + 1);
-      saveAs(response.data, fileName);
-    } catch (error) {
-      console.error("Image download failed", error);
-    }
-  };
-
-  const copyImageToClipboard = async () => {
-    try {
-      const response = await axios.get(src, { responseType: "blob" });
-      const blob = response.data;
-
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const image = await createImageBitmap(blob);
-      canvas.width = image.width;
-      canvas.height = image.height;
-      if (ctx) {
-        ctx.drawImage(image, 0, 0);
-      }
-
-      canvas.toBlob(async (newBlob) => {
-        if (newBlob) {
-          const clipboardItem = new ClipboardItem({ [newBlob.type]: newBlob });
-          await navigator.clipboard.write([clipboardItem]);
-          console.log("image copied successfully!");
-        }
-      }, blob.type);
-    } catch (err) {
-      console.error("Failed to copy on clipboard", err);
-    }
   };
 
   useEffect(() => {
@@ -159,13 +121,13 @@ const ModalImage: React.FC<ModalImageProps> = ({
             <button
               className="download"
               onClick={() => {
-                downloadImage();
+                downloadImage(src);
               }}
             >
               <img src="/download-icon.png" />
               だうんろーど
             </button>
-            <button className="copy" onClick={() => copyImageToClipboard()}>
+            <button className="copy" onClick={() => copyImageToClipboard(src)}>
               <img src="/copy-icon.png" />
               こぴー
             </button>
