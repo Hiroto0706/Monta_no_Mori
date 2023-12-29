@@ -1,0 +1,209 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
+
+.sidebar {
+  background-color: white;
+  width: calc(20vw - 1.5px);
+  min-width: 258.5px;
+  max-width: 278.5px;
+  height: 100vh;
+  overflow: auto;
+  position: fixed;
+  border-width: 0 0.5px 0 0;
+  border-color: #afafaf;
+  border-style: solid;
+}
+.sidebar__inner {
+  width: calc(100% - 2rem);
+  padding-top: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.sidebar__inner__type {
+  margin-bottom: 3rem;
+}
+.sidebar__inner__type h3 {
+  margin-bottom: 0.5rem;
+}
+.sidebar__inner__category {
+  padding-bottom: 3rem;
+}
+.sidebar__inner__category h3 {
+  margin-bottom: 0.5rem;
+}
+@media screen and (max-width: 880px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.category-link, .type-link {
+  color: #646464;
+  margin-bottom: 0.5rem;
+  border-radius: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #646464;
+  transition: all 0.3s;
+}
+
+.type-link {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 1rem - 2.5px);
+  border: 1.25px solid #afafaf;
+  padding: 0.25rem 0.5rem;
+  background-color: #f4f4f4;
+}
+.type-link div {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.type-link img {
+  width: 100%;
+  height: auto;
+}
+.type-link:hover {
+  background-color: #dfdfdf;
+}
+
+.category-link {
+  font-size: 0.7rem;
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  margin-right: 0.5rem;
+  background-color: white;
+  border: 1.25px solid #afafaf;
+  position: relative;
+}
+.category-link:hover {
+  background-color: #f0f0f0;
+}
+
+.admin-type-modal {
+  width: 600px;
+  height: 290px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: default;
+}
+.admin-type-modal .cancel {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+.admin-type-modal .cancel img {
+  width: 100%;
+  height: auto;
+}
+.admin-type-modal__content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.admin-type-modal__content__img {
+  width: 45%;
+  max-width: 250px;
+  height: 250px;
+  border-radius: 20px;
+  position: relative;
+  background-color: #e5e5e5;
+}
+.admin-type-modal__content__img .type-icon {
+  width: 100%;
+  max-width: 250px;
+  height: 250px;
+  position: relative;
+}
+.admin-type-modal__content__img img {
+  width: calc(100% - 2rem);
+  height: auto;
+  padding: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.admin-type-modal__content__img span {
+  font-size: 0.9rem;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.admin-type-modal__content__img input {
+  width: 250px;
+  margin-top: 1rem;
+}
+.admin-type-modal__content__desc {
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.admin-type-modal__content__desc .title h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.admin-type-modal__content__desc .title input {
+  width: calc(100% - 2px - 1rem);
+  padding: 0.25rem 0.5rem;
+  border: solid 1px #afafaf;
+  border-radius: 2px;
+  font-size: 1rem;
+}
+.admin-type-modal__content__desc .button {
+  text-align: end;
+}
+.admin-type-modal__content__desc .button button {
+  padding: 0.5rem 1.25rem;
+  border: solid 1px #afafaf;
+  margin-left: 0.5rem;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.admin-type-modal__content__desc .button .save {
+  background-color: #4caf50;
+}
+.admin-type-modal__content__desc .button .delete {
+  background-color: #ff3e48;
+}/*# sourceMappingURL=AdminTypeModal.css.map */

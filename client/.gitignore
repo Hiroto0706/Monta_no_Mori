@@ -24,5 +24,4 @@ cors-config.json
 *.sln
 *.sw?
 *.mjs
-*.css
 *.css.map

@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
+
+.sidebar {
+  background-color: white;
+  width: calc(20vw - 1.5px);
+  min-width: 258.5px;
+  max-width: 278.5px;
+  height: 100vh;
+  overflow: auto;
+  position: fixed;
+  border-width: 0 0.5px 0 0;
+  border-color: #afafaf;
+  border-style: solid;
+}
+.sidebar__inner {
+  width: calc(100% - 2rem);
+  padding-top: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.sidebar__inner__type {
+  margin-bottom: 3rem;
+}
+.sidebar__inner__type h3 {
+  margin-bottom: 0.5rem;
+}
+.sidebar__inner__category {
+  padding-bottom: 3rem;
+}
+.sidebar__inner__category h3 {
+  margin-bottom: 0.5rem;
+}
+@media screen and (max-width: 880px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.category-link, .type-link {
+  color: #646464;
+  margin-bottom: 0.5rem;
+  border-radius: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #646464;
+  transition: all 0.3s;
+}
+
+.type-link {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 1rem - 2.5px);
+  border: 1.25px solid #afafaf;
+  padding: 0.25rem 0.5rem;
+  background-color: #f4f4f4;
+}
+.type-link div {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.type-link img {
+  width: 100%;
+  height: auto;
+}
+.type-link:hover {
+  background-color: #dfdfdf;
+}
+
+.category-link {
+  font-size: 0.7rem;
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  margin-right: 0.5rem;
+  background-color: white;
+  border: 1.25px solid #afafaf;
+  position: relative;
+}
+.category-link:hover {
+  background-color: #f0f0f0;
+}
+
+.admin-component__image-list .type-list {
+  padding: 0.25rem 0.75rem;
+  background-color: #f4f4f4;
+  border: solid #afafaf 1.25px;
+  border-radius: 20px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.admin-component__image-list .type-list img {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+}
+.admin-component__image-list .type-list:hover {
+  background-color: #dfdfdf;
+}
+.admin-component__image-list .type-list.add {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+}
+.admin-component__image-list .type-list.add:hover {
+  opacity: 0.8;
+}/*# sourceMappingURL=AdminTypeList.css.map */

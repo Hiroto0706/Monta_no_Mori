@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #646464;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+.contents {
+  padding: 4rem 0 0 clamp(258.5px, 20vw, 278.5px);
+  z-index: 10;
+}
+@media screen and (max-width: 880px) {
+  .contents {
+    padding: 4rem 0 0 0;
+  }
+}
+
+.form {
+  display: block;
+  margin: 5% auto 0 auto;
+  width: calc(75% - 3px);
+  max-width: 1100px;
+  padding: 3%;
+  border: 1.5px solid #afafaf;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #646464;
+}
+.form h2 {
+  font-size: 2.25rem;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+.form h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+.form .error-message {
+  color: red;
+  font-weight: lighter;
+}
+.form input {
+  width: calc(100% - 20px - 3px);
+  padding: 10px 10px;
+  margin: 0.5rem 0 0.75rem 0;
+  color: #646464;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1.5px solid #afafaf;
+}
+.form input:focus {
+  outline: 1.5px solid #4caf50;
+}
+.form .last-input {
+  margin-bottom: 1.5rem;
+}
+.form button {
+  width: 100%;
+  height: auto;
+  padding: 1rem 2rem;
+  margin-top: 1.5rem;
+  background-color: #4caf50;
+  border: none;
+  color: #ffffff;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  letter-spacing: 0.5rem;
+  transition: all 0.1s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form button img {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.75rem;
+}
+.form button:hover {
+  opacity: 0.75;
+}/*# sourceMappingURL=Login.css.map */
