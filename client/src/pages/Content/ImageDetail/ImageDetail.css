@@ -277,4 +277,13 @@ li {
     margin-left: 0;
     margin-top: 1rem;
   }
+}
+@media screen and (max-width: 1410px) and (max-width: 880px) and (max-width: 440px) {
+  .image-detail__desc__button .download,
+  .image-detail__desc__button .copy {
+    display: none;
+  }
+  .image-detail__desc__button .download-copy-text {
+    display: block;
+  }
 }/*# sourceMappingURL=ImageDetail.css.map */

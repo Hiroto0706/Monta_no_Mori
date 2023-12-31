@@ -198,6 +198,19 @@
       &__desc {
         margin-left: 0;
         margin-top: 1rem;
+
+        @media screen and (max-width: 440px) {
+          &__button {
+            .download,
+            .copy {
+              display: none;
+            }
+
+            .download-copy-text {
+              display: block;
+            }
+          }
+        }
       }
     }
   }
