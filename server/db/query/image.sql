@@ -17,6 +17,11 @@ SELECT *
 FROM images
 ORDER BY id DESC
 LIMIT $1 OFFSET $2;
+-- name: ListRandomImage :many
+SELECT *
+FROM images
+ORDER BY RANDOM()
+LIMIT $1 OFFSET $2;
 -- name: UpdateImage :one
 UPDATE images
 SET title = $2,

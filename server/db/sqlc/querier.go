@@ -37,6 +37,7 @@ type Querier interface {
 	ListImageByType(ctx context.Context, arg ListImageByTypeParams) ([]Image, error)
 	ListImageCategoriesByCategory(ctx context.Context, categoryID int64) ([]ImageCategory, error)
 	ListImageCategoriesByImage(ctx context.Context, imageID int64) ([]ImageCategory, error)
+	ListRandomImage(ctx context.Context, arg ListRandomImageParams) ([]Image, error)
 	ListType(ctx context.Context, arg ListTypeParams) ([]Type, error)
 	UpdateCategory(ctx context.Context, arg UpdateCategoryParams) (Category, error)
 	UpdateImage(ctx context.Context, arg UpdateImageParams) (Image, error)

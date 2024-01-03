@@ -75,6 +75,46 @@ func (server *Server) ListImages(ctx *gin.Context) {
 	})
 }
 
+// ListOtherImages 画像詳細の下に表示する『おすすめのがぞう』を取得する処理
+func (server *Server) ListOtherImages(ctx *gin.Context) {
+	// TODO: 引数が固定なので修正する必要あり
+	arg := db.ListRandomImageParams{
+		Limit:  8,
+		Offset: 0,
+	}
+	images, err := server.store.ListRandomImage(ctx, arg)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	resImages := []responseImage{}
+	for _, image := range images {
+		resImage := responseImage{}
+		resImage.Image = image
+
+		typeID := resImage.Image.TypeID
+		imageType, err := server.store.GetType(ctx, typeID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+			return
+		}
+		resImage.ImageType = imageType
+
+		resImages = append(resImages, resImage)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "List other images successfully",
+		"payload": resImages,
+	})
+}
+
 func (server *Server) SearchImages(ctx *gin.Context) {
 	searchText := ctx.Query("q")
 	args := db.ListImageByTitleParams{

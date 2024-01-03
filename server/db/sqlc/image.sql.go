@@ -236,6 +236,50 @@ func (q *Queries) ListImageByType(ctx context.Context, arg ListImageByTypeParams
 	return items, nil
 }
 
+const listRandomImage = `-- name: ListRandomImage :many
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+FROM images
+ORDER BY RANDOM()
+LIMIT $1 OFFSET $2
+`
+
+type ListRandomImageParams struct {
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) ListRandomImage(ctx context.Context, arg ListRandomImageParams) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listRandomImage, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Image{}
+	for rows.Next() {
+		var i Image
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Src,
+			&i.TypeID,
+			&i.UpdatedAt,
+			&i.CreatedAt,
+			&i.ViewCount,
+			&i.Filename,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateImage = `-- name: UpdateImage :one
 UPDATE images
 SET title = $2,

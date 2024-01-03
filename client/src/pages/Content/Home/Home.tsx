@@ -32,22 +32,11 @@ export interface responsePayload {
 
 const Home: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
-
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+  const [loadingMessage, setLoadingMessage] =
+    useState<string>("がぞうはみつからなかったよ");
 
   const dispatch = useDispatch();
-
-  // 引数のIDをもとにローカルホストとReact上のIDsを更新する
-  const toggleFavorite = (imageId: string) => {
-    let updatedFavorites;
-    if (favoriteIDs.includes(imageId)) {
-      updatedFavorites = favoriteIDs.filter((id) => id !== imageId);
-    } else {
-      updatedFavorites = [...favoriteIDs, imageId];
-    }
-    setFavoriteIDs(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-  };
 
   useEffect(() => {
     const storedFavorites = JSON.parse(
@@ -55,7 +44,7 @@ const Home: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    fetchUsersImages(dispatch);
+    FetchUsersImages(dispatch, setLoadingMessage);
   }, [dispatch]);
 
   return (
@@ -74,11 +63,17 @@ const Home: React.FC = () => {
                 src={image.src}
                 type_id={image.type_id}
                 type={image.type}
-                toggleFavorite={() => toggleFavorite(image.id.toString())}
+                toggleFavorite={() =>
+                  toggleFavorite(
+                    image.id.toString(),
+                    favoriteIDs,
+                    setFavoriteIDs
+                  )
+                }
               />
             ))
           ) : (
-            <p>がぞうはみつからなかったよ！</p>
+            <p>{loadingMessage}</p>
           )}
         </ul>
       </div>
@@ -88,7 +83,11 @@ const Home: React.FC = () => {
 
 export default Home;
 
-const fetchUsersImages = (dispatch: Dispatch) => {
+export const FetchUsersImages = (
+  dispatch: Dispatch,
+  setLoadingMessage: React.Dispatch<React.SetStateAction<string>>
+) => {
+  setLoadingMessage("Loading中だよ...!");
   axios
     .get(import.meta.env.VITE_BASE_API)
     .then((response) => {
@@ -97,6 +96,7 @@ const fetchUsersImages = (dispatch: Dispatch) => {
       dispatch(setImages(transformedImages));
     })
     .catch((error) => {
+      setLoadingMessage("がぞうはみつからなかったよ");
       console.error("List images failed : ", error);
     });
 };
@@ -109,4 +109,20 @@ export const TransformPayloadToImage = (payload: responsePayload) => {
     type_id: payload.image.type_id,
     type: payload.type,
   };
+};
+
+// 引数のIDをもとにローカルホストとReact上のIDsを更新する
+const toggleFavorite = (
+  imageId: string,
+  favoriteIDs: string[],
+  setFavoriteIDs: React.Dispatch<React.SetStateAction<string[]>>
+) => {
+  let updatedFavorites;
+  if (favoriteIDs.includes(imageId)) {
+    updatedFavorites = favoriteIDs.filter((id) => id !== imageId);
+  } else {
+    updatedFavorites = [...favoriteIDs, imageId];
+  }
+  setFavoriteIDs(updatedFavorites);
+  localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
 };
