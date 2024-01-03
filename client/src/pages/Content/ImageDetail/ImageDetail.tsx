@@ -70,72 +70,95 @@ const ImageDetail: React.FC = () => {
   return (
     <>
       {image && type && categories ? (
-        <div className="image-detail">
-          <div className="image-detail__img">
-            <div className="img">
-              <img src={image.src} alt={image.title} />
+        <div>
+          <div className="image-detail">
+            <div className="image-detail__img">
+              <div className="img">
+                <img src={image.src} alt={image.title} />
+              </div>
+            </div>
+
+            <div className="image-detail__desc">
+              <div>
+                <div className="title">
+                  <h2>{image.title}</h2>
+                  <img
+                    src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
+                    onClick={() => {
+                      console.log("clicked");
+                      toggleLike(image.id.toString());
+                    }}
+                  />
+                </div>
+
+                <div className="type">
+                  <h3>たいぷ</h3>
+                  <Link
+                    to={`/search/type/${type.name}`}
+                    className="type-link-modal"
+                  >
+                    <img src={type.src} />
+                    {type.name}
+                  </Link>
+                </div>
+
+                <div className="category">
+                  <h3>かてごり</h3>
+                  {categories.map((category) => (
+                    <Link
+                      to={`/search/category/${category.name}`}
+                      className="category-link"
+                      key={category.id}
+                    >
+                      #{category.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="image-detail__desc__button user-modal">
+                <button
+                  className="download"
+                  onClick={() => {
+                    downloadImage(image.src);
+                  }}
+                >
+                  <img src="/download-icon.png" />
+                  だうんろーど
+                </button>
+                <button
+                  className="copy"
+                  onClick={() => copyImageToClipboard(image.src)}
+                >
+                  <img src="/copy-icon.png" />
+                  こぴー
+                </button>
+                <p className="download-copy-text">
+                  画像を長押しして保存またはコピーしてね！
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="image-detail__desc">
-            <div>
-              <div className="title">
-                <h2>{image.title}</h2>
-                <img
-                  src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
-                  onClick={() => {
-                    console.log("clicked");
-                    toggleLike(image.id.toString());
-                  }}
-                />
-              </div>
-
-              <div className="type">
-                <h3>たいぷ</h3>
-                <Link
-                  to={`/search/type/${type.name}`}
-                  className="type-link-modal"
-                >
-                  <img src={type.src} />
-                  {type.name}
-                </Link>
-              </div>
-
-              <div className="category">
-                <h3>かてごり</h3>
-                {categories.map((category) => (
-                  <Link
-                    to={`/search/category/${category.name}`}
-                    className="category-link"
-                    key={category.id}
-                  >
-                    #{category.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="image-detail__desc__button user-modal">
-              <button
-                className="download"
-                onClick={() => {
-                  downloadImage(image.src);
-                }}
-              >
-                <img src="/download-icon.png" />
-                だうんろーど
-              </button>
-              <button
-                className="copy"
-                onClick={() => copyImageToClipboard(image.src)}
-              >
-                <img src="/copy-icon.png" />
-                こぴー
-              </button>
-              <p className="download-copy-text">
-                画像を長押しして保存またはコピーしてね！
-              </p>
-            </div>
+          <div className="home">
+            <h2>そのほかのなかまたち</h2>
+            {/* <ul className="home__image-list">
+              {images.length > 0 ? (
+                images.map((image) => (
+                  <ImageCard
+                    key={image.id}
+                    id={image.id}
+                    title={image.title}
+                    src={image.src}
+                    type_id={image.type_id}
+                    type={image.type}
+                    toggleFavorite={() => toggleFavorite(image.id.toString())}
+                  />
+                ))
+              ) : (
+                <p>がぞうはみつからなかったよ！</p>
+              )}
+            </ul> */}
           </div>
         </div>
       ) : (

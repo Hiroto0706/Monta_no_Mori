@@ -32,8 +32,9 @@ export interface responsePayload {
 
 const Home: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
-
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+  const [loadingMessage, setLoadingMessage] =
+    useState<string>("がぞうはみつからなかったよ");
 
   const dispatch = useDispatch();
 
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    fetchUsersImages(dispatch);
+    fetchUsersImages(dispatch, setLoadingMessage);
   }, [dispatch]);
 
   return (
@@ -78,7 +79,7 @@ const Home: React.FC = () => {
               />
             ))
           ) : (
-            <p>がぞうはみつからなかったよ！</p>
+            <p>{loadingMessage}</p>
           )}
         </ul>
       </div>
@@ -88,7 +89,11 @@ const Home: React.FC = () => {
 
 export default Home;
 
-const fetchUsersImages = (dispatch: Dispatch) => {
+const fetchUsersImages = (
+  dispatch: Dispatch,
+  setLoadingMessage: React.Dispatch<React.SetStateAction<string>>
+) => {
+  setLoadingMessage("Loading中だよ...!");
   axios
     .get(import.meta.env.VITE_BASE_API)
     .then((response) => {
@@ -97,6 +102,7 @@ const fetchUsersImages = (dispatch: Dispatch) => {
       dispatch(setImages(transformedImages));
     })
     .catch((error) => {
+      setLoadingMessage("がぞうはみつからなかったよ");
       console.error("List images failed : ", error);
     });
 };
