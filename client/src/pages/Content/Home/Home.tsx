@@ -38,18 +38,6 @@ const Home: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  // 引数のIDをもとにローカルホストとReact上のIDsを更新する
-  const toggleFavorite = (imageId: string) => {
-    let updatedFavorites;
-    if (favoriteIDs.includes(imageId)) {
-      updatedFavorites = favoriteIDs.filter((id) => id !== imageId);
-    } else {
-      updatedFavorites = [...favoriteIDs, imageId];
-    }
-    setFavoriteIDs(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-  };
-
   useEffect(() => {
     const storedFavorites = JSON.parse(
       localStorage.getItem("favorites") || "[]"
@@ -75,7 +63,13 @@ const Home: React.FC = () => {
                 src={image.src}
                 type_id={image.type_id}
                 type={image.type}
-                toggleFavorite={() => toggleFavorite(image.id.toString())}
+                toggleFavorite={() =>
+                  toggleFavorite(
+                    image.id.toString(),
+                    favoriteIDs,
+                    setFavoriteIDs
+                  )
+                }
               />
             ))
           ) : (
@@ -89,7 +83,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-const fetchUsersImages = (
+export const fetchUsersImages = (
   dispatch: Dispatch,
   setLoadingMessage: React.Dispatch<React.SetStateAction<string>>
 ) => {
@@ -115,4 +109,20 @@ export const TransformPayloadToImage = (payload: responsePayload) => {
     type_id: payload.image.type_id,
     type: payload.type,
   };
+};
+
+// 引数のIDをもとにローカルホストとReact上のIDsを更新する
+export const toggleFavorite = (
+  imageId: string,
+  favoriteIDs: string[],
+  setFavoriteIDs: React.Dispatch<React.SetStateAction<string[]>>
+) => {
+  let updatedFavorites;
+  if (favoriteIDs.includes(imageId)) {
+    updatedFavorites = favoriteIDs.filter((id) => id !== imageId);
+  } else {
+    updatedFavorites = [...favoriteIDs, imageId];
+  }
+  setFavoriteIDs(updatedFavorites);
+  localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
 };
