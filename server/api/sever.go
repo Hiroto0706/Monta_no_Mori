@@ -42,6 +42,7 @@ func NewServer(store *db.Store, config util.Config) (*Server, error) {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/", server.ListImages)
+		v1.GET("/others", server.ListOtherImages)
 		v1.GET("/search", server.SearchImages)
 		v1.GET("/search/type/:name", server.SearchImagesByType)
 		v1.GET("/search/category/:name", server.SearchImagesByCategory)

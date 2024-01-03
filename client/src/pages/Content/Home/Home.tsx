@@ -44,7 +44,7 @@ const Home: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    fetchUsersImages(dispatch, setLoadingMessage);
+    FetchUsersImages(dispatch, setLoadingMessage);
   }, [dispatch]);
 
   return (
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-export const fetchUsersImages = (
+export const FetchUsersImages = (
   dispatch: Dispatch,
   setLoadingMessage: React.Dispatch<React.SetStateAction<string>>
 ) => {
@@ -112,7 +112,7 @@ export const TransformPayloadToImage = (payload: responsePayload) => {
 };
 
 // 引数のIDをもとにローカルホストとReact上のIDsを更新する
-export const toggleFavorite = (
+const toggleFavorite = (
   imageId: string,
   favoriteIDs: string[],
   setFavoriteIDs: React.Dispatch<React.SetStateAction<string[]>>

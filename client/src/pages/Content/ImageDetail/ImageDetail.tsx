@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+
 import { UserImage, UserType } from "../Home/Home";
 import { ModalCategory } from "../../../components/Image/UserImage/Modal/ModalImage";
-import ImageCard from "../../../components/Image/UserImage/Image";
-import { Link } from "react-router-dom";
+import OtherImage from "../../../components/Image/UserImage/LinkImage";
 import {
   downloadImage,
   copyImageToClipboard,
 } from "../../../components/Image/imageUtil";
-
-import axios from "axios";
-import { AppState } from "../../../store";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchUsersImages } from "../Home/Home";
+import { TransformPayloadToImage } from "../Home/Home";
 
 import "./ImageDetail.css";
 
 const ImageDetail: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
-  const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+  const [, setFavoriteIDs] = useState<string[]>([]);
   const [image, setImage] = useState<UserImage | null>(null);
-  const otherImages = useSelector((state: AppState) => state.images.images);
+  const [otherImages, setOtherImages] = useState<UserImage[]>([]);
   const [type, setType] = useState<UserType | null>(null);
   const [categories, setCategories] = useState<ModalCategory[]>([]);
   const [loadingMessage, setLoadingMessage] =
@@ -46,18 +45,6 @@ const ImageDetail: React.FC = () => {
       const updatedFavorites = [...favorites, id];
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     }
-  };
-
-  // 引数のIDをもとにローカルホストとReact上のIDsを更新する
-  const toggleFavorite = (imageId: string) => {
-    let updatedFavorites;
-    if (favoriteIDs.includes(imageId)) {
-      updatedFavorites = favoriteIDs.filter((id) => id !== imageId);
-    } else {
-      updatedFavorites = [...favoriteIDs, imageId];
-    }
-    setFavoriteIDs(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   useEffect(() => {
@@ -95,7 +82,23 @@ const ImageDetail: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    fetchUsersImages(dispatch, setLoadingMessage);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_BASE_API + "others"
+        );
+        const transformedImages = response.data.payload.map(
+          TransformPayloadToImage
+        );
+        setOtherImages(transformedImages);
+      } catch (error) {
+        setLoadingMessage("がぞうはみつからなかったよ");
+        console.error("list other images failed:", error);
+      }
+    };
+
+    setLoadingMessage("Loading中だよ...!");
+    fetchData();
   }, [dispatch]);
 
   return (
@@ -178,14 +181,13 @@ const ImageDetail: React.FC = () => {
                 otherImages
                   .slice(0, 8)
                   .map((oi) => (
-                    <ImageCard
+                    <OtherImage
                       key={oi.id}
                       id={oi.id}
                       title={oi.title}
                       src={oi.src}
                       type_id={oi.type.id}
                       type={oi.type}
-                      toggleFavorite={() => toggleFavorite(oi.id.toString())}
                     />
                   ))
               ) : (
