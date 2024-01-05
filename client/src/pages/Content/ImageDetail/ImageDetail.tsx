@@ -23,6 +23,8 @@ const ImageDetail: React.FC = () => {
   const [categories, setCategories] = useState<ModalCategory[]>([]);
   const [loadingMessage, setLoadingMessage] =
     useState<string>("がぞうはみつからなかったよ");
+  const [copiedText, setCopiedText] = useState<string>("こぴー");
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -162,10 +164,18 @@ const ImageDetail: React.FC = () => {
                 </button>
                 <button
                   className="copy"
-                  onClick={() => copyImageToClipboard(image.src)}
+                  onClick={() =>
+                    copyImageToClipboard(image.src, setCopiedText, setIsCopied)
+                  }
                 >
                   <img src="/copy-icon.png" />
-                  こぴー
+                  <span
+                    style={
+                      isCopied ? { color: "#4caf50", fontWeight: "bold" } : {}
+                    }
+                  >
+                    {copiedText}
+                  </span>
                 </button>
                 <p className="download-copy-text">
                   画像を長押しして保存またはコピーしてね！

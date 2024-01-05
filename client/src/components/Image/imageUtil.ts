@@ -13,7 +13,11 @@ export const downloadImage = async (src: string) => {
   }
 };
 
-export const copyImageToClipboard = async (src: string) => {
+export const copyImageToClipboard = async (
+  src: string,
+  setCopiedText: React.Dispatch<React.SetStateAction<string>>,
+  setIsCopied: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   try {
     const response = await axios.get(src, { responseType: "blob" });
     const blob = response.data;
@@ -31,7 +35,12 @@ export const copyImageToClipboard = async (src: string) => {
       if (newBlob) {
         const clipboardItem = new ClipboardItem({ [newBlob.type]: newBlob });
         await navigator.clipboard.write([clipboardItem]);
-        console.log("image copied successfully!");
+        setCopiedText("こぴーしました！");
+        setIsCopied(true);
+        setTimeout(() => {
+          setCopiedText("こぴー");
+          setIsCopied(false);
+        }, 3000); // 3秒後にテキストを戻す
       }
     }, blob.type);
   } catch (err) {

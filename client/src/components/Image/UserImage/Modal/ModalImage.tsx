@@ -35,6 +35,8 @@ const ModalImage: React.FC<ModalImageProps> = ({
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [categories, setCategories] = useState<ModalCategory[]>([]);
+  const [copiedText, setCopiedText] = useState<string>("こぴー");
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const toggleLikeFromModal = () => {
     toggleLike(id.toString());
@@ -127,9 +129,18 @@ const ModalImage: React.FC<ModalImageProps> = ({
               <img src="/download-icon.png" />
               だうんろーど
             </button>
-            <button className="copy" onClick={() => copyImageToClipboard(src)}>
+            <button
+              className="copy"
+              onClick={() =>
+                copyImageToClipboard(src, setCopiedText, setIsCopied)
+              }
+            >
               <img src="/copy-icon.png" />
-              こぴー
+              <span
+                style={isCopied ? { color: "#4caf50", fontWeight: "bold" } : {}}
+              >
+                {copiedText}
+              </span>
             </button>
             <p className="download-copy-text">
               画像を長押しして保存またはコピーしてね！
