@@ -41,4 +41,7 @@ dc-up:
 dc-down:
 	docker compose down
 
+update-cors-setting:
+	cd client/ && gsutil cors set cors-config.json gs://monta_free_image
+
 .PHONY: postgres createdb dropdb migrateup migratedown access server dc-up dc-down sqlc
