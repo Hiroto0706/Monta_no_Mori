@@ -1,5 +1,5 @@
 # monta_no_mori
-https://montanomori.netlify.app/
+https://montanomori.com/
 
 ## ざっくりアーキテクチャ
 
