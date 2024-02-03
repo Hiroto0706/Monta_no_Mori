@@ -10,7 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-*.prd
+*.production
 cors-config.json
 
 # Editor directories and files
