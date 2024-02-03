@@ -31,6 +31,9 @@ new_migration:
 sqlc:
 	cd server/ && sqlc generate
 
+frontend:
+	cd client/ && npm run dev
+
 server:
 	cd server/ && go run main.go
 
