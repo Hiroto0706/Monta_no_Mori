@@ -10,7 +10,7 @@ type Props = {
 };
 
 const LoaderSpinner: React.FC<Props> = ({
-  timeout = 20000,
+  timeout = 100000,
   height = 50,
   width = 50,
   hasHeight,
