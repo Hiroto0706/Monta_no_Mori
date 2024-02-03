@@ -4,6 +4,7 @@ import axios from "axios";
 import { BasicCategory } from "../../../pages/Admin/AdminCategory/AdminCategory";
 import { Type } from "../../../pages/Admin/AdminType/AdminType";
 import { Link } from "react-router-dom";
+import LoaderSpinner from "../../Common/Loader";
 
 import "./HeaderMenu.css";
 
@@ -44,42 +45,58 @@ const HeaderMenu: React.FC<HeaderProps> = ({ closeHeader }) => {
     <>
       <div className="header-menu">
         <div className="header-menu__inner">
-          <Link className="header-menu__inner__favorite" to="/favorite" onClick={handleHeaderMenu}>
+          <Link
+            className="header-menu__inner__favorite"
+            to="/favorite"
+            onClick={handleHeaderMenu}
+          >
             <span>おきにいり</span>
           </Link>
           <div className="header-menu__inner__type">
             <h3>たいぷ</h3>
-            {types.map((type) => (
-              <Link
-                to={`/search/type/${type.name}`}
-                className="type-link"
-                key={type.id}
-                onClick={handleHeaderMenu}
-              >
-                <EllipsisText text={type.name} maxLength={typeMaxLength} />
-                <div>
-                  <img src={type.src} />
-                </div>
-              </Link>
-            ))}
+            {types.length > 0 ? (
+              <>
+                {types.map((type) => (
+                  <Link
+                    to={`/search/type/${type.name}`}
+                    className="type-link"
+                    key={type.id}
+                    onClick={handleHeaderMenu}
+                  >
+                    <EllipsisText text={type.name} maxLength={typeMaxLength} />
+                    <div>
+                      <img src={type.src} />
+                    </div>
+                  </Link>
+                ))}
+              </>
+            ) : (
+              <LoaderSpinner />
+            )}
           </div>
 
           <div className="header-menu__inner__category">
             <h3>かてごり</h3>
-            {categories.map((category) => (
-              <Link
-                to={`/search/category/${category.name}`}
-                className="category-link"
-                key={category.id}
-                onClick={handleHeaderMenu}
-              >
-                #
-                <EllipsisText
-                  text={category.name}
-                  maxLength={categoryMaxLength}
-                />
-              </Link>
-            ))}
+            {categories.length > 0 ? (
+              <>
+                {categories.map((category) => (
+                  <Link
+                    to={`/search/category/${category.name}`}
+                    className="category-link"
+                    key={category.id}
+                    onClick={handleHeaderMenu}
+                  >
+                    #
+                    <EllipsisText
+                      text={category.name}
+                      maxLength={categoryMaxLength}
+                    />
+                  </Link>
+                ))}
+              </>
+            ) : (
+              <LoaderSpinner />
+            )}
           </div>
         </div>
       </div>
