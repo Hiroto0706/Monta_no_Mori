@@ -20,6 +20,10 @@ jobs:
       - name: Install Dependencies
         run: cd client/ && npm ci
 
+      - name: Create .env.production file
+        run: |
+          echo "VITE_BASE_API=${{ secrets.VITE_BASE_API }}" > client/.env.production
+
       - name: Build
         run: cd client/ && npm run build:prd
 
