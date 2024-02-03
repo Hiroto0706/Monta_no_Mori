@@ -2,7 +2,10 @@
 @use "./../../../components/Sidebar/UserSidebar/Sidebar.scss" as sidebar;
 
 .loading-message {
-  padding: 1rem;
+  width: calc(100% - 2 * 1rem);
+  max-width: 1200px;
+  padding: 1.5rem 1rem 1rem 1rem;
+  margin: auto;
 }
 
 .image-detail {
