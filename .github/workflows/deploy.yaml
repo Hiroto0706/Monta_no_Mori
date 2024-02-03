@@ -23,6 +23,8 @@ jobs:
     - name: Build
       run: cd client/ && npm run build:prd
 
+    - run: echo $VITE_BASE_API
+
     - name: Deploy to Netlify
       run: cd client/ && netlify deploy --dir=dist --prod
       env:
@@ -38,10 +40,6 @@ jobs:
       - name: Create credential file
         run: |
           echo '${{ secrets.CREDENTIAL_JSON }}' > server/credential.json
-
-      - name: Set Environment Variables
-        run: |
-          echo "ENV=prd" >> $GITHUB_ENV
 
       - run: cd server/ && flyctl deploy --remote-only -a $APP_NAME
         env:
