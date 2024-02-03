@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: cd server/ && flyctl deploy --remote-only
+      - run: cd server/ && flyctl deploy --remote-only -a $APP_NAME
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_AUTH_TOKEN }}
+          APP_NAME: monta-no-mori-server
