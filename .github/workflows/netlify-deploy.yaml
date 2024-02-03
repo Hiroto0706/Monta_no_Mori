@@ -24,7 +24,7 @@ jobs:
       run: cd client/ && npm run build:prd
 
     - name: Deploy to Netlify
-      run: cd client/ && netlify deploy --build --prod
+      run: cd client/ && netlify deploy --dir=dist --prod
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
