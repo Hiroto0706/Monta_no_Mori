@@ -51,6 +51,7 @@ jobs:
           echo "MASTER_USERNAME=${{ secrets.MASTER_USERNAME }}"
           echo "MASTER_EMAIL=${{ secrets.MASTER_EMAIL }}"
           echo "MASTER_PASSWORD=${{ secrets.MASTER_PASSWORD }}"
+          echo $GITHUB_ENV
 
       - run: cd server/ && flyctl deploy --remote-only -a $APP_NAME
         env:
