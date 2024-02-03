@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
 $main-bgcolor: #4caf50;
 $main-font-color: #ffffff;
 $base-bgcolor: #f2f2f2;
@@ -14,6 +16,7 @@ body {
   margin: 0;
   background-color: $base-bgcolor;
   color: $base-font-color;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 ul,
@@ -35,6 +38,6 @@ li {
   z-index: 10;
 
   @media screen and (max-width: 880px) {
-    padding: $header-height 0 0 0
+    padding: $header-height 0 0 0;
   }
 }
