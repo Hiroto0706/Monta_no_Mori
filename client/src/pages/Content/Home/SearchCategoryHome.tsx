@@ -70,7 +70,7 @@ const SearchCategoryHome: React.FC = () => {
               />
             ))
           ) : (
-            <LoaderSpinner />
+            <LoaderSpinner timeout={10000} />
           )}
         </ul>
       </div>

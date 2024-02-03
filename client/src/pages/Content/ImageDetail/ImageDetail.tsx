@@ -182,8 +182,8 @@ const ImageDetail: React.FC = () => {
           </div>
         </div>
       ) : (
-        <LoaderSpinner />
-      )}
+        <LoaderSpinner timeout={10000} />
+        )}
 
       <div className="home">
         <h2>そのほかのなかまたち</h2>
@@ -201,8 +201,8 @@ const ImageDetail: React.FC = () => {
             ))}
           </ul>
         ) : (
-          <LoaderSpinner />
-        )}
+          <LoaderSpinner timeout={10000} />
+          )}
       </div>
     </>
   );
