@@ -9,27 +9,25 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14.x'
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
 
-    - name: Install Dependencies
-      run: cd client/ && npm ci
+      - name: Install Dependencies
+        run: cd client/ && npm ci
 
-    - name: Build
-      run: cd client/ && npm run build:prd
+      - name: Build
+        run: cd client/ && npm run build:prd
 
-    - run: echo $VITE_BASE_API
-
-    - name: Deploy to Netlify
-      run: cd client/ && netlify deploy --dir=dist --prod
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Deploy to Netlify
+        run: cd client/ && netlify deploy --dir=dist --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
   backend:
     runs-on: ubuntu-latest
