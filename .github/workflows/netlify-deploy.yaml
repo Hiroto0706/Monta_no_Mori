@@ -18,15 +18,13 @@ jobs:
         node-version: '14.x'
 
     - name: Install Dependencies
-      run: npm install
+      run: cd client/ && npm ci
 
     - name: Build
-      run: npm run build:prd
-
-    - run: npm ci
+      run: cd client/ && npm run build:prd
 
     - name: Deploy to Netlify
-      run: netlify deploy --build --prod
+      run: cd client/ && netlify deploy --build --prod
       env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
