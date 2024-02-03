@@ -43,3 +43,8 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_AUTH_TOKEN }}
           APP_NAME: monta-no-mori-server
+          ENVIRONMENT: prd
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          MASTER_USERNAME: ${{ secrets.MASTER_USERNAME }}
+          MASTER_EMAIL: ${{ secrets.MASTER_EMAIL }}
+          MASTER_PASSWORD: ${{ secrets.MASTER_PASSWORD }}
