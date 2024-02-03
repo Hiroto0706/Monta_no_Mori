@@ -8,6 +8,7 @@ import axios from "axios";
 import ImageCard from "../../../components/Image/UserImage/Image";
 import SearchForm from "./SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
+import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./Home.css";
 
@@ -33,8 +34,6 @@ export interface responsePayload {
 const Home: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
-  const [loadingMessage, setLoadingMessage] =
-    useState<string>("がぞうはみつからなかったよ");
 
   const dispatch = useDispatch();
 
@@ -44,7 +43,7 @@ const Home: React.FC = () => {
     );
     setFavoriteIDs(storedFavorites);
 
-    FetchUsersImages(dispatch, setLoadingMessage);
+    FetchUsersImages(dispatch);
   }, [dispatch]);
 
   return (
@@ -73,7 +72,7 @@ const Home: React.FC = () => {
               />
             ))
           ) : (
-            <p>{loadingMessage}</p>
+            <LoaderSpinner />
           )}
         </ul>
       </div>
@@ -83,11 +82,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-export const FetchUsersImages = (
-  dispatch: Dispatch,
-  setLoadingMessage: React.Dispatch<React.SetStateAction<string>>
-) => {
-  setLoadingMessage("Loading中だよ...!");
+export const FetchUsersImages = (dispatch: Dispatch) => {
   axios
     .get(import.meta.env.VITE_BASE_API)
     .then((response) => {
@@ -96,7 +91,6 @@ export const FetchUsersImages = (
       dispatch(setImages(transformedImages));
     })
     .catch((error) => {
-      setLoadingMessage("がぞうはみつからなかったよ");
       console.error("List images failed : ", error);
     });
 };

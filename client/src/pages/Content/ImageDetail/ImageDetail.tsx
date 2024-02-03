@@ -11,6 +11,7 @@ import {
   copyImageToClipboard,
 } from "../../../components/Image/imageUtil";
 import { TransformPayloadToImage } from "../Home/Home";
+import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./ImageDetail.css";
 
@@ -21,8 +22,6 @@ const ImageDetail: React.FC = () => {
   const [otherImages, setOtherImages] = useState<UserImage[]>([]);
   const [type, setType] = useState<UserType | null>(null);
   const [categories, setCategories] = useState<ModalCategory[]>([]);
-  const [loadingMessage, setLoadingMessage] =
-    useState<string>("がぞうはみつからなかったよ");
   const [copiedText, setCopiedText] = useState<string>("こぴー");
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
@@ -94,12 +93,10 @@ const ImageDetail: React.FC = () => {
         );
         setOtherImages(transformedImages);
       } catch (error) {
-        setLoadingMessage("がぞうはみつからなかったよ");
         console.error("list other images failed:", error);
       }
     };
 
-    setLoadingMessage("Loading中だよ...!");
     fetchData();
   }, [dispatch]);
 
@@ -183,32 +180,30 @@ const ImageDetail: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <div className="home">
-            <h2>そのほかのなかまたち</h2>
-            <ul className="home__image-list">
-              {otherImages.length > 0 ? (
-                otherImages
-                  .slice(0, 8)
-                  .map((oi) => (
-                    <OtherImage
-                      key={oi.id}
-                      id={oi.id}
-                      title={oi.title}
-                      src={oi.src}
-                      type_id={oi.type.id}
-                      type={oi.type}
-                    />
-                  ))
-              ) : (
-                <p>{loadingMessage}</p>
-              )}
-            </ul>
-          </div>
         </div>
       ) : (
-        <div className="loading-message">Loading...</div>
+        <LoaderSpinner />
       )}
+
+      <div className="home">
+        <h2>そのほかのなかまたち</h2>
+        {otherImages.length > 0 ? (
+          <ul className="home__image-list">
+            {otherImages.slice(0, 8).map((oi) => (
+              <OtherImage
+                key={oi.id}
+                id={oi.id}
+                title={oi.title}
+                src={oi.src}
+                type_id={oi.type.id}
+                type={oi.type}
+              />
+            ))}
+          </ul>
+        ) : (
+          <LoaderSpinner />
+        )}
+      </div>
     </>
   );
 };

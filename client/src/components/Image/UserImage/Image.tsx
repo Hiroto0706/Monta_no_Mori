@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import ModalImage from "./Modal/ModalImage";
-
 import { EllipsisText } from "../../Sidebar/UserSidebar/Sidebar";
 import { UserImage } from "./../../../pages/Content/Home/Home";
 

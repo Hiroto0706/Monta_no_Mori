@@ -3,7 +3,7 @@ import axios from "axios";
 import { UserImage, responsePayload } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
-
+import LoaderSpinner from "../../../components/Common/Loader";
 import "./Home.css";
 
 const Favorite: React.FC = () => {
@@ -48,9 +48,7 @@ const Favorite: React.FC = () => {
               />
             ))
           ) : (
-            <p>
-              あなたのおきにいりがぞうはまだないよ！すきながぞうはぜひはーとをくりっくしてね！
-            </p>
+            <LoaderSpinner />
           )}
         </ul>
       </div>
