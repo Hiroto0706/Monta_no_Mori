@@ -48,7 +48,7 @@ const Favorite: React.FC = () => {
               />
             ))
           ) : (
-            <LoaderSpinner />
+            <LoaderSpinner timeout={10000} />
           )}
         </ul>
       </div>
