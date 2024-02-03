@@ -9,6 +9,7 @@ import { TransformPayloadToImage } from "./Home";
 import ImageCard from "../../../components/Image/UserImage/Image";
 import SearchForm from "./SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
+import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./Home.css";
 
@@ -81,7 +82,7 @@ const SearchHome: React.FC = () => {
               />
             ))
           ) : (
-            <p style={{ margin: 0 }}>がぞうはみつからなかったよ！</p>
+            <LoaderSpinner />
           )}
         </ul>
       </div>
