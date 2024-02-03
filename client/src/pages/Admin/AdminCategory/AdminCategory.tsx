@@ -7,6 +7,7 @@ import ModalCategory from "../../../components/Category/AdminCategory/AdminCateg
 import ModalAddCategory from "./../../../components/Category/AdminCategory/AdminAddCategoryModal";
 import CategoryList from "./../../../components/Category/AdminCategory/AdminCategoryList";
 import { IsLoggedIn } from "../AdminHome/AdminHome";
+import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./../AdminImage/AdminImage.css";
 import "./../AdminType/AdminType.css";
@@ -62,14 +63,20 @@ export default function AdminCategory() {
           )}
 
           <ul className="admin-component__image-list">
-            {categories.map((category) => (
-              <CategoryList
-                key={category.id}
-                id={category.id}
-                name={category.name}
-                toggleOpenCategoryModal={() => selectCategory(category)}
-              />
-            ))}
+            {categories.length > 0 ? (
+              <>
+                {categories.map((category) => (
+                  <CategoryList
+                    key={category.id}
+                    id={category.id}
+                    name={category.name}
+                    toggleOpenCategoryModal={() => selectCategory(category)}
+                  />
+                ))}
+              </>
+            ) : (
+              <LoaderSpinner />
+            )}
           </ul>
         </div>
 

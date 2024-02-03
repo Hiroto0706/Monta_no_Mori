@@ -7,6 +7,7 @@ import ModalType from "../../../components/Type/AdminType/AdminTypeModal/AdminTy
 import ModalAddType from "../../../components/Type/AdminType/AdminTypeModal/AdminAddTypeModal";
 import AdminTypeList from "./../../../components/Type/AdminType/AdminTypeList/AdminTypeList";
 import { IsLoggedIn } from "../AdminHome/AdminHome";
+import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./../AdminImage/AdminImage.css";
 import "./AdminType.css";
@@ -65,15 +66,21 @@ export default function AdminType() {
           )}
 
           <ul className="admin-component__image-list">
-            {types.map((type) => (
-              <AdminTypeList
-                key={type.id}
-                id={type.id}
-                src={type.src}
-                title={type.name}
-                toggleOpenTypeModal={() => selectType(type)}
-              />
-            ))}
+            {types.length > 0 ? (
+              <>
+                {types.map((type) => (
+                  <AdminTypeList
+                    key={type.id}
+                    id={type.id}
+                    src={type.src}
+                    title={type.name}
+                    toggleOpenTypeModal={() => selectType(type)}
+                  />
+                ))}
+              </>
+            ) : (
+              <LoaderSpinner />
+            )}
 
             {isOpenTypeModal && selectedType && (
               <ModalType

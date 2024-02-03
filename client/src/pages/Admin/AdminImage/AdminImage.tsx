@@ -6,6 +6,7 @@ import axios from "axios";
 import ImageList from "./../../../components/Image/AdminImage/AdminImage";
 import AddImageModal from "../../../components/Image/AdminImage/AdminModalAddImage/AdminModalAddImage";
 import { IsLoggedIn } from "../AdminHome/AdminHome";
+import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./AdminImage.css";
 
@@ -75,18 +76,24 @@ export default function AdminImage() {
             )}
           </div>
           <ul className="admin-component__image-list">
-            {images.map((image) => (
-              <ImageList
-                key={image.id}
-                id={image.id}
-                src={image.src}
-                title={image.title}
-                filename={image.filename}
-                type={image.type}
-                categories={image.categories}
-                reFetchImages={() => reFetchImages()}
-              />
-            ))}
+            {images.length > 0 ? (
+              <>
+                {images.map((image) => (
+                  <ImageList
+                    key={image.id}
+                    id={image.id}
+                    src={image.src}
+                    title={image.title}
+                    filename={image.filename}
+                    type={image.type}
+                    categories={image.categories}
+                    reFetchImages={() => reFetchImages()}
+                  />
+                ))}
+              </>
+            ) : (
+              <LoaderSpinner />
+            )}
           </ul>
         </div>
       </div>
