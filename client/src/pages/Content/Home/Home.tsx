@@ -72,7 +72,7 @@ const Home: React.FC = () => {
               />
             ))
           ) : (
-            <LoaderSpinner timeout={10000} />
+            <LoaderSpinner />
           )}
         </ul>
       </div>

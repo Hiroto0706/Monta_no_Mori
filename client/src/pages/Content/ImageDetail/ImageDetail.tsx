@@ -24,6 +24,7 @@ const ImageDetail: React.FC = () => {
   const [categories, setCategories] = useState<ModalCategory[]>([]);
   const [copiedText, setCopiedText] = useState<string>("こぴー");
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const loaderSize: number = 30;
 
   const dispatch = useDispatch();
 
@@ -102,30 +103,38 @@ const ImageDetail: React.FC = () => {
 
   return (
     <>
-      {image && type && categories ? (
-        <div>
-          <div className="image-detail">
-            <div className="image-detail__img">
-              <div className="img">
+      <div>
+        <div className="image-detail">
+          <div className="image-detail__img">
+            <div className="img">
+              {image?.src ? (
                 <img src={image.src} alt={image.title} />
-              </div>
+              ) : (
+                <LoaderSpinner hasHeight={true} />
+              )}
             </div>
+          </div>
 
-            <div className="image-detail__desc">
-              <div>
-                <div className="title">
-                  <h2>{image.title}</h2>
-                  <img
-                    src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
-                    onClick={() => {
-                      console.log("clicked");
-                      toggleLike(image.id.toString());
-                    }}
-                  />
-                </div>
+          <div className="image-detail__desc">
+            <div>
+              <div className="title">
+                {image && (
+                  <>
+                    <h2>{image.title}</h2>
+                    <img
+                      src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
+                      onClick={() => {
+                        console.log("clicked");
+                        toggleLike(image.id.toString());
+                      }}
+                    />
+                  </>
+                )}
+              </div>
 
-                <div className="type">
-                  <h3>たいぷ</h3>
+              <div className="type">
+                <h3>たいぷ</h3>
+                {type ? (
                   <Link
                     to={`/search/type/${type.name}`}
                     className="type-link-modal"
@@ -133,22 +142,32 @@ const ImageDetail: React.FC = () => {
                     <img src={type.src} />
                     {type.name}
                   </Link>
-                </div>
-
-                <div className="category">
-                  <h3>かてごり</h3>
-                  {categories.map((category) => (
-                    <Link
-                      to={`/search/category/${category.name}`}
-                      className="category-link"
-                      key={category.id}
-                    >
-                      #{category.name}
-                    </Link>
-                  ))}
-                </div>
+                ) : (
+                  <LoaderSpinner width={loaderSize} height={loaderSize} />
+                )}
               </div>
 
+              <div className="category">
+                <h3>かてごり</h3>
+                {categories.length > 0 ? (
+                  <>
+                    {categories.map((category) => (
+                      <Link
+                        to={`/search/category/${category.name}`}
+                        className="category-link"
+                        key={category.id}
+                      >
+                        #{category.name}
+                      </Link>
+                    ))}
+                  </>
+                ) : (
+                  <LoaderSpinner width={loaderSize} height={loaderSize} />
+                )}
+              </div>
+            </div>
+
+            {image && (
               <div className="image-detail__desc__button user-modal">
                 <button
                   className="download"
@@ -178,12 +197,10 @@ const ImageDetail: React.FC = () => {
                   画像を長押しして保存またはコピーしてね！
                 </p>
               </div>
-            </div>
+            )}
           </div>
         </div>
-      ) : (
-        <LoaderSpinner timeout={10000} />
-        )}
+      </div>
 
       <div className="home">
         <h2>そのほかのなかまたち</h2>
@@ -202,7 +219,7 @@ const ImageDetail: React.FC = () => {
           </ul>
         ) : (
           <LoaderSpinner timeout={10000} />
-          )}
+        )}
       </div>
     </>
   );

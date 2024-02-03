@@ -2,6 +2,12 @@
   width: 100%;
   margin-top: 1rem;
 }
+.loader.in-image {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+}
 .loader div {
   width: 100%;
   display: flex;

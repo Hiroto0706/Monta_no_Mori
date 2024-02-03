@@ -3,10 +3,18 @@ import { Oval } from "react-loader-spinner";
 import "./Loader.css";
 
 type Props = {
+  height?: number;
+  width?: number;
   timeout?: number;
+  hasHeight?: boolean;
 };
 
-const LoaderSpinner: React.FC<Props> = ({ timeout = 5000 }) => {
+const LoaderSpinner: React.FC<Props> = ({
+  timeout = 20000,
+  height = 50,
+  width = 50,
+  hasHeight,
+}) => {
   const [isTimeout, setIsTimeout] = useState(false);
 
   useEffect(() => {
@@ -18,10 +26,10 @@ const LoaderSpinner: React.FC<Props> = ({ timeout = 5000 }) => {
   }, [timeout]);
 
   return (
-    <div className="loader">
+    <div className={`loader ${hasHeight ? "in-image" : ""}`}>
       {!isTimeout ? (
         <div>
-          <Oval color="#4caf50" height={50} width={50} />
+          <Oval color="#4caf50" height={height} width={width} />
         </div>
       ) : (
         <p className="text">がぞうはみつかりませんでした！</p>
