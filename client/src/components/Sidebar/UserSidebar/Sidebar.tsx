@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
         <div className="sidebar__inner">
           <div className="sidebar__inner__type">
             <h3>たいぷ</h3>
-            {types ? (
+            {types.length > 0 ? (
               <>
                 {types.map((type) => (
                   <Link
@@ -66,7 +66,7 @@ const Sidebar: React.FC = () => {
 
           <div className="sidebar__inner__category">
             <h3>かてごり</h3>
-            {categories ? (
+            {categories.length > 0 ? (
               <>
                 {categories.map((category) => (
                   <Link
