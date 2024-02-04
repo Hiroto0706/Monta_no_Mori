@@ -24,8 +24,10 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
   };
 
   const editCategory = async (id: number) => {
+    if (!window.confirm("この内容で更新してもよろしいですか？")) return;
+
     if (defaultName == editableName) {
-      console.error("there is no diff");
+      alert("there is no diff");
       return;
     }
 
@@ -42,17 +44,22 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
           },
         }
       );
-      setName(response.data.category.name);
-      setEditableName(response.data.category.name);
-      onCategoryUpdated();
+      if (response.status === 200) {
+        alert("Success");
+        setName(response.data.category.name);
+        setEditableName(response.data.category.name);
+        onCategoryUpdated();
+      }
     } catch (error) {
-      console.error("Edit type failed:", error);
+      alert("Edit type failed:" + error);
     }
   };
 
   const deleteCategory = async (id: number) => {
+    if (!window.confirm("本当に削除しますか？")) return;
+
     try {
-      await axios.delete(
+      const response = await axios.delete(
         import.meta.env.VITE_BASE_API + `admin/category/delete/${id}`,
         {
           headers: {
@@ -60,10 +67,13 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
           },
         }
       );
-      onCategoryUpdated();
-      toggleOpenModal();
+      if (response.status === 200) {
+        alert("Success");
+        onCategoryUpdated();
+        toggleOpenModal();
+      }
     } catch (error) {
-      console.error("Delete category failed:", error);
+      alert("Delete category failed:" + error);
     }
   };
 

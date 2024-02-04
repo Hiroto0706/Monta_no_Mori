@@ -43,8 +43,10 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
   };
 
   const editType = async (id: number) => {
+    if (!window.confirm("この内容で更新してもよろしいですか？")) return;
+
     if (editableName == defaultName && editableFile == null) {
-      console.error("there is no diff");
+      alert("there is no diff");
       return;
     }
 
@@ -65,18 +67,23 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
           },
         }
       );
-      setName(response.data.name);
-      setEditableName(response.data.name);
-      setEditableImagePath(response.data.file);
-      onTypeUpdated();
+      if (response.status === 200) {
+        alert("Success");
+        setName(response.data.name);
+        setEditableName(response.data.name);
+        setEditableImagePath(response.data.file);
+        onTypeUpdated();
+      }
     } catch (error) {
-      console.error("Edit type failed:", error);
+      alert("Edit type failed:" + error);
     }
   };
 
   const deleteType = async (id: number) => {
+    if (!window.confirm("本当に削除しますか？")) return;
+
     try {
-      await axios.delete(
+      const response = await axios.delete(
         import.meta.env.VITE_BASE_API + `admin/type/delete/${id}`,
         {
           headers: {
@@ -84,10 +91,13 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
           },
         }
       );
-      onTypeUpdated();
-      toggleOpenModal();
+      if (response.status === 200) {
+        alert("Success");
+        onTypeUpdated();
+        toggleOpenModal();
+      }
     } catch (error) {
-      console.error("Delete type failed:", error);
+      alert("Delete type failed:" + error);
     }
   };
 

@@ -18,15 +18,17 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
   };
 
   const addCategory = async () => {
+    if (!window.confirm("この内容で作成してもよろしいですか？")) return;
+
     if (!name) {
-      console.error("category name is required");
+      alert("category name is required");
     }
 
     const formData = new FormData();
     formData.append("name", name);
 
     try {
-      await axios.post(
+      const response = await axios.post(
         import.meta.env.VITE_BASE_API + "admin/category/create",
         formData,
         {
@@ -35,8 +37,9 @@ const AdminModalCategory: React.FC<ModalCategoryProps> = ({
           },
         }
       );
+      if (response.status === 200) alert("Success");
     } catch (error) {
-      console.error("create category failed:", error);
+      alert("create category failed:" + error);
     }
   };
 

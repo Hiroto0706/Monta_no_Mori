@@ -111,6 +111,8 @@ const AdminModalEditImage: React.FC<
   const editImage = async (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
+    if (!window.confirm("この内容で更新してもよろしいですか？")) return;
+
     const formData = new FormData();
     formData.append("title", editableTitle);
     formData.append("filename", editableFilename);
@@ -134,18 +136,23 @@ const AdminModalEditImage: React.FC<
           },
         }
       );
-      onEditSuccess(
-        response.data.image,
-        types.filter((type) => type.id === response.data.image.type_id)[0],
-        selectedCategories
-      );
-      toggleOpenModal();
+      if (response.data) {
+        alert("Success");
+        onEditSuccess(
+          response.data.image,
+          types.filter((type) => type.id === response.data.image.type_id)[0],
+          selectedCategories
+        );
+        toggleOpenModal();
+      }
     } catch (error) {
-      console.error("Upload image failed:", error);
+      alert("Upload image failed:" + error);
     }
   };
 
   const deleteImage = async (id: number) => {
+    if (!window.confirm("本当に削除しますか？")) return;
+
     try {
       const response = await axios.delete(
         import.meta.env.VITE_BASE_API + `admin/delete/${id}`,
@@ -155,9 +162,12 @@ const AdminModalEditImage: React.FC<
           },
         }
       );
-      if (response.status === 200) onDeleteSuccess();
+      if (response.status === 200) {
+        alert("success");
+        onDeleteSuccess();
+      }
     } catch (error) {
-      console.error("Delete image failed:", error);
+      alert("Delete image failed:" + error);
     }
   };
 

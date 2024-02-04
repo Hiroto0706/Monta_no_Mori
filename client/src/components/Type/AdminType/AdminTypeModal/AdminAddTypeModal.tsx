@@ -37,8 +37,10 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
   };
 
   const uploadType = async () => {
+    if (!window.confirm("この内容で作成してもよろしいですか？")) return;
+
     if (!file) {
-      console.error("No file selected");
+      alert("No file selected");
       return;
     }
 
@@ -58,11 +60,12 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
         }
       );
       if (response.status === 200) {
+        alert("Success");
         onAddSuccess();
         toggleOpenModal();
       }
     } catch (error) {
-      console.error("Upload failed:", error);
+      alert("Upload failed:" + error);
     }
   };
 

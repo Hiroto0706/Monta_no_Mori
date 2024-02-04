@@ -82,8 +82,10 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
 
   // フロントの画像データをサーバーに送信する
   const uploadImage = async () => {
+    if (!window.confirm("この内容で作成してもよろしいですか？")) return;
+
     if (!file) {
-      console.error("No file selected");
+      alert("No file selected");
       return;
     }
 
@@ -111,10 +113,11 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
         }
       );
       if (response.data) {
+        alert("Success");
         onAddSuccess();
       }
     } catch (error) {
-      console.error("Upload failed:", error);
+      alert("Upload failed:" + error);
     }
   };
 
