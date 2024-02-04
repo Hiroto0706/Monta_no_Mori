@@ -32,6 +32,8 @@ const HeaderMenu: React.FC<HeaderProps> = ({ closeHeader }) => {
   const [categories, setCategories] = useState<BasicCategory[]>([]);
   const [types, setTypes] = useState<Type[]>([]);
 
+  const loaderWidth: number = 30;
+
   const handleHeaderMenu = () => {
     closeHeader();
   };
@@ -51,6 +53,7 @@ const HeaderMenu: React.FC<HeaderProps> = ({ closeHeader }) => {
             onClick={handleHeaderMenu}
           >
             <span>おきにいり</span>
+            <span className="arrow-right"></span>
           </Link>
           <div className="header-menu__inner__type">
             <h3>たいぷ</h3>
@@ -71,7 +74,11 @@ const HeaderMenu: React.FC<HeaderProps> = ({ closeHeader }) => {
                 ))}
               </>
             ) : (
-              <LoaderSpinner />
+              <LoaderSpinner
+                width={loaderWidth}
+                height={loaderWidth}
+                message={"たいぷはみつかりませんでした！"}
+              />
             )}
           </div>
 
@@ -95,7 +102,11 @@ const HeaderMenu: React.FC<HeaderProps> = ({ closeHeader }) => {
                 ))}
               </>
             ) : (
-              <LoaderSpinner />
+              <LoaderSpinner
+                width={loaderWidth}
+                height={loaderWidth}
+                message={"かてごりはみつかりませんでした！"}
+              />
             )}
           </div>
         </div>

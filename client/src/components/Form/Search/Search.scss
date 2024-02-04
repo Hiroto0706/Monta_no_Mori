@@ -1,9 +1,7 @@
-@use "./../../../main.scss" as main;
-@use "./../../Sidebar/UserSidebar/Sidebar.scss" as sidebar;
+@use "./../../../main" as main;
 
 $padding-search-box-x: 1.5rem;
 $padding-search-box-y: 0.45rem;
-
 $search-border-radius: 0px;
 
 .search {

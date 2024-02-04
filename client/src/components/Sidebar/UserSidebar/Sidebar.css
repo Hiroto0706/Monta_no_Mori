@@ -1,7 +1,9 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
 body {
   margin: 0;
   background-color: #f2f2f2;
   color: #646464;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 ul,

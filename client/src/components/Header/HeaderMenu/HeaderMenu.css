@@ -1,7 +1,9 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
 body {
   margin: 0;
   background-color: #f2f2f2;
   color: #646464;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 ul,
@@ -47,9 +49,7 @@ li {
 .sidebar__inner__type h3 {
   margin-bottom: 0.5rem;
 }
-.sidebar__inner__category {
-  padding-bottom: 3rem;
-}
+
 .sidebar__inner__category h3 {
   margin-bottom: 0.5rem;
 }
@@ -120,14 +120,47 @@ li {
 }
 .header-menu__inner__favorite {
   text-decoration: none;
-  color: #646464;
   display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #646464;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  background-color: #f4f4f4;
-  border: 1.25px solid #afafaf;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 15px;
+}
+.header-menu__inner__favorite:hover {
+  background-color: #f4f4f4;
+}
+.header-menu__inner__favorite .arrow-right {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  position: relative;
+  width: 0.75rem;
+  height: 0.75rem;
+  transform: translateX(-25%) rotate(45deg);
+}
+.header-menu__inner__favorite .arrow-right::before, .header-menu__inner__favorite .arrow-right::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  border-radius: 0.1em;
+}
+.header-menu__inner__favorite .arrow-right::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.1em;
+}
+.header-menu__inner__favorite .arrow-right::after {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0.1em;
 }
 @media screen and (max-width: 880px) {
   .header-menu {

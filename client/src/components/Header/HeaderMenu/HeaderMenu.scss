@@ -1,3 +1,4 @@
+@use "../../../main.scss" as main;
 @use "../../Sidebar/UserSidebar/Sidebar.scss" as sidebar;
 
 .header-menu {
@@ -15,15 +16,53 @@
   &__inner {
     &__favorite {
       text-decoration: none;
-      color: sidebar.$type-btn-font-color;
       display: block;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: main.$base-font-color;
       margin-top: 1.5rem;
       margin-bottom: 1rem;
-      background-color: sidebar.$type-btn-bgcolor;
-      border: sidebar.$type-btn-line-size solid sidebar.$type-btn-line-color;
-      padding: sidebar.$type-btn-padding-y sidebar.$type-btn-padding-x;
-
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       border-radius: 15px;
+
+      &:hover {
+        background-color: sidebar.$type-btn-bgcolor;
+      }
+
+      .arrow-right {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+        position: relative;
+        width: 0.75rem;
+        height: 0.75rem;
+        transform: translateX(-25%) rotate(45deg);
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          background: currentColor;
+          border-radius: 0.1em;
+        }
+
+        &::before {
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 0.1em;
+        }
+
+        &::after {
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 0.1em;
+        }
+      }
     }
   }
 
