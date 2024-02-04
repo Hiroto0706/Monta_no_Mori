@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
         <div className="sidebar__inner">
           <div className="sidebar__inner__type">
             <h3>たいぷ</h3>
-            {types.length > 0 ? (
+            {types ? (
               <>
                 {types.map((type) => (
                   <Link
@@ -56,13 +56,17 @@ const Sidebar: React.FC = () => {
                 ))}
               </>
             ) : (
-              <LoaderSpinner width={loaderWidth} height={loaderWidth} />
+              <LoaderSpinner
+                width={loaderWidth}
+                height={loaderWidth}
+                message="たいぷはみつかりませんでした！"
+              />
             )}
           </div>
 
           <div className="sidebar__inner__category">
             <h3>かてごり</h3>
-            {categories.length > 0 ? (
+            {categories ? (
               <>
                 {categories.map((category) => (
                   <Link
@@ -79,7 +83,11 @@ const Sidebar: React.FC = () => {
                 ))}
               </>
             ) : (
-              <LoaderSpinner width={loaderWidth} height={loaderWidth} />
+              <LoaderSpinner
+                width={loaderWidth}
+                height={loaderWidth}
+                message="かてごりはみつかりませんでした！"
+              />
             )}
           </div>
         </div>

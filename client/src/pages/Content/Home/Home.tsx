@@ -34,7 +34,6 @@ export interface responsePayload {
 const Home: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +41,9 @@ const Home: React.FC = () => {
       localStorage.getItem("favorites") || "[]"
     );
     setFavoriteIDs(storedFavorites);
+  }, []);
 
+  useEffect(() => {
     FetchUsersImages(dispatch);
   }, [dispatch]);
 

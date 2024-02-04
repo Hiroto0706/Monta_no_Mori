@@ -57,7 +57,7 @@ const AdminModalType: React.FC<ModalTypeProps> = ({
           },
         }
       );
-      if (response.data) {
+      if (response.status === 200) {
         onAddSuccess();
         toggleOpenModal();
       }

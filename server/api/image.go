@@ -20,6 +20,21 @@ type responseImage struct {
 	Categories []db.Category `json:"categories"`
 }
 
+// ListImagesResponse represents a list of images response
+type ListImagesResponse struct {
+	Payload []responseImage `json:"payload"`
+}
+
+// ListImages godoc
+// @Summary Imagesを取得する
+// @Tags images
+// @Produce  json
+// @Param limit query int false "Limit"
+// @Param offset query int false "Offset"
+// @Success 200 {object} ListImagesResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /images [get]
 func (server *Server) ListImages(ctx *gin.Context) {
 	// TODO: 引数が固定なので修正する必要あり
 	arg := db.ListImageParams{
@@ -69,13 +84,24 @@ func (server *Server) ListImages(ctx *gin.Context) {
 		resImages = append(resImages, resImage)
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "List images successfully",
-		"payload": resImages,
+	ctx.JSON(http.StatusOK, ListImagesResponse{
+		Payload: resImages,
 	})
 }
 
-// ListOtherImages 画像詳細の下に表示する『おすすめのがぞう』を取得する処理
+// ListOtherImagesResponse represents a list of images response
+type ListOtherImagesResponse struct {
+	Payload []responseImage `json:"payload"`
+}
+
+// ListOtherImages godoc
+// @Summary 画像詳細にて表示するその他のおすすめ画像
+// @Tags images
+// @Produce  json
+// @Success 200 {object} ListImagesResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /others [get]
 func (server *Server) ListOtherImages(ctx *gin.Context) {
 	// TODO: 引数が固定なので修正する必要あり
 	arg := db.ListRandomImageParams{
@@ -109,12 +135,28 @@ func (server *Server) ListOtherImages(ctx *gin.Context) {
 		resImages = append(resImages, resImage)
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "List other images successfully",
-		"payload": resImages,
+	ctx.JSON(http.StatusOK, ListOtherImagesResponse{
+		Payload: resImages,
 	})
 }
 
+type SearchImagesResponse struct {
+	Result []responseImage `json:"result"`
+}
+
+// SearchImages godoc
+// @Summary クエリパラメータをもとに画像を検索する
+// @Description 指定されたテキストに基づいて画像を検索します。
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param q query string false "検索テキスト"
+// @Param limit query int false "Limit"
+// @Param offset query int false "Offset"
+// @Success 200 {object} SearchImagesResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /search [get]
 func (server *Server) SearchImages(ctx *gin.Context) {
 	searchText := ctx.Query("q")
 	args := db.ListImageByTitleParams{
@@ -169,9 +211,30 @@ func (server *Server) SearchImages(ctx *gin.Context) {
 		resImages = append(resImages, resImage)
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"result": resImages})
+	ctx.JSON(http.StatusOK, SearchImagesResponse{
+		Result: resImages,
+	})
 }
 
+type UploadImageResponse struct {
+	Image db.Image `json:"image"`
+}
+
+// UploadImage godoc
+// @Summary 画像のアップロード
+// @Description タイトル、ファイル名、タイプID、カテゴリー、画像ファイルを受け取り、画像をアップロードします。
+// @Tags images
+// @Accept multipart/form-data
+// @Produce  json
+// @Param title formData string true "タイトル"
+// @Param filename formData string true "ファイル名"
+// @Param typeId formData int true "タイプID"
+// @Param categories formData []string false "カテゴリー（ID:名前の形式）"
+// @Param file formData file true "アップロードする画像ファイル"
+// @Success 200 {object} UploadImageResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /admin/upload [post]
 func (server *Server) UploadImage(ctx *gin.Context) {
 	title := ctx.PostForm("title")
 	filename := strings.ReplaceAll(ctx.PostForm("filename"), " ", "-")
@@ -183,17 +246,17 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 	}
 	categoryData := ctx.PostFormArray("categories")
 
-	type Category struct {
+	type category struct {
 		ID   int    `json:"id"`
 		Name string `json:"name"`
 	}
-	var categories []Category
+	var categories []category
 	for _, data := range categoryData {
 		parts := strings.Split(data, ":")
 		if len(parts) == 2 {
 			id, _ := strconv.Atoi(parts[0])
 			name := parts[1]
-			categories = append(categories, Category{ID: id, Name: name})
+			categories = append(categories, category{ID: id, Name: name})
 		}
 	}
 	file, err := ctx.FormFile("file")
@@ -241,12 +304,31 @@ func (server *Server) UploadImage(ctx *gin.Context) {
 		}
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "image create successfully",
-		"image":   image,
+	ctx.JSON(http.StatusOK, UploadImageResponse{
+		Image: image,
 	})
 }
 
+type EditImageResponse struct {
+	Image db.Image `json:"image"`
+}
+
+// EditImage godoc
+// @Summary 画像情報の編集
+// @Description 与えられたIDの画像情報を編集します。
+// @Tags images
+// @Accept multipart/form-data
+// @Produce  json
+// @Param id path int true "画像ID"
+// @Param title formData string true "タイトル"
+// @Param filename formData string true "ファイル名"
+// @Param typeId formData int true "タイプID"
+// @Param categories formData []string false "カテゴリー（ID:名前の形式）"
+// @Param file formData file false "アップロードする画像ファイル"
+// @Success 200 {object} EditImageResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router admin/edit/{id} [put]
 func (server *Server) EditImage(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
@@ -372,12 +454,22 @@ func (server *Server) EditImage(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "image update successfully",
-		"image":   newImage,
+	ctx.JSON(http.StatusOK, EditImageResponse{
+		Image: newImage,
 	})
 }
 
+// DeleteImage godoc
+// @Summary 画像の削除
+// @Description 指定されたIDの画像を削除します。
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param id path int true "画像ID"
+// @Success 200 {object} nil
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /admin/delete/{id} [delete]
 func (server *Server) DeleteImage(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
@@ -409,11 +501,24 @@ func (server *Server) DeleteImage(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "delete image successfully",
-	})
+	ctx.JSON(http.StatusOK, nil)
 }
 
+type SearchImagesByTypeResponse struct {
+	Payload []responseImage `json:"payload"`
+}
+
+// SearchImagesByType godoc
+// @Summary 特定のタイプに基づいて画像を検索する
+// @Description 指定されたタイプ名に基づいて画像を検索します。
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param name path string true "画像タイプ名"
+// @Success 200 {object} SearchImagesByTypeResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /search/type/{name} [get]
 func (server *Server) SearchImagesByType(ctx *gin.Context) {
 	typeName := ctx.Param("name")
 	searchType, err := server.store.GetTypeByName(ctx, typeName)
@@ -475,9 +580,26 @@ func (server *Server) SearchImagesByType(ctx *gin.Context) {
 		resImages = append(resImages, resImage)
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"payload": resImages})
+	ctx.JSON(http.StatusOK, SearchImagesByTypeResponse{
+		Payload: resImages,
+	})
 }
 
+type SearchImagesByCategoryResponse struct {
+	Payload []responseImage `json:"payload"`
+}
+
+// SearchImagesByCategory godoc
+// @Summary 特定のカテゴリーに基づいて画像を検索する
+// @Description 指定されたカテゴリー名に基づいて画像を検索します。
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param name path string true "カテゴリー名"
+// @Success 200 {object} SearchImagesByCategoryResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /search/category/{name} [get]
 func (server *Server) SearchImagesByCategory(ctx *gin.Context) {
 	categoryName := ctx.Param("name")
 	searchCategory, err := server.store.GetCategoryByName(ctx, categoryName)
@@ -539,9 +661,26 @@ func (server *Server) SearchImagesByCategory(ctx *gin.Context) {
 		resImages = append(resImages, resImage)
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"payload": resImages})
+	ctx.JSON(http.StatusOK, SearchImagesByCategoryResponse{
+		Payload: resImages,
+	})
 }
 
+type GetImageFromTitleResponse struct {
+	Result responseImage `json:"result"`
+}
+
+// GetImageFromTitle godoc
+// @Summary タイトルに基づいて画像を取得する
+// @Description 指定されたタイトルに基づいて画像を取得します。
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param title path string true "画像のタイトル"
+// @Success 200 {object} GetImageFromTitleResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /images/{title} [get]
 func (server *Server) GetImageFromTitle(ctx *gin.Context) {
 	title := ctx.Param("title")
 	image, err := server.store.GetImageByTitle(ctx, title)
@@ -584,5 +723,7 @@ func (server *Server) GetImageFromTitle(ctx *gin.Context) {
 	}
 	resImage.Categories = categories
 
-	ctx.JSON(http.StatusOK, gin.H{"result": resImage})
+	ctx.JSON(http.StatusOK, GetImageFromTitleResponse{
+		Result: resImage,
+	})
 }
