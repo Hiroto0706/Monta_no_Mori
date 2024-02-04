@@ -9,6 +9,7 @@ import "./Home.css";
 const Favorite: React.FC = () => {
   const [images, setImages] = useState<UserImage[]>([]);
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
+  const [loaderTimeout, setLoaderTimeout] = useState<number>(100000);
 
   const toggleFavorite = (imageId: string) => {
     let updatedFavorites: string[];
@@ -25,9 +26,10 @@ const Favorite: React.FC = () => {
     const storedFavorites = JSON.parse(
       localStorage.getItem("favorites") || "[]"
     );
+    if (storedFavorites.length === 0) setLoaderTimeout(0);
     setFavoriteIDs(storedFavorites);
     fetchFavoriteImages(setImages, storedFavorites);
-  }, []);
+  }, [loaderTimeout]);
 
   return (
     <>
@@ -48,7 +50,10 @@ const Favorite: React.FC = () => {
               />
             ))
           ) : (
-            <LoaderSpinner />
+            <LoaderSpinner
+              timeout={loaderTimeout}
+              message={"おきにいりのはまだないよ！"}
+            />
           )}
         </ul>
       </div>
