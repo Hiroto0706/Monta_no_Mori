@@ -143,7 +143,11 @@ const ImageDetail: React.FC = () => {
                     {type.name}
                   </Link>
                 ) : (
-                  <LoaderSpinner width={loaderSize} height={loaderSize} />
+                  <LoaderSpinner
+                    width={loaderSize}
+                    height={loaderSize}
+                    message="たいぷはみつかりませんでした！"
+                  />
                 )}
               </div>
 
@@ -162,7 +166,11 @@ const ImageDetail: React.FC = () => {
                     ))}
                   </>
                 ) : (
-                  <LoaderSpinner width={loaderSize} height={loaderSize} />
+                  <LoaderSpinner
+                    width={loaderSize}
+                    height={loaderSize}
+                    message="かてごりはみつかりませんでした！"
+                  />
                 )}
               </div>
             </div>

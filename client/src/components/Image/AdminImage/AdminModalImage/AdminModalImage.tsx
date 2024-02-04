@@ -147,12 +147,15 @@ const AdminModalEditImage: React.FC<
 
   const deleteImage = async (id: number) => {
     try {
-      await axios.delete(import.meta.env.VITE_BASE_API + `admin/delete/${id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("access_token"),
-        },
-      });
-      onDeleteSuccess();
+      const response = await axios.delete(
+        import.meta.env.VITE_BASE_API + `admin/delete/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("access_token"),
+          },
+        }
+      );
+      if (response.status === 200) onDeleteSuccess();
     } catch (error) {
       console.error("Delete image failed:", error);
     }

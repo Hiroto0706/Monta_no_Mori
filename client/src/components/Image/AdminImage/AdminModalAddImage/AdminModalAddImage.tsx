@@ -232,14 +232,15 @@ const AdminModalAddImage: React.FC<ModalImageProps> = ({
                 }}
               >
                 {isCategoryModalOpen ? "CLOSE" : "+ ADD"}
-                {isCategoryModalOpen && (
-                  <AdminCategoryModal
-                    onClose={handleCategoryModal}
-                    categories={categories}
-                    onCategoryChange={handleCategoryChange}
-                  />
-                )}
               </span>
+
+              {isCategoryModalOpen && (
+                <AdminCategoryModal
+                  onClose={handleCategoryModal}
+                  categories={categories}
+                  onCategoryChange={handleCategoryChange}
+                />
+              )}
             </div>
           </div>
 

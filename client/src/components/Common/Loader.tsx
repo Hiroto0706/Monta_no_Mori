@@ -7,13 +7,15 @@ type Props = {
   width?: number;
   timeout?: number;
   hasHeight?: boolean;
+  message?: string;
 };
 
 const LoaderSpinner: React.FC<Props> = ({
   timeout = 100000,
   height = 50,
   width = 50,
-  hasHeight,
+  hasHeight = false,
+  message = "がぞうはみつかりませんでした！",
 }) => {
   const [isTimeout, setIsTimeout] = useState(false);
 
@@ -32,7 +34,7 @@ const LoaderSpinner: React.FC<Props> = ({
           <Oval color="#4caf50" height={height} width={width} />
         </div>
       ) : (
-        <p className="text">がぞうはみつかりませんでした！</p>
+        <p className="text">{message}</p>
       )}
     </div>
   );

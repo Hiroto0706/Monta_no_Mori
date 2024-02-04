@@ -88,8 +88,13 @@ func (server *Server) Start(address string) error {
 	return server.router.Run(address)
 }
 
-func errorResponse(err error) gin.H {
-	return gin.H{"error": err.Error()}
+// ErrorResponse represents an error response
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
+
+func errorResponse(err error) ErrorResponse {
+	return ErrorResponse{Error: err.Error()}
 }
 
 func CORSMiddleware() gin.HandlerFunc {
