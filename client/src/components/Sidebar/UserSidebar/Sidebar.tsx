@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
               <LoaderSpinner
                 width={loaderWidth}
                 height={loaderWidth}
-                message="たいぷはみつかりませんでした！"
+                message={"たいぷはみつかりませんでした！"}
               />
             )}
           </div>
@@ -86,7 +86,7 @@ const Sidebar: React.FC = () => {
               <LoaderSpinner
                 width={loaderWidth}
                 height={loaderWidth}
-                message="かてごりはみつかりませんでした！"
+                message={"かてごりはみつかりませんでした！"}
               />
             )}
           </div>
