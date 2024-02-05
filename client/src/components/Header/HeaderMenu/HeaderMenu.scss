@@ -22,7 +22,7 @@
       color: main.$base-font-color;
       margin-top: 1.5rem;
       margin-bottom: 1rem;
-      padding: 0.5rem;
+      padding: 0.5rem 0.5rem 0.5rem 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -39,7 +39,7 @@
         position: relative;
         width: 0.75rem;
         height: 0.75rem;
-        transform: translateX(-25%) rotate(45deg);
+        transform: translateX(0) rotate(45deg);
 
         &::before,
         &::after {

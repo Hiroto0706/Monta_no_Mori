@@ -128,7 +128,7 @@ li {
   color: #646464;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -144,7 +144,7 @@ li {
   position: relative;
   width: 0.75rem;
   height: 0.75rem;
-  transform: translateX(-25%) rotate(45deg);
+  transform: translateX(0) rotate(45deg);
 }
 .header-menu__inner__favorite .arrow-right::before, .header-menu__inner__favorite .arrow-right::after {
   content: "";
