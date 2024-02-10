@@ -26,11 +26,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-radius: 15px;
-
-      &:hover {
-        background-color: sidebar.$type-btn-bgcolor;
-      }
 
       .arrow-right {
         display: inline-block;
