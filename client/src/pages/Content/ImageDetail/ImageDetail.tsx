@@ -57,7 +57,7 @@ const ImageDetail: React.FC = () => {
       : decodedPathname;
 
     axios
-      .get(import.meta.env.VITE_BASE_API + `image/${imageTitle}`)
+      .get(import.meta.env.VITE_BASE_API + `${imageTitle}`)
       .then((response) => {
         setImage(response.data.result.image);
         setType(response.data.result.type);

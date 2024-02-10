@@ -20,7 +20,7 @@ const OtherImage: React.FC<UserImage> = ({ id, title, src }) => {
   }, [id]);
 
   return (
-    <Link to={`/${title}`} style={{ textDecoration: "none" }}>
+    <Link to={`/image/${title}`} style={{ textDecoration: "none" }}>
       <li className="image-box" onClick={(e) => e.stopPropagation()}>
         <div className="image-box__img">
           <img src={src} alt={title} />
