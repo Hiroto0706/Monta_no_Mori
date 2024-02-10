@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import Image from "./Image";
 import { UserImage } from "../../../pages/Content/Home/Home";
@@ -41,21 +41,27 @@ const InfinityImageList: React.FC<Props> = ({ loadMore, hasMore, images }) => {
       <InfiniteScroll
         loadMore={loadMore}
         hasMore={hasMore}
-        loader={<LoaderSpinner />}
+        loader={<LoaderSpinner key={0} />}
       >
         <ul className="home__image-list">
-          {images.map((image) => (
-            <Image
-              key={image.id}
-              id={image.id}
-              title={image.title}
-              src={image.src}
-              type_id={image.type_id}
-              type={image.type}
-              toggleFavorite={() =>
-                toggleFavorite(image.id.toString(), favoriteIDs, setFavoriteIDs)
-              }
-            />
+          {images.map((image, index) => (
+            <Fragment key={index}>
+              <Image
+                key={image.id}
+                id={image.id}
+                title={image.title}
+                src={image.src}
+                type_id={image.type_id}
+                type={image.type}
+                toggleFavorite={() =>
+                  toggleFavorite(
+                    image.id.toString(),
+                    favoriteIDs,
+                    setFavoriteIDs
+                  )
+                }
+              />
+            </Fragment>
           ))}
         </ul>
       </InfiniteScroll>
