@@ -17,6 +17,11 @@ SELECT *
 FROM images
 ORDER BY id DESC
 LIMIT $1 OFFSET $2;
+-- name: ListFavoriteImage :many
+SELECT *
+FROM images
+WHERE id = ANY(string_to_array($1, ',')::int[])
+ORDER BY id DESC;
 -- name: ListRandomImage :many
 SELECT *
 FROM images
@@ -37,11 +42,9 @@ WHERE id = $1;
 SELECT *
 FROM images
 WHERE title LIKE '%' || COALESCE(sqlc.arg(title)) || '%'
-ORDER BY id DESC
-LIMIT $1 OFFSET $2;
+ORDER BY id DESC;
 -- name: ListImageByType :many
 SELECT *
 FROM images
 WHERE type_id = $1
-ORDER BY id DESC
-LIMIT $2 OFFSET $3;
+ORDER BY id DESC;

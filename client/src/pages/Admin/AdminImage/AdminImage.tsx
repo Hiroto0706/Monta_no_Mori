@@ -40,20 +40,80 @@ interface responsePayload {
 export default function AdminImage() {
   const [isOpenAddImageModal, setIsOpenAddImageModal] = useState(false);
   const [images, setImages] = useState<Image[]>([]);
+  const [page, setPage] = useState(0);
   const navigate = useNavigate();
+  const [imageNotfound, setImageNotFound] = useState(false);
+
+  const fetchImages = (p: number) => {
+    axios
+      .get(import.meta.env.VITE_BASE_API + "admin/" + `?p=${p}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("access_token"),
+        },
+      })
+      .then((response) => {
+        const responsePayload = response.data.payload;
+        if (responsePayload.length === 0) {
+          setImageNotFound(true);
+          return;
+        }
+        const transformedImages = responsePayload.map(transformPayloadToImage);
+        setImages(transformedImages);
+      })
+      .catch((error) => {
+        setImageNotFound(true);
+        console.error("List images failed : ", error);
+      });
+  };
+
+  const transformPayloadToImage = (payload: responsePayload) => {
+    return {
+      id: payload.image.id,
+      src: payload.image.src,
+      title: payload.image.title,
+      filename: payload.image.filename,
+      type: payload.type,
+      categories: payload.categories.map((cat) => ({
+        ...cat,
+        selected: true,
+      })),
+    };
+  };
 
   const toggleIsOpenAddImageModal = () => {
     setIsOpenAddImageModal(!isOpenAddImageModal);
   };
 
   const reFetchImages = () => {
-    fetchImages(setImages);
+    fetchImages(page);
   };
 
   useEffect(() => {
     IsLoggedIn(localStorage.getItem("access_token"), navigate);
-    fetchImages(setImages);
-  }, [navigate]);
+
+    const searchParams = new URLSearchParams(location.search);
+    let pageNum = 0; // デフォルト値を0とする
+
+    if (searchParams.has("p")) {
+      const pageParam = searchParams.get("p");
+      if (pageParam) {
+        const parsedPageNum = parseInt(pageParam, 10);
+        if (!isNaN(parsedPageNum)) {
+          pageNum = parsedPageNum;
+        } else {
+          console.log("`p` parameter is not a valid number.");
+        }
+      }
+    } else {
+      // クエリパラメータが存在しない場合、デフォルトとしてp=0をURLに設定
+      const newSearchParams = new URLSearchParams(location.search);
+      newSearchParams.set("p", "0");
+      navigate(`?${newSearchParams.toString()}`, { replace: true });
+    }
+
+    setPage(pageNum);
+    fetchImages(pageNum);
+  }, [navigate, location.search]);
 
   return (
     <>
@@ -75,61 +135,37 @@ export default function AdminImage() {
               />
             )}
           </div>
-          <ul className="admin-component__image-list">
-            {images.length > 0 ? (
-              <>
-                {images.map((image) => (
-                  <ImageList
-                    key={image.id}
-                    id={image.id}
-                    src={image.src}
-                    title={image.title}
-                    filename={image.filename}
-                    type={image.type}
-                    categories={image.categories}
-                    reFetchImages={() => reFetchImages()}
-                  />
-                ))}
-              </>
-            ) : (
-              <LoaderSpinner />
-            )}
-          </ul>
+
+          {!imageNotfound ? (
+            <>
+              <ul className="admin-component__image-list">
+                {images.length > 0 ? (
+                  <>
+                    {images.map((image) => (
+                      <ImageList
+                        key={image.id}
+                        id={image.id}
+                        src={image.src}
+                        title={image.title}
+                        filename={image.filename}
+                        type={image.type}
+                        categories={image.categories}
+                        reFetchImages={() => reFetchImages()}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  <LoaderSpinner />
+                )}
+              </ul>
+            </>
+          ) : (
+            <>
+              <p>がぞうはみつかりませんでした</p>
+            </>
+          )}
         </div>
       </div>
     </>
   );
 }
-
-const fetchImages = (
-  setImages: React.Dispatch<React.SetStateAction<Image[]>>
-) => {
-  axios
-    .get(import.meta.env.VITE_BASE_API + "admin/", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("access_token"),
-      },
-    })
-    .then((response) => {
-      const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(transformPayloadToImage);
-      setImages(transformedImages);
-    })
-    .catch((error) => {
-      console.error("List images failed : ", error);
-    });
-};
-
-const transformPayloadToImage = (payload: responsePayload) => {
-  return {
-    id: payload.image.id,
-    src: payload.image.src,
-    title: payload.image.title,
-    filename: payload.image.filename,
-    type: payload.type,
-    categories: payload.categories.map((cat) => ({
-      ...cat,
-      selected: true,
-    })),
-  };
-};

@@ -6,6 +6,7 @@ package db
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/google/uuid"
 )
@@ -32,9 +33,10 @@ type Querier interface {
 	GetTypeByName(ctx context.Context, name string) (Type, error)
 	GetUser(ctx context.Context, username string) (User, error)
 	ListCategories(ctx context.Context, arg ListCategoriesParams) ([]Category, error)
+	ListFavoriteImage(ctx context.Context, stringToArray string) ([]Image, error)
 	ListImage(ctx context.Context, arg ListImageParams) ([]Image, error)
-	ListImageByTitle(ctx context.Context, arg ListImageByTitleParams) ([]Image, error)
-	ListImageByType(ctx context.Context, arg ListImageByTypeParams) ([]Image, error)
+	ListImageByTitle(ctx context.Context, title sql.NullString) ([]Image, error)
+	ListImageByType(ctx context.Context, typeID int64) ([]Image, error)
 	ListImageCategoriesByCategory(ctx context.Context, categoryID int64) ([]ImageCategory, error)
 	ListImageCategoriesByImage(ctx context.Context, imageID int64) ([]ImageCategory, error)
 	ListRandomImage(ctx context.Context, arg ListRandomImageParams) ([]Image, error)

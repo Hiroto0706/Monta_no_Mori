@@ -20,6 +20,7 @@ type Config struct {
 	MasterUsername       string        `mapstructure:"MASTER_USERNAME"`
 	MasterEmail          string        `mapstructure:"MASTER_EMAIL"`
 	MasterPassword       string        `mapstructure:"MASTER_PASSWORD"`
+	ImageFetchLimit      int           `mapstructure:"IMAGE_FETCH_LIMIT"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

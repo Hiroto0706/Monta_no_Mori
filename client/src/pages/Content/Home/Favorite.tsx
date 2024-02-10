@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { UserImage, responsePayload } from "./Home";
-
-import ImageCard from "../../../components/Image/UserImage/Image";
+import { TransformPayloadToImage, UserImage } from "./Home";
 import LoaderSpinner from "../../../components/Common/Loader";
 import "./Home.css";
+import Image from "../../../components/Image/UserImage/Image";
 
 const Favorite: React.FC = () => {
   const [images, setImages] = useState<UserImage[]>([]);
@@ -22,13 +21,28 @@ const Favorite: React.FC = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
+  const fetchFavoriteImages = (favoriteIDs: string[]) => {
+    const joinedFavIDs = favoriteIDs.join(",");
+    axios
+      .get(import.meta.env.VITE_BASE_API + "favorite" + `?id=${joinedFavIDs}`)
+      .then((response) => {
+        const responsePayload = response.data.payload;
+        const transformedImages = responsePayload.map(TransformPayloadToImage);
+        
+        setImages(transformedImages);
+      })
+      .catch((error) => {
+        console.error("List favorite images failed : ", error);
+      });
+  };
+
   useEffect(() => {
     const storedFavorites = JSON.parse(
       localStorage.getItem("favorites") || "[]"
     );
     if (storedFavorites.length === 0) setLoaderTimeout(0);
     setFavoriteIDs(storedFavorites);
-    fetchFavoriteImages(setImages, storedFavorites);
+    fetchFavoriteImages(storedFavorites);
   }, [loaderTimeout]);
 
   return (
@@ -39,7 +53,7 @@ const Favorite: React.FC = () => {
         <ul className="home__image-list">
           {images.length > 0 ? (
             images.map((image) => (
-              <ImageCard
+              <Image
                 key={image.id}
                 id={image.id}
                 title={image.title}
@@ -62,34 +76,3 @@ const Favorite: React.FC = () => {
 };
 
 export default Favorite;
-
-const fetchFavoriteImages = (
-  setImages: React.Dispatch<React.SetStateAction<UserImage[]>>,
-  favoriteIDs: string[]
-) => {
-  axios
-    .get(import.meta.env.VITE_BASE_API)
-    .then((response) => {
-      const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(transformPayloadToImage);
-
-      const favoriteImages = transformedImages.filter((image: UserImage) =>
-        favoriteIDs.includes(image.id.toString())
-      );
-
-      setImages(favoriteImages);
-    })
-    .catch((error) => {
-      console.error("List favorite images failed : ", error);
-    });
-};
-
-const transformPayloadToImage = (payload: responsePayload) => {
-  return {
-    id: payload.image.id,
-    src: payload.image.src,
-    title: payload.image.title,
-    type_id: payload.image.type_id,
-    type: payload.type,
-  };
-};

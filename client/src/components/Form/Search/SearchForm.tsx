@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import { setSearchQueryParameter } from "../../../slice";
-import { SearchUserImages } from "./SearchHome";
+import { SearchUserImages } from "../../../pages/Content/Home/SearchHome";
 
 import axios from "axios";
 import "./SearchForm.css";

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { SearchUserImages } from "../../../pages/Content/Home/SearchHome";
 import { useLocation, useSearchParams } from "react-router-dom";
-
 import { setSearchQueryParameter } from "../../../slice";
 
 import axios from "axios";
 
 import "./Search.css";
-import { SearchUserImages } from "../../../pages/Content/Home/SearchHome";
 
 const Search: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
@@ -55,18 +54,21 @@ const Search: React.FC = () => {
 
 export default Search;
 
-export const SearchImages = async (searchText: string, dispatch: Dispatch) => {
+export const SearchImages = async (
+  searchText: string,
+  dispatch: Dispatch,
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  if (setIsLoading) setIsLoading(true);
   try {
-    const response = await axios.get(
-      import.meta.env.VITE_BASE_API + "search",
-      {
-        params: {
-          q: searchText,
-        },
-      }
-    );
+    const response = await axios.get(import.meta.env.VITE_BASE_API + "search", {
+      params: {
+        q: searchText,
+      },
+    });
     SearchUserImages(dispatch, response.data.result);
   } catch (error) {
     console.error("Error during image search", error);
   }
+  if (setIsLoading) setIsLoading(false);
 };
