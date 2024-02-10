@@ -9,7 +9,7 @@ import { downloadImage, copyImageToClipboard } from "../../imageUtil";
 import "./ModalImage.css";
 import "./../../../Sidebar/UserSidebar/Sidebar.css";
 
-interface ModalImageProps {
+interface Props {
   id: number;
   src: string;
   title: string;
@@ -24,7 +24,7 @@ export interface ModalCategory {
   name: string;
 }
 
-const ModalImage: React.FC<ModalImageProps> = ({
+const ModalImage: React.FC<Props> = ({
   id,
   src,
   title,
@@ -80,7 +80,7 @@ const ModalImage: React.FC<ModalImageProps> = ({
           <div>
             <div className="title">
               <h2>
-                <Link to={`/${title}`}>{title}</Link>
+                <Link to={`/image/${title}`}>{title}</Link>
               </h2>
               <img
                 src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}

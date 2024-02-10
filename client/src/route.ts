@@ -28,7 +28,7 @@ const routes: RouteType[] = [
     name: "Home",
   },
   {
-    path: "/:title",
+    path: "/image/:title",
     component: ImageDetail,
     name: "ImageDetail",
   },

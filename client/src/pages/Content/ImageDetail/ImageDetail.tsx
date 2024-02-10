@@ -17,7 +17,7 @@ import "./ImageDetail.css";
 
 const ImageDetail: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
-  const [, setFavoriteIDs] = useState<string[]>([]);
+  const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
   const [image, setImage] = useState<UserImage | null>(null);
   const [otherImages, setOtherImages] = useState<UserImage[]>([]);
   const [type, setType] = useState<UserType | null>(null);
@@ -25,6 +25,7 @@ const ImageDetail: React.FC = () => {
   const [copiedText, setCopiedText] = useState<string>("こぴー");
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const loaderSize: number = 30;
+  const [imageNotfound, setImageNotFound] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -57,26 +58,23 @@ const ImageDetail: React.FC = () => {
       : decodedPathname;
 
     axios
-      .get(import.meta.env.VITE_BASE_API + `image/${imageTitle}`)
+      .get(import.meta.env.VITE_BASE_API + `${imageTitle}`)
       .then((response) => {
         setImage(response.data.result.image);
         setType(response.data.result.type);
         setCategories(response.data.result.categories);
       })
       .catch((error) => {
+        setImageNotFound(true);
         console.error("List categories failed:", error);
       });
   }, []);
 
   useEffect(() => {
-    if (image?.id) {
-      const favorites: string[] = JSON.parse(
-        localStorage.getItem("favorites") || "[]"
-      );
-
-      setIsLiked(favorites.includes(image.id.toString()));
+    if (image?.id && favoriteIDs) {
+      setIsLiked(favoriteIDs.includes(image.id.toString()));
     }
-  }, [image]);
+  }, [image, favoriteIDs]);
 
   useEffect(() => {
     const storedFavorites = JSON.parse(
@@ -103,112 +101,123 @@ const ImageDetail: React.FC = () => {
 
   return (
     <>
-      <div>
-        <div className="image-detail">
-          <div className="image-detail__img">
-            <div className="img">
-              {image?.src ? (
-                <img src={image.src} alt={image.title} />
-              ) : (
-                <LoaderSpinner hasHeight={true} />
+      {!imageNotfound ? (
+        <div>
+          <div className="image-detail">
+            <div className="image-detail__img">
+              <div className="img">
+                {image?.src ? (
+                  <img src={image.src} alt={image.title} />
+                ) : (
+                  <LoaderSpinner hasHeight={true} />
+                )}
+              </div>
+            </div>
+
+            <div className="image-detail__desc">
+              <div>
+                <div className="title">
+                  {image && (
+                    <>
+                      <h2>{image.title}</h2>
+                      <img
+                        src={
+                          isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"
+                        }
+                        onClick={() => {
+                          toggleLike(image.id.toString());
+                        }}
+                      />
+                    </>
+                  )}
+                </div>
+
+                <div className="type">
+                  <h3>たいぷ</h3>
+                  {type ? (
+                    <Link
+                      to={`/search/type/${type.name}`}
+                      className="type-link-modal"
+                    >
+                      <img src={type.src} />
+                      {type.name}
+                    </Link>
+                  ) : (
+                    <LoaderSpinner
+                      width={loaderSize}
+                      height={loaderSize}
+                      message="たいぷはみつかりませんでした！"
+                    />
+                  )}
+                </div>
+
+                <div className="category">
+                  <h3>かてごり</h3>
+                  {categories.length > 0 ? (
+                    <>
+                      {categories.map((category) => (
+                        <Link
+                          to={`/search/category/${category.name}`}
+                          className="category-link"
+                          key={category.id}
+                        >
+                          #{category.name}
+                        </Link>
+                      ))}
+                    </>
+                  ) : (
+                    <LoaderSpinner
+                      width={loaderSize}
+                      height={loaderSize}
+                      message="かてごりはみつかりませんでした！"
+                    />
+                  )}
+                </div>
+              </div>
+
+              {image && (
+                <div className="image-detail__desc__button user-modal">
+                  <button
+                    className="download"
+                    onClick={() => {
+                      downloadImage(image.src);
+                    }}
+                  >
+                    <img src="/download-icon.png" />
+                    だうんろーど
+                  </button>
+                  <button
+                    className="copy"
+                    onClick={() =>
+                      copyImageToClipboard(
+                        image.src,
+                        setCopiedText,
+                        setIsCopied
+                      )
+                    }
+                  >
+                    <img src="/copy-icon.png" />
+                    <span
+                      style={
+                        isCopied ? { color: "#4caf50", fontWeight: "bold" } : {}
+                      }
+                    >
+                      {copiedText}
+                    </span>
+                  </button>
+                  <p className="download-copy-text">
+                    画像を長押しして保存またはコピーしてね！
+                  </p>
+                </div>
               )}
             </div>
           </div>
-
-          <div className="image-detail__desc">
-            <div>
-              <div className="title">
-                {image && (
-                  <>
-                    <h2>{image.title}</h2>
-                    <img
-                      src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
-                      onClick={() => {
-                        console.log("clicked");
-                        toggleLike(image.id.toString());
-                      }}
-                    />
-                  </>
-                )}
-              </div>
-
-              <div className="type">
-                <h3>たいぷ</h3>
-                {type ? (
-                  <Link
-                    to={`/search/type/${type.name}`}
-                    className="type-link-modal"
-                  >
-                    <img src={type.src} />
-                    {type.name}
-                  </Link>
-                ) : (
-                  <LoaderSpinner
-                    width={loaderSize}
-                    height={loaderSize}
-                    message="たいぷはみつかりませんでした！"
-                  />
-                )}
-              </div>
-
-              <div className="category">
-                <h3>かてごり</h3>
-                {categories.length > 0 ? (
-                  <>
-                    {categories.map((category) => (
-                      <Link
-                        to={`/search/category/${category.name}`}
-                        className="category-link"
-                        key={category.id}
-                      >
-                        #{category.name}
-                      </Link>
-                    ))}
-                  </>
-                ) : (
-                  <LoaderSpinner
-                    width={loaderSize}
-                    height={loaderSize}
-                    message="かてごりはみつかりませんでした！"
-                  />
-                )}
-              </div>
-            </div>
-
-            {image && (
-              <div className="image-detail__desc__button user-modal">
-                <button
-                  className="download"
-                  onClick={() => {
-                    downloadImage(image.src);
-                  }}
-                >
-                  <img src="/download-icon.png" />
-                  だうんろーど
-                </button>
-                <button
-                  className="copy"
-                  onClick={() =>
-                    copyImageToClipboard(image.src, setCopiedText, setIsCopied)
-                  }
-                >
-                  <img src="/copy-icon.png" />
-                  <span
-                    style={
-                      isCopied ? { color: "#4caf50", fontWeight: "bold" } : {}
-                    }
-                  >
-                    {copiedText}
-                  </span>
-                </button>
-                <p className="download-copy-text">
-                  画像を長押しして保存またはコピーしてね！
-                </p>
-              </div>
-            )}
-          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{ padding: "2rem 1rem" }}>
+          おさがしのがぞうはみつからなかったよ！
+        </div>
+      )}
 
       <div className="home">
         <h2>そのほかのなかまたち</h2>
