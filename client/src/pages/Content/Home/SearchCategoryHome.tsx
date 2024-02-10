@@ -8,7 +8,7 @@ import axios from "axios";
 import { UserImage, UserType, TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
-import SearchForm from "./SearchForm";
+import SearchForm from "../../../components/Form/Search/SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 import LoaderSpinner from "../../../components/Common/Loader";
 
@@ -39,6 +39,22 @@ const SearchCategoryHome: React.FC = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
+  const fetchUsersImagesByCategory = (
+    dispatch: Dispatch,
+    category_name: string
+  ) => {
+    axios
+      .get(import.meta.env.VITE_BASE_API + `search/category/${category_name}`)
+      .then((response) => {
+        const responsePayload = response.data.payload;
+        const transformedImages = responsePayload.map(TransformPayloadToImage);
+        dispatch(setImages(transformedImages));
+      })
+      .catch((error) => {
+        console.error("List images failed : ", error);
+      });
+  };
+
   useEffect(() => {
     const storedFavorites = JSON.parse(
       localStorage.getItem("favorites") || "[]"
@@ -46,6 +62,7 @@ const SearchCategoryHome: React.FC = () => {
     setFavoriteIDs(storedFavorites);
 
     if (name) {
+      dispatch(setImages([]));
       fetchUsersImagesByCategory(dispatch, name);
     }
   }, [dispatch, name]);
@@ -79,19 +96,3 @@ const SearchCategoryHome: React.FC = () => {
 };
 
 export default SearchCategoryHome;
-
-const fetchUsersImagesByCategory = (
-  dispatch: Dispatch,
-  category_name: string
-) => {
-  axios
-    .get(import.meta.env.VITE_BASE_API + `search/category/${category_name}`)
-    .then((response) => {
-      const responsePayload = response.data.payload;
-      const transformedImages = responsePayload.map(TransformPayloadToImage);
-      dispatch(setImages(transformedImages));
-    })
-    .catch((error) => {
-      console.error("List images failed : ", error);
-    });
-};

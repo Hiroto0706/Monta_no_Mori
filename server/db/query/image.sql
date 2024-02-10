@@ -42,11 +42,9 @@ WHERE id = $1;
 SELECT *
 FROM images
 WHERE title LIKE '%' || COALESCE(sqlc.arg(title)) || '%'
-ORDER BY id DESC
-LIMIT $1 OFFSET $2;
+ORDER BY id DESC;
 -- name: ListImageByType :many
 SELECT *
 FROM images
 WHERE type_id = $1
-ORDER BY id DESC
-LIMIT $2 OFFSET $3;
+ORDER BY id DESC;

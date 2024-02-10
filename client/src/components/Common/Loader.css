@@ -1,6 +1,7 @@
 .loader {
   width: 100%;
   margin-top: 1rem;
+  z-index: 1001;
 }
 .loader.in-image {
   height: 100%;
@@ -12,4 +13,14 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }/*# sourceMappingURL=Loader.css.map */

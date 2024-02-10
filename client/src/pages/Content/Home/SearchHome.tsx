@@ -7,7 +7,7 @@ import { SearchImages } from "../../../components/Form/Search/Search";
 import { TransformPayloadToImage } from "./Home";
 
 import ImageCard from "../../../components/Image/UserImage/Image";
-import SearchForm from "./SearchForm";
+import SearchForm from "../../../components/Form/Search/SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 import LoaderSpinner from "../../../components/Common/Loader";
 
@@ -58,6 +58,7 @@ const SearchHome: React.FC = () => {
     setFavoriteIDs(storedFavorites);
 
     if (searchQuery != null) {
+      dispatch(setImages([]));
       SearchImages(searchQuery, dispatch);
     }
   }, [searchQuery, dispatch]);

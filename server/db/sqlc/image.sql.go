@@ -186,19 +186,12 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 const listImageByTitle = `-- name: ListImageByTitle :many
 SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
-WHERE title LIKE '%' || COALESCE($3) || '%'
+WHERE title LIKE '%' || COALESCE($1) || '%'
 ORDER BY id DESC
-LIMIT $1 OFFSET $2
 `
 
-type ListImageByTitleParams struct {
-	Limit  int32          `json:"limit"`
-	Offset int32          `json:"offset"`
-	Title  sql.NullString `json:"title"`
-}
-
-func (q *Queries) ListImageByTitle(ctx context.Context, arg ListImageByTitleParams) ([]Image, error) {
-	rows, err := q.db.QueryContext(ctx, listImageByTitle, arg.Limit, arg.Offset, arg.Title)
+func (q *Queries) ListImageByTitle(ctx context.Context, title sql.NullString) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listImageByTitle, title)
 	if err != nil {
 		return nil, err
 	}
@@ -234,17 +227,10 @@ SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images
 WHERE type_id = $1
 ORDER BY id DESC
-LIMIT $2 OFFSET $3
 `
 
-type ListImageByTypeParams struct {
-	TypeID int64 `json:"type_id"`
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) ListImageByType(ctx context.Context, arg ListImageByTypeParams) ([]Image, error) {
-	rows, err := q.db.QueryContext(ctx, listImageByType, arg.TypeID, arg.Limit, arg.Offset)
+func (q *Queries) ListImageByType(ctx context.Context, typeID int64) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listImageByType, typeID)
 	if err != nil {
 		return nil, err
 	}

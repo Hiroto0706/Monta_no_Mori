@@ -227,20 +227,10 @@ type SearchImagesResponse struct {
 // @Router /search [get]
 func (server *Server) SearchImages(ctx *gin.Context) {
 	searchText := ctx.Query("q")
-	page, err := strconv.Atoi(ctx.Query("p"))
-	if err != nil {
-		ctx.JSON(http.StatusNotFound, errorResponse(err))
-		return
-	}
-	args := db.ListImageByTitleParams{
-		Limit:  int32(server.config.ImageFetchLimit),
-		Offset: int32(page * server.config.ImageFetchLimit),
-		Title: sql.NullString{
-			String: searchText,
-			Valid:  true,
-		},
-	}
-	images, err := server.store.ListImageByTitle(ctx, args)
+	images, err := server.store.ListImageByTitle(ctx, sql.NullString{
+		String: searchText,
+		Valid:  true,
+	})
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no images were found for the title received : %w", err)))
@@ -604,17 +594,7 @@ func (server *Server) SearchImagesByType(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetTypeByName() : %w", err)))
 		return
 	}
-	page, err := strconv.Atoi(ctx.Query("p"))
-	if err != nil {
-		ctx.JSON(http.StatusNotFound, errorResponse(err))
-		return
-	}
-	args := db.ListImageByTypeParams{
-		TypeID: searchType.ID,
-		Limit:  int32(server.config.ImageFetchLimit),
-		Offset: int32(page * server.config.ImageFetchLimit),
-	}
-	images, err := server.store.ListImageByType(ctx, args)
+	images, err := server.store.ListImageByType(ctx, searchType.ID)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(fmt.Errorf("no images were found for the title received : %w", err)))

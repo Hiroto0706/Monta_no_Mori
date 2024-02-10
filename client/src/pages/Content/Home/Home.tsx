@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import SearchForm from "./SearchForm";
+import SearchForm from "../../../components/Form/Search/SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 import LoaderSpinner from "../../../components/Common/Loader";
 

@@ -28,15 +28,17 @@ const LoaderSpinner: React.FC<Props> = ({
   }, [timeout]);
 
   return (
-    <div className={`loader ${hasHeight ? "in-image" : ""}`}>
-      {!isTimeout ? (
-        <div>
-          <Oval color="#4caf50" height={height} width={width} />
-        </div>
-      ) : (
-        <p className="text">{message}</p>
-      )}
-    </div>
+    <>
+      <div className={`loader ${hasHeight ? "in-image" : ""}`}>
+        {!isTimeout ? (
+          <div>
+            <Oval color="#4caf50" height={height} width={width} />
+          </div>
+        ) : (
+          <p className="text">{message}</p>
+        )}
+      </div>
+    </>
   );
 };
 
