@@ -17,6 +17,11 @@ SELECT *
 FROM images
 ORDER BY id DESC
 LIMIT $1 OFFSET $2;
+-- name: ListFavoriteImage :many
+SELECT *
+FROM images
+WHERE id = ANY(string_to_array($1, ',')::int[])
+ORDER BY id DESC;
 -- name: ListRandomImage :many
 SELECT *
 FROM images

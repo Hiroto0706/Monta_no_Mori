@@ -100,6 +100,45 @@ func (q *Queries) GetImageByTitle(ctx context.Context, title string) (Image, err
 	return i, err
 }
 
+const listFavoriteImage = `-- name: ListFavoriteImage :many
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+FROM images
+WHERE id = ANY(string_to_array($1, ',')::int[])
+ORDER BY id DESC
+`
+
+func (q *Queries) ListFavoriteImage(ctx context.Context, stringToArray string) ([]Image, error) {
+	rows, err := q.db.QueryContext(ctx, listFavoriteImage, stringToArray)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Image{}
+	for rows.Next() {
+		var i Image
+		if err := rows.Scan(
+			&i.ID,
+			&i.Title,
+			&i.Src,
+			&i.TypeID,
+			&i.UpdatedAt,
+			&i.CreatedAt,
+			&i.ViewCount,
+			&i.Filename,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listImage = `-- name: ListImage :many
 SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
 FROM images

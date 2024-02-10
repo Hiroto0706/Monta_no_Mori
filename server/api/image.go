@@ -13,6 +13,7 @@ import (
 )
 
 const FILE_TYPE_IMAGE = "image"
+const OTHER_IMAGE_FETCH_LIMIT = 8
 
 type responseImage struct {
 	Image      db.Image      `json:"image"`
@@ -34,14 +35,82 @@ type ListImagesResponse struct {
 // @Success 200 {object} ListImagesResponse
 // @Failure 404 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
-// @Router /images [get]
+// @Router / [get]
 func (server *Server) ListImages(ctx *gin.Context) {
-	// TODO: 引数が固定なので修正する必要あり
+	page, err := strconv.Atoi(ctx.Query("p"))
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, errorResponse(err))
+		return
+	}
 	arg := db.ListImageParams{
-		Limit:  100,
-		Offset: 0,
+		Limit:  int32(server.config.ImageFetchLimit),
+		Offset: int32(page * server.config.ImageFetchLimit),
 	}
 	images, err := server.store.ListImage(ctx, arg)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	resImages := []responseImage{}
+	for _, image := range images {
+		resImage := responseImage{}
+		resImage.Image = image
+
+		typeID := resImage.Image.TypeID
+		imageType, err := server.store.GetType(ctx, typeID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get type id from image type_id : %w", err)))
+			return
+		}
+		resImage.ImageType = imageType
+
+		imageID := resImage.Image.ID
+		imageCategories, err := server.store.ListImageCategoriesByImage(ctx, imageID)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get image_categories by image id : %w", err)))
+			return
+		}
+		categories := []db.Category{}
+		for _, imageCategory := range imageCategories {
+			category, err := server.store.GetCategory(ctx, imageCategory.CategoryID)
+			if err != nil {
+				ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to get category : %w", err)))
+				return
+			}
+			categories = append(categories, category)
+		}
+		resImage.Categories = categories
+		resImages = append(resImages, resImage)
+	}
+
+	ctx.JSON(http.StatusOK, ListImagesResponse{
+		Payload: resImages,
+	})
+}
+
+type ListFavoriteImagesResponse struct {
+	Payload []responseImage `json:"payload"`
+}
+
+// ListFavoriteImages godoc
+// @Summary お気に入りのImagesを取得する
+// @Tags images
+// @Produce  json
+// @Param limit query int false "Limit"
+// @Param offset query int false "Offset"
+// @Success 200 {object} ListImagesResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /favorite [get]
+func (server *Server) ListFavoriteImages(ctx *gin.Context) {
+	favIDs := ctx.Query("id")
+	images, err := server.store.ListFavoriteImage(ctx, favIDs)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.JSON(http.StatusNotFound, errorResponse(err))
@@ -103,9 +172,8 @@ type ListOtherImagesResponse struct {
 // @Failure 500 {object} ErrorResponse
 // @Router /others [get]
 func (server *Server) ListOtherImages(ctx *gin.Context) {
-	// TODO: 引数が固定なので修正する必要あり
 	arg := db.ListRandomImageParams{
-		Limit:  8,
+		Limit:  OTHER_IMAGE_FETCH_LIMIT,
 		Offset: 0,
 	}
 	images, err := server.store.ListRandomImage(ctx, arg)
@@ -159,9 +227,14 @@ type SearchImagesResponse struct {
 // @Router /search [get]
 func (server *Server) SearchImages(ctx *gin.Context) {
 	searchText := ctx.Query("q")
+	page, err := strconv.Atoi(ctx.Query("p"))
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, errorResponse(err))
+		return
+	}
 	args := db.ListImageByTitleParams{
-		Limit:  100,
-		Offset: 0,
+		Limit:  int32(server.config.ImageFetchLimit),
+		Offset: int32(page * server.config.ImageFetchLimit),
 		Title: sql.NullString{
 			String: searchText,
 			Valid:  true,
@@ -531,10 +604,15 @@ func (server *Server) SearchImagesByType(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetTypeByName() : %w", err)))
 		return
 	}
+	page, err := strconv.Atoi(ctx.Query("p"))
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, errorResponse(err))
+		return
+	}
 	args := db.ListImageByTypeParams{
 		TypeID: searchType.ID,
-		Limit:  100,
-		Offset: 0,
+		Limit:  int32(server.config.ImageFetchLimit),
+		Offset: int32(page * server.config.ImageFetchLimit),
 	}
 	images, err := server.store.ListImageByType(ctx, args)
 	if err != nil {
