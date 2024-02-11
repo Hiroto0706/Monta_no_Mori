@@ -30,6 +30,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: right;
+  margin: 1rem 0;
 }
 .order-by__btn {
   margin-left: 1.5rem;

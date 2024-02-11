@@ -25,6 +25,8 @@ interface UserImage {
   src: string;
   type_id: number;
   type: UserType;
+  view_count: number;
+  favorite_count: number;
 }
 
 interface responsePayload {
@@ -79,6 +81,8 @@ const SearchHome: React.FC = () => {
                 src={image.src}
                 type_id={image.type_id}
                 type={image.type}
+                view_count={image.view_count}
+                favorite_count={image.favorite_count}
                 toggleFavorite={() => toggleFavorite(image.id.toString())}
               />
             ))

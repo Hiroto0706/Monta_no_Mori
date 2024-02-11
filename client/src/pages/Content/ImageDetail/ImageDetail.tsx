@@ -26,6 +26,7 @@ const ImageDetail: React.FC = () => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const loaderSize: number = 30;
   const [imageNotfound, setImageNotFound] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -42,12 +43,41 @@ const ImageDetail: React.FC = () => {
         (favoriteId) => favoriteId !== id
       );
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      countDownFavoriteCount(id);
     } else {
       // idが含まれていない場合は追加
       setIsLiked(true);
       const updatedFavorites = [...favorites, id];
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      countUpFavoriteCount(id);
     }
+  };
+
+  const countUpFavoriteCount = (id: string) => {
+    axios
+      .put(import.meta.env.VITE_BASE_API + "favorite/count_up", { id })
+      .then((response) => {
+        const newCount: number = response.data;
+        if (newCount) {
+          setFavoriteCount(newCount);
+        }
+      })
+      .catch((error) => {
+        console.error("Count up favorite count failed:", error);
+      });
+  };
+  const countDownFavoriteCount = (id: string) => {
+    axios
+      .put(import.meta.env.VITE_BASE_API + "favorite/count_down", { id })
+      .then((response) => {
+        const newCount: number = response.data;
+        if (newCount || newCount === 0) {
+          setFavoriteCount(newCount);
+        }
+      })
+      .catch((error) => {
+        console.error("Count down favorite count failed:", error);
+      });
   };
 
   useEffect(() => {
@@ -57,12 +87,14 @@ const ImageDetail: React.FC = () => {
       ? decodedPathname.slice(1)
       : decodedPathname;
 
+    // imageTitle => /image/:title
     axios
       .get(import.meta.env.VITE_BASE_API + `${imageTitle}`)
       .then((response) => {
         setImage(response.data.result.image);
         setType(response.data.result.type);
         setCategories(response.data.result.categories);
+        setFavoriteCount(response.data.result.image.favorite_count);
       })
       .catch((error) => {
         setImageNotFound(true);
@@ -128,6 +160,11 @@ const ImageDetail: React.FC = () => {
                           toggleLike(image.id.toString());
                         }}
                       />
+                      <span className="count-num">{favoriteCount}</span>
+                      <div className="view-count">
+                        <img src="/watch-icon.png" />
+                        <span className="count-num">{image.view_count}</span>
+                      </div>
                     </>
                   )}
                 </div>
@@ -230,6 +267,8 @@ const ImageDetail: React.FC = () => {
                 title={oi.title}
                 src={oi.src}
                 type_id={oi.type.id}
+                view_count={oi.view_count}
+                favorite_count={oi.favorite_count}
                 type={oi.type}
               />
             ))}

@@ -738,7 +738,7 @@ type GetImageFromTitleResponse struct {
 // @Success 200 {object} GetImageFromTitleResponse
 // @Failure 404 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
-// @Router /images/{title} [get]
+// @Router /image/{title} [get]
 func (server *Server) GetImageFromTitle(ctx *gin.Context) {
 	title := ctx.Param("title")
 	image, err := server.store.GetImageByTitle(ctx, title)
@@ -751,6 +751,13 @@ func (server *Server) GetImageFromTitle(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to GetImageByTitle() : %w", err)))
 		return
 	}
+
+	count, err := server.store.CountUpViewCount(ctx, image.ID)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, errorResponse(fmt.Errorf("failed to CountUpViewCount() : %w", err)))
+	}
+
+	image.ViewCount = count
 
 	// TODO: この箇所はListImageと重複しているので修正する必要あり
 	resImage := responseImage{}
@@ -784,4 +791,68 @@ func (server *Server) GetImageFromTitle(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, GetImageFromTitleResponse{
 		Result: resImage,
 	})
+}
+
+type CountFavoriteCountRequest struct {
+	ID string `json:"id"`
+}
+
+// CountUpFavoriteCount godoc
+// @Summary favorite_countを＋１する
+// @Description 特定のIDの画像のfavorite_countをプラスします
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param   id  path string true "Image ID"
+// @Success 200  {object} nil
+// @Failure 400  {object} ErrorResponse  "Invalid ID format or failure in updating favorite_count"
+// @Router /favorite/count_up [put]
+func (server *Server) CountUpFavoriteCount(ctx *gin.Context) {
+	var requestBody CountFavoriteCountRequest
+	// リクエストボディのJSONを解析して構造体にバインドします
+	if err := ctx.ShouldBindJSON(&requestBody); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("failed to bindJSON : %w", err)))
+	}
+
+	id, err := strconv.Atoi(requestBody.ID)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("failed to convert id from string to int : %w", err)))
+	}
+
+	count, err := server.store.CountUpFavoriteCount(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("failed to count up favorite_count of images : %w", err)))
+	}
+
+	ctx.JSON(http.StatusOK, count)
+}
+
+// CountDownFavoriteCount godoc
+// @Summary favorite_countを＋１する
+// @Description 特定のIDの画像のfavorite_countをプラスします
+// @Tags images
+// @Accept  json
+// @Produce  json
+// @Param   id  path string true "Image ID"
+// @Success 200  {object} nil
+// @Failure 400  {object} ErrorResponse  "Invalid ID format or failure in updating favorite_count"
+// @Router /favorite/count_up [put]
+func (server *Server) CountDownFavoriteCount(ctx *gin.Context) {
+	var requestBody CountFavoriteCountRequest
+	// リクエストボディのJSONを解析して構造体にバインドします
+	if err := ctx.ShouldBindJSON(&requestBody); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("failed to bindJSON : %w", err)))
+	}
+
+	id, err := strconv.Atoi(requestBody.ID)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("failed to convert id from string to int : %w", err)))
+	}
+
+	count, err := server.store.CountDownFavoriteCount(ctx, int64(id))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(fmt.Errorf("failed to count up favorite_count of images : %w", err)))
+	}
+
+	ctx.JSON(http.StatusOK, count)
 }
