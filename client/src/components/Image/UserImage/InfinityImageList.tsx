@@ -52,6 +52,8 @@ const InfinityImageList: React.FC<Props> = ({ loadMore, hasMore, images }) => {
                 title={image.title}
                 src={image.src}
                 type_id={image.type_id}
+                view_count={image.view_count}
+                favorite_count={image.favorite_count}
                 type={image.type}
                 toggleFavorite={() =>
                   toggleFavorite(
