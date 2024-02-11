@@ -12,6 +12,9 @@ import (
 )
 
 type Querier interface {
+	CountDownFavoriteCount(ctx context.Context, id int64) (int32, error)
+	CountUpFavoriteCount(ctx context.Context, id int64) (int32, error)
+	CountUpViewCount(ctx context.Context, id int64) (int32, error)
 	CreateCategory(ctx context.Context, name string) (Category, error)
 	CreateImage(ctx context.Context, arg CreateImageParams) (Image, error)
 	CreateImageCategory(ctx context.Context, arg CreateImageCategoryParams) (ImageCategory, error)

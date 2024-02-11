@@ -28,7 +28,7 @@ const Favorite: React.FC = () => {
       .then((response) => {
         const responsePayload = response.data.payload;
         const transformedImages = responsePayload.map(TransformPayloadToImage);
-        
+
         setImages(transformedImages);
       })
       .catch((error) => {
@@ -60,6 +60,8 @@ const Favorite: React.FC = () => {
                 src={image.src}
                 type_id={image.type_id}
                 type={image.type}
+                view_count={image.view_count}
+                favorite_count={image.favorite_count}
                 toggleFavorite={() => toggleFavorite(image.id.toString())}
               />
             ))

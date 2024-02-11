@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import SearchForm from "../../../components/Form/Search/SearchForm";
-// import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 import LoaderSpinner from "../../../components/Common/Loader";
-
-import "./Home.css";
 import InfinityImageList from "../../../components/Image/UserImage/InfinityImageList";
+// import OrderBy from "../../../components/Form/OrderBy/OrderBy";
+import "./Home.css";
 
 export interface UserType {
   id: number;
@@ -20,6 +18,8 @@ export interface UserImage {
   src: string;
   type_id: number;
   type: UserType;
+  view_count: number;
+  favorite_count: number;
 }
 
 export interface responsePayload {
@@ -57,9 +57,9 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="home">
-        {/* <OrderBy /> */}
         <SearchForm />
         <h2>がぞういちらん</h2>
+        {/* <OrderBy /> */}
         {images.length > 0 ? (
           <>
             <InfinityImageList
@@ -85,5 +85,7 @@ export const TransformPayloadToImage = (payload: responsePayload) => {
     title: payload.image.title,
     type_id: payload.image.type_id,
     type: payload.type,
+    view_count: payload.image.view_count,
+    favorite_count: payload.image.favorite_count,
   };
 };

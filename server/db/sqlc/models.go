@@ -18,14 +18,15 @@ type Category struct {
 }
 
 type Image struct {
-	ID        int64     `json:"id"`
-	Title     string    `json:"title"`
-	Src       string    `json:"src"`
-	TypeID    int64     `json:"type_id"`
-	UpdatedAt time.Time `json:"updated_at"`
-	CreatedAt time.Time `json:"created_at"`
-	ViewCount int32     `json:"view_count"`
-	Filename  string    `json:"filename"`
+	ID            int64     `json:"id"`
+	Title         string    `json:"title"`
+	Src           string    `json:"src"`
+	TypeID        int64     `json:"type_id"`
+	UpdatedAt     time.Time `json:"updated_at"`
+	CreatedAt     time.Time `json:"created_at"`
+	ViewCount     int32     `json:"view_count"`
+	Filename      string    `json:"filename"`
+	FavoriteCount int32     `json:"favorite_count"`
 }
 
 type ImageCategory struct {

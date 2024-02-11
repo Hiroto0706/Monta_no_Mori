@@ -20,7 +20,7 @@ LIMIT $1 OFFSET $2;
 -- name: ListFavoriteImage :many
 SELECT *
 FROM images
-WHERE id = ANY(string_to_array($1, ',')::int[])
+WHERE id = ANY(string_to_array($1, ',')::int [])
 ORDER BY id DESC;
 -- name: ListRandomImage :many
 SELECT *
@@ -48,3 +48,18 @@ SELECT *
 FROM images
 WHERE type_id = $1
 ORDER BY id DESC;
+-- name: CountUpViewCount :one
+UPDATE images
+SET view_count = view_count + 1
+WHERE id = $1
+RETURNING view_count;
+-- name: CountUpFavoriteCount :one
+UPDATE images
+SET favorite_count = favorite_count + 1
+WHERE id = $1
+RETURNING favorite_count;
+-- name: CountDownFavoriteCount :one
+UPDATE images
+SET favorite_count = favorite_count - 1
+WHERE id = $1
+RETURNING favorite_count;

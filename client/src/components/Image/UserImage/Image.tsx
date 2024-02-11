@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ModalImage from "./Modal/ModalImage";
 import { EllipsisText } from "../../Sidebar/UserSidebar/Sidebar";
 import { UserImage } from "./../../../pages/Content/Home/Home";
-
+import axios from "axios";
 import "./Image.css";
 
 const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
@@ -20,10 +20,27 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
   const toggleLike = (id: string) => {
     toggleFavorite(id);
     if (localStorage.getItem("favorites")?.includes(id)) {
+      countUpFavoriteCount(id);
       setIsLiked(true);
     } else {
+      countDownFavoriteCount(id);
       setIsLiked(false);
     }
+  };
+
+  const countUpFavoriteCount = (id: string) => {
+    axios
+      .put(import.meta.env.VITE_BASE_API + "favorite/count_up", { id })
+      .catch((error) => {
+        console.error("Count up favorite count failed:", error);
+      });
+  };
+  const countDownFavoriteCount = (id: string) => {
+    axios
+      .put(import.meta.env.VITE_BASE_API + "favorite/count_down", { id })
+      .catch((error) => {
+        console.error("Count down favorite count failed:", error);
+      });
   };
 
   const toggleOpenModal = () => {

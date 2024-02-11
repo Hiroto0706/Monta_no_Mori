@@ -10,10 +10,52 @@ import (
 	"database/sql"
 )
 
+const countDownFavoriteCount = `-- name: CountDownFavoriteCount :one
+UPDATE images
+SET favorite_count = favorite_count - 1
+WHERE id = $1
+RETURNING favorite_count
+`
+
+func (q *Queries) CountDownFavoriteCount(ctx context.Context, id int64) (int32, error) {
+	row := q.db.QueryRowContext(ctx, countDownFavoriteCount, id)
+	var favorite_count int32
+	err := row.Scan(&favorite_count)
+	return favorite_count, err
+}
+
+const countUpFavoriteCount = `-- name: CountUpFavoriteCount :one
+UPDATE images
+SET favorite_count = favorite_count + 1
+WHERE id = $1
+RETURNING favorite_count
+`
+
+func (q *Queries) CountUpFavoriteCount(ctx context.Context, id int64) (int32, error) {
+	row := q.db.QueryRowContext(ctx, countUpFavoriteCount, id)
+	var favorite_count int32
+	err := row.Scan(&favorite_count)
+	return favorite_count, err
+}
+
+const countUpViewCount = `-- name: CountUpViewCount :one
+UPDATE images
+SET view_count = view_count + 1
+WHERE id = $1
+RETURNING view_count
+`
+
+func (q *Queries) CountUpViewCount(ctx context.Context, id int64) (int32, error) {
+	row := q.db.QueryRowContext(ctx, countUpViewCount, id)
+	var view_count int32
+	err := row.Scan(&view_count)
+	return view_count, err
+}
+
 const createImage = `-- name: CreateImage :one
 INSERT INTO images (title, src, type_id, filename)
 VALUES ($1, $2, $3, $4)
-RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename
+RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 `
 
 type CreateImageParams struct {
@@ -40,6 +82,7 @@ func (q *Queries) CreateImage(ctx context.Context, arg CreateImageParams) (Image
 		&i.CreatedAt,
 		&i.ViewCount,
 		&i.Filename,
+		&i.FavoriteCount,
 	)
 	return i, err
 }
@@ -55,7 +98,7 @@ func (q *Queries) DeleteImage(ctx context.Context, id int64) error {
 }
 
 const getImage = `-- name: GetImage :one
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
 WHERE id = $1
 LIMIT 1
@@ -73,12 +116,13 @@ func (q *Queries) GetImage(ctx context.Context, id int64) (Image, error) {
 		&i.CreatedAt,
 		&i.ViewCount,
 		&i.Filename,
+		&i.FavoriteCount,
 	)
 	return i, err
 }
 
 const getImageByTitle = `-- name: GetImageByTitle :one
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
 WHERE title = $1
 LIMIT 1
@@ -96,14 +140,15 @@ func (q *Queries) GetImageByTitle(ctx context.Context, title string) (Image, err
 		&i.CreatedAt,
 		&i.ViewCount,
 		&i.Filename,
+		&i.FavoriteCount,
 	)
 	return i, err
 }
 
 const listFavoriteImage = `-- name: ListFavoriteImage :many
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
-WHERE id = ANY(string_to_array($1, ',')::int[])
+WHERE id = ANY(string_to_array($1, ',')::int [])
 ORDER BY id DESC
 `
 
@@ -125,6 +170,7 @@ func (q *Queries) ListFavoriteImage(ctx context.Context, stringToArray string) (
 			&i.CreatedAt,
 			&i.ViewCount,
 			&i.Filename,
+			&i.FavoriteCount,
 		); err != nil {
 			return nil, err
 		}
@@ -140,7 +186,7 @@ func (q *Queries) ListFavoriteImage(ctx context.Context, stringToArray string) (
 }
 
 const listImage = `-- name: ListImage :many
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
 ORDER BY id DESC
 LIMIT $1 OFFSET $2
@@ -169,6 +215,7 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 			&i.CreatedAt,
 			&i.ViewCount,
 			&i.Filename,
+			&i.FavoriteCount,
 		); err != nil {
 			return nil, err
 		}
@@ -184,7 +231,7 @@ func (q *Queries) ListImage(ctx context.Context, arg ListImageParams) ([]Image, 
 }
 
 const listImageByTitle = `-- name: ListImageByTitle :many
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
 WHERE title LIKE '%' || COALESCE($1) || '%'
 ORDER BY id DESC
@@ -208,6 +255,7 @@ func (q *Queries) ListImageByTitle(ctx context.Context, title sql.NullString) ([
 			&i.CreatedAt,
 			&i.ViewCount,
 			&i.Filename,
+			&i.FavoriteCount,
 		); err != nil {
 			return nil, err
 		}
@@ -223,7 +271,7 @@ func (q *Queries) ListImageByTitle(ctx context.Context, title sql.NullString) ([
 }
 
 const listImageByType = `-- name: ListImageByType :many
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
 WHERE type_id = $1
 ORDER BY id DESC
@@ -247,6 +295,7 @@ func (q *Queries) ListImageByType(ctx context.Context, typeID int64) ([]Image, e
 			&i.CreatedAt,
 			&i.ViewCount,
 			&i.Filename,
+			&i.FavoriteCount,
 		); err != nil {
 			return nil, err
 		}
@@ -262,7 +311,7 @@ func (q *Queries) ListImageByType(ctx context.Context, typeID int64) ([]Image, e
 }
 
 const listRandomImage = `-- name: ListRandomImage :many
-SELECT id, title, src, type_id, updated_at, created_at, view_count, filename
+SELECT id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 FROM images
 ORDER BY RANDOM()
 LIMIT $1 OFFSET $2
@@ -291,6 +340,7 @@ func (q *Queries) ListRandomImage(ctx context.Context, arg ListRandomImageParams
 			&i.CreatedAt,
 			&i.ViewCount,
 			&i.Filename,
+			&i.FavoriteCount,
 		); err != nil {
 			return nil, err
 		}
@@ -312,7 +362,7 @@ SET title = $2,
   type_id = $4,
   filename = $5
 WHERE id = $1
-RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename
+RETURNING id, title, src, type_id, updated_at, created_at, view_count, filename, favorite_count
 `
 
 type UpdateImageParams struct {
@@ -341,6 +391,7 @@ func (q *Queries) UpdateImage(ctx context.Context, arg UpdateImageParams) (Image
 		&i.CreatedAt,
 		&i.ViewCount,
 		&i.Filename,
+		&i.FavoriteCount,
 	)
 	return i, err
 }

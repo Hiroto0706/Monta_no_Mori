@@ -160,10 +160,12 @@ li {
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 .image-detail__desc .title h2 {
   margin-top: 0;
   margin-bottom: 0;
+  margin-right: 1rem;
 }
 .image-detail__desc .title h2 a {
   color: #646464;
@@ -172,8 +174,22 @@ li {
 .image-detail__desc .title img {
   width: 22.5px;
   height: 22.5px;
-  margin-left: 1rem;
+  margin-right: 0.5rem;
   cursor: pointer;
+}
+.image-detail__desc .title .count-num {
+  color: #afafaf;
+  margin-right: 0.5rem;
+}
+.image-detail__desc .title .view-count {
+  width: 22.5px;
+  height: 22.5px;
+  display: flex;
+}
+.image-detail__desc .title .view-count img {
+  width: 100%;
+  height: auto;
+  margin-right: 0.5rem;
 }
 .image-detail__desc .type {
   margin-bottom: 1rem;
