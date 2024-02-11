@@ -60,6 +60,6 @@ WHERE id = $1
 RETURNING favorite_count;
 -- name: CountDownFavoriteCount :one
 UPDATE images
-SET favorite_count = favorite_count - 1
+SET favorite_count = GREATEST(favorite_count - 1, 0)
 WHERE id = $1
 RETURNING favorite_count;
