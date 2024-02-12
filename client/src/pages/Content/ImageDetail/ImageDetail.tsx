@@ -155,15 +155,17 @@ const ImageDetail: React.FC = () => {
                   {image && (
                     <>
                       <h2>{image.title}</h2>
-                      <img
-                        src={
-                          isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"
-                        }
-                        onClick={() => {
-                          toggleLike(image.id.toString());
-                        }}
-                      />
-                      <span className="count-num">{favoriteCount}</span>
+                      <div className="view-count">
+                        <img
+                          src={
+                            isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"
+                          }
+                          onClick={() => {
+                            toggleLike(image.id.toString());
+                          }}
+                        />
+                        <span className="count-num">{favoriteCount}</span>
+                      </div>
                       <div className="view-count">
                         <img src="/watch-icon.png" />
                         <span className="count-num">{image.view_count}</span>

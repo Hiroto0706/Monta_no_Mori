@@ -10,11 +10,14 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
   title,
   src,
   type,
+  view_count,
+  favorite_count,
   toggleFavorite,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [viewCount, setViewCount] = useState(view_count);
+  const [favoriteCount, setFavoriteCount] = useState(favorite_count);
   const [imageTitleMaxLength] = useState(15);
 
   const toggleLike = (id: string) => {
@@ -28,9 +31,19 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
     }
   };
 
+  const countUpViewCount = (newCount: number) => {
+    setViewCount(newCount);
+  };
+
   const countUpFavoriteCount = (id: string) => {
     axios
       .put(import.meta.env.VITE_BASE_API + "favorite/count_up", { id })
+      .then((response) => {
+        const newCount: number = response.data;
+        if (newCount) {
+          setFavoriteCount(newCount);
+        }
+      })
       .catch((error) => {
         console.error("Count up favorite count failed:", error);
       });
@@ -38,6 +51,12 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
   const countDownFavoriteCount = (id: string) => {
     axios
       .put(import.meta.env.VITE_BASE_API + "favorite/count_down", { id })
+      .then((response) => {
+        const newCount: number = response.data;
+        if (newCount || newCount === 0) {
+          setFavoriteCount(newCount);
+        }
+      })
       .catch((error) => {
         console.error("Count down favorite count failed:", error);
       });
@@ -82,9 +101,12 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
           src={src}
           title={title}
           type={type}
+          view_count={viewCount}
+          favorite_count={favoriteCount}
           toggleOpenModal={() => toggleOpenModal()}
           toggleLike={() => toggleLike(id.toString())}
           closeOpeningModal={() => closeOpeningModal()}
+          countUpViewCount={countUpViewCount}
         />
       )}
     </li>

@@ -215,15 +215,21 @@ li {
 .modal-image__content__desc .title h2 {
   margin-top: 0;
   margin-bottom: 0;
+  margin-right: 1rem;
 }
 .modal-image__content__desc .title h2 a {
   color: #646464;
   text-decoration-color: #646464;
 }
-.modal-image__content__desc .title img {
+.modal-image__content__desc .title .view-count {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+.modal-image__content__desc .title .view-count img {
   width: 22.5px;
   height: 22.5px;
-  margin-left: 1rem;
+  margin-right: 0.5rem;
   cursor: pointer;
 }
 .modal-image__content__desc .category h3,

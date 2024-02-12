@@ -14,9 +14,12 @@ interface Props {
   src: string;
   title: string;
   type: UserType;
+  view_count: number;
+  favorite_count: number;
   toggleOpenModal: () => void;
   toggleLike: (id: string) => void;
   closeOpeningModal: () => void;
+  countUpViewCount: (newCount: number) => void;
 }
 
 export interface ModalCategory {
@@ -29,9 +32,12 @@ const ModalImage: React.FC<Props> = ({
   src,
   title,
   type,
+  view_count,
+  favorite_count,
   toggleOpenModal,
   toggleLike,
   closeOpeningModal,
+  countUpViewCount,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [categories, setCategories] = useState<ModalCategory[]>([]);
@@ -58,6 +64,18 @@ const ModalImage: React.FC<Props> = ({
       .catch((error) => {
         console.error("List categories failed:", error);
       });
+
+    axios
+      .put(import.meta.env.VITE_BASE_API + "count_up", { id: id.toString() })
+      .then((response) => {
+        const newCount: number = response.data;
+        if (newCount) {
+          countUpViewCount(newCount);
+        }
+      })
+      .catch((error) => {
+        console.error("CountUpViewCount failed:", error);
+      });
   }, [id]);
 
   return (
@@ -82,13 +100,20 @@ const ModalImage: React.FC<Props> = ({
               <h2>
                 <Link to={`/image/${title}`}>{title}</Link>
               </h2>
-              <img
-                src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleLikeFromModal();
-                }}
-              />
+              <div className="view-count">
+                <img
+                  src={isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleLikeFromModal();
+                  }}
+                />
+                <span className="count-num">{favorite_count}</span>
+              </div>
+              <div className="view-count">
+                <img src="/watch-icon.png" />
+                <span className="count-num">{view_count}</span>
+              </div>
             </div>
 
             <div className="type">
