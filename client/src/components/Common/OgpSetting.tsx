@@ -8,7 +8,7 @@ type Props = {
 
 const OgpSetting: React.FC<Props> = ({
   title = "もんたの森｜ゆふわなフリー画像サイト✨",
-  imageUrl = "/ogp-image.png",
+  imageUrl = "https://storage.googleapis.com/monta_free_image/ogp-image.png",
 }) => {
   const DESC_TEMP =
     "もんたの森はかわいくてクセのある画像を提供しているよ！ぜひダウンロードしてね！";
