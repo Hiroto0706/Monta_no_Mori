@@ -12,6 +12,7 @@ import SearchForm from "../../../components/Form/Search/SearchForm";
 import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./Home.css";
+import OgpSetting from "../../../components/Common/OgpSetting";
 
 interface UserType {
   id: number;
@@ -67,6 +68,8 @@ const SearchHome: React.FC = () => {
 
   return (
     <>
+      <OgpSetting />
+
       <div className="home">
         {/* <OrderBy /> */}
         <SearchForm />

@@ -14,6 +14,7 @@ import { TransformPayloadToImage } from "../Home/Home";
 import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./ImageDetail.css";
+import OgpSetting from "../../../components/Common/OgpSetting";
 
 const ImageDetail: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
@@ -133,6 +134,8 @@ const ImageDetail: React.FC = () => {
 
   return (
     <>
+      <OgpSetting title={image?.title} imageUrl={image?.src} />
+
       {!imageNotfound ? (
         <div>
           <div className="image-detail">
@@ -152,15 +155,17 @@ const ImageDetail: React.FC = () => {
                   {image && (
                     <>
                       <h2>{image.title}</h2>
-                      <img
-                        src={
-                          isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"
-                        }
-                        onClick={() => {
-                          toggleLike(image.id.toString());
-                        }}
-                      />
-                      <span className="count-num">{favoriteCount}</span>
+                      <div className="view-count">
+                        <img
+                          src={
+                            isLiked ? "/heart-icon_1.png" : "/heart-icon_0.png"
+                          }
+                          onClick={() => {
+                            toggleLike(image.id.toString());
+                          }}
+                        />
+                        <span className="count-num">{favoriteCount}</span>
+                      </div>
                       <div className="view-count">
                         <img src="/watch-icon.png" />
                         <span className="count-num">{image.view_count}</span>

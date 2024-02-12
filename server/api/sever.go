@@ -42,6 +42,7 @@ func NewServer(store *db.Store, config util.Config) (*Server, error) {
 	v1 := router.Group("/api/v1")
 	{
 		v1.GET("/", server.ListImages)
+		v1.PUT("/count_up", server.CountUpViewCount)
 		v1.GET("/favorite", server.ListFavoriteImages)
 		v1.PUT("/favorite/count_up", server.CountUpFavoriteCount)
 		v1.PUT("/favorite/count_down", server.CountDownFavoriteCount)

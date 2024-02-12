@@ -4,6 +4,7 @@ import { TransformPayloadToImage, UserImage } from "./Home";
 import LoaderSpinner from "../../../components/Common/Loader";
 import "./Home.css";
 import Image from "../../../components/Image/UserImage/Image";
+import OgpSetting from "../../../components/Common/OgpSetting";
 
 const Favorite: React.FC = () => {
   const [images, setImages] = useState<UserImage[]>([]);
@@ -47,6 +48,8 @@ const Favorite: React.FC = () => {
 
   return (
     <>
+      <OgpSetting />
+
       <div className="home">
         <h2>おきにいりのがぞうたち</h2>
         {/* <OrderBy /> */}
