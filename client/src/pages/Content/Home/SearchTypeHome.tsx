@@ -14,6 +14,7 @@ import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./Home.css";
 import { useParams } from "react-router-dom";
+import OgpSetting from "../../../components/Common/OgpSetting";
 
 export interface responsePayload {
   image: UserImage;
@@ -66,6 +67,8 @@ const SearchTypeHome: React.FC = () => {
 
   return (
     <>
+      <OgpSetting />
+
       <div className="home">
         {/* <OrderBy /> */}
         <SearchForm />

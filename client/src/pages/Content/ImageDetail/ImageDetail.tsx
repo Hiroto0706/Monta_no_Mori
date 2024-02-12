@@ -14,6 +14,7 @@ import { TransformPayloadToImage } from "../Home/Home";
 import LoaderSpinner from "../../../components/Common/Loader";
 
 import "./ImageDetail.css";
+import OgpSetting from "../../../components/Common/OgpSetting";
 
 const ImageDetail: React.FC = () => {
   const [isLiked, setIsLiked] = useState(false);
@@ -133,6 +134,8 @@ const ImageDetail: React.FC = () => {
 
   return (
     <>
+      <OgpSetting title={image?.title} imageUrl={image?.src} />
+
       {!imageNotfound ? (
         <div>
           <div className="image-detail">

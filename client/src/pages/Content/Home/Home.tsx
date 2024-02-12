@@ -5,6 +5,7 @@ import LoaderSpinner from "../../../components/Common/Loader";
 import InfinityImageList from "../../../components/Image/UserImage/InfinityImageList";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 import "./Home.css";
+import OgpSetting from "../../../components/Common/OgpSetting";
 
 export interface UserType {
   id: number;
@@ -56,6 +57,7 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <OgpSetting />
       <div className="home">
         <SearchForm />
         <h2>がぞういちらん</h2>
