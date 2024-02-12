@@ -39,18 +39,18 @@ const ImageDetail: React.FC = () => {
 
     if (favorites.includes(id)) {
       // idが含まれている場合は削除
-      setIsLiked(false);
       const updatedFavorites = favorites.filter(
         (favoriteId) => favoriteId !== id
       );
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      countDownFavoriteCount(id);
+      if (isLiked) countDownFavoriteCount(id);
+      setIsLiked(false);
     } else {
       // idが含まれていない場合は追加
-      setIsLiked(true);
       const updatedFavorites = [...favorites, id];
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-      countUpFavoriteCount(id);
+      if (!isLiked) countUpFavoriteCount(id);
+      setIsLiked(true);
     }
   };
 

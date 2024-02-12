@@ -23,10 +23,10 @@ const Image: React.FC<UserImage & { toggleFavorite: (id: string) => void }> = ({
   const toggleLike = (id: string) => {
     toggleFavorite(id);
     if (localStorage.getItem("favorites")?.includes(id)) {
-      countUpFavoriteCount(id);
+      if (!isLiked) countUpFavoriteCount(id);
       setIsLiked(true);
     } else {
-      countDownFavoriteCount(id);
+      if (isLiked) countDownFavoriteCount(id);
       setIsLiked(false);
     }
   };
