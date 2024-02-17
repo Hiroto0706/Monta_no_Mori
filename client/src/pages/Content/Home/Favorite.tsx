@@ -5,11 +5,13 @@ import LoaderSpinner from "../../../components/Common/Loader";
 import "./Home.css";
 import Image from "../../../components/Image/UserImage/Image";
 import OgpSetting from "../../../components/Common/OgpSetting";
+import OtherImage from "../../../components/Image/UserImage/LinkImage";
 
 const Favorite: React.FC = () => {
   const [images, setImages] = useState<UserImage[]>([]);
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
   const [loaderTimeout, setLoaderTimeout] = useState<number>(100000);
+  const [otherImages, setOtherImages] = useState<UserImage[]>([]);
 
   const toggleFavorite = (imageId: string) => {
     let updatedFavorites: string[];
@@ -46,6 +48,24 @@ const Favorite: React.FC = () => {
     fetchFavoriteImages(storedFavorites);
   }, [loaderTimeout]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_BASE_API + "others"
+        );
+        const transformedImages = response.data.payload.map(
+          TransformPayloadToImage
+        );
+        setOtherImages(transformedImages);
+      } catch (error) {
+        console.error("list other images failed:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <OgpSetting />
@@ -75,6 +95,26 @@ const Favorite: React.FC = () => {
             />
           )}
         </ul>
+
+        <h2>そのほかのなかまたち</h2>
+        {otherImages.length > 0 ? (
+          <ul className="home__image-list">
+            {otherImages.slice(0, 8).map((oi) => (
+              <OtherImage
+                key={oi.id}
+                id={oi.id}
+                title={oi.title}
+                src={oi.src}
+                type_id={oi.type.id}
+                view_count={oi.view_count}
+                favorite_count={oi.favorite_count}
+                type={oi.type}
+              />
+            ))}
+          </ul>
+        ) : (
+          <LoaderSpinner timeout={10000} />
+        )}
       </div>
     </>
   );

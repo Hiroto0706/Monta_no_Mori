@@ -4,17 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { setImages } from "../../../slice";
 import { AppState } from "../../../store";
 import axios from "axios";
-
 import { UserImage, UserType, TransformPayloadToImage } from "./Home";
-
 import ImageCard from "../../../components/Image/UserImage/Image";
 import SearchForm from "../../../components/Form/Search/SearchForm";
 // import OrderBy from "../../../components/Form/OrderBy/OrderBy";
 import LoaderSpinner from "../../../components/Common/Loader";
-
-import "./Home.css";
 import { useParams } from "react-router-dom";
 import OgpSetting from "../../../components/Common/OgpSetting";
+import OtherImage from "../../../components/Image/UserImage/LinkImage";
+import "./Home.css";
 
 export interface responsePayload {
   image: UserImage;
@@ -23,10 +21,9 @@ export interface responsePayload {
 
 const SearchTypeHome: React.FC = () => {
   const images = useSelector((state: AppState) => state.images.images);
-
   const [favoriteIDs, setFavoriteIDs] = useState<string[]>([]);
   const { name } = useParams<{ name: string }>();
-
+  const [otherImages, setOtherImages] = useState<UserImage[]>([]);
   const dispatch = useDispatch();
 
   const fetchUsersImagesByType = (dispatch: Dispatch, type_name: string) => {
@@ -65,6 +62,24 @@ const SearchTypeHome: React.FC = () => {
     }
   }, [dispatch, name]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_BASE_API + "others"
+        );
+        const transformedImages = response.data.payload.map(
+          TransformPayloadToImage
+        );
+        setOtherImages(transformedImages);
+      } catch (error) {
+        console.error("list other images failed:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <OgpSetting />
@@ -92,6 +107,26 @@ const SearchTypeHome: React.FC = () => {
             <LoaderSpinner />
           )}
         </ul>
+
+        <h2>そのほかのなかまたち</h2>
+        {otherImages.length > 0 ? (
+          <ul className="home__image-list">
+            {otherImages.slice(0, 8).map((oi) => (
+              <OtherImage
+                key={oi.id}
+                id={oi.id}
+                title={oi.title}
+                src={oi.src}
+                type_id={oi.type.id}
+                view_count={oi.view_count}
+                favorite_count={oi.favorite_count}
+                type={oi.type}
+              />
+            ))}
+          </ul>
+        ) : (
+          <LoaderSpinner timeout={10000} />
+        )}
       </div>
     </>
   );
