@@ -1,6 +1,10 @@
+import OgpSetting from "../../components/Common/OgpSetting";
+
 export default function AboutSite() {
   return (
     <>
+      <OgpSetting title={"ご利用規約｜もんたの森"} />
+
       <div
         style={{
           padding: "1rem",
